@@ -5,7 +5,7 @@ var botID = process.env.BOT_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex = /damn/;
+      botRegex = /damn/i;
 
   // if(request.text && botRegex.test(request.text)) {
   //   this.res.writeHead(200);
@@ -16,7 +16,7 @@ function respond() {
   //   this.res.writeHead(200);
   //   this.res.end();
   // }
-  if(request.text == "damn") {
+  if(request.text == botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage("- Jamal Rogers");
     this.res.end();
