@@ -7,7 +7,16 @@ function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex = /damn/;
 
-  if(request.text && botRegex.test(request.text)) {
+  // if(request.text && botRegex.test(request.text)) {
+  //   this.res.writeHead(200);
+  //   postMessage("- Jamal Rogers");
+  //   this.res.end();
+  // } else {
+  //   console.log("don't care");
+  //   this.res.writeHead(200);
+  //   this.res.end();
+  // }
+  if(request.text == "damn") {
     this.res.writeHead(200);
     postMessage("- Jamal Rogers");
     this.res.end();
