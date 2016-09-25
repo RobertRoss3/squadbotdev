@@ -16,7 +16,7 @@ function respond() {
   //   this.res.writeHead(200);
   //   this.res.end();
   // }
-  if(request.text == botRegex.test(request.text)) {
+  if(request.text && botRegex.test(request.text)) {
     this.res.writeHead(200);
     postMessage("- Jamal Rogers");
     this.res.end();
