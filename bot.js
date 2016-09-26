@@ -7,6 +7,7 @@ function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex_damn = /damn/i;
       botRegex_wtf = /wtf/i;
+      botRegex_all = /@all/;
 
   if(request.text && botRegex_damn.test(request.text)) {
     this.res.writeHead(200);
@@ -15,6 +16,10 @@ function respond() {
   } if(request.text && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
     postMessage("I know, right!?");
+    this.res.end();
+  } if(request.text && botRegex_all.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage("@Robert Ross");
     this.res.end();
   } else {
     console.log("don't care");
