@@ -9,11 +9,11 @@ function respond() {
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/;
       botRegex_wtf = /\bwtf/i;
       botRegex_all = /@all|@squad/;
-      postMessage(request);
 
   if(request.text && botRegex_damn.test(request.text) && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     postMessage("- Jamal Rogers");
+    postMessage("request" + request);
     this.res.end();
   } if(request.text && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
