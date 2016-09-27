@@ -7,8 +7,9 @@ function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex_damn = /\bdamn\b/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/;
-      botRegex_wtf = /wtf/i;
-      botRegex_all = /@all/;
+      botRegex_wtf = /\bwtf/i;
+      botRegex_all = /@all|@squad/;
+      postMessage(request);
 
   if(request.text && botRegex_damn.test(request.text) && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
