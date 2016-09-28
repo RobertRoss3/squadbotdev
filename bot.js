@@ -24,9 +24,6 @@ function respond() {
     this.res.writeHead(200);
     postMessage("@Robert Ross");
     this.res.end();
-  } if (request.text && botRegex_bot.test(request.text)) {
-    this.res.writeHead(200);
-
   } else {
     console.log("don't care");
     this.res.writeHead(200);
