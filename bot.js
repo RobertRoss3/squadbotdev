@@ -13,7 +13,8 @@ function respond() {
   if(request.text && botRegex_damn.test(request.text) && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     postMessage("- Jamal Rogers");
-    postMessage("request" + request);
+    postMessage("Actually, " + request.name + " sent that");
+    postMessage("request" + this.req.chunks[0]);
     this.res.end();
   } if(request.text && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
@@ -23,6 +24,9 @@ function respond() {
     this.res.writeHead(200);
     postMessage("@Robert Ross");
     this.res.end();
+  } if (request.text && botRegex_bot.test(request.text)) {
+    this.res.writeHead(200);
+
   } else {
     console.log("don't care");
     this.res.writeHead(200);
