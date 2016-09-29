@@ -6,11 +6,15 @@ var groupID = process.env.GROUP_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex_damn = /\bdamn\b/i; botRegex_hi = /\bhi\b/i;
+      botRegex_damn = /\bdamn\b/i; botRegex_hi = /(\bhi|hello|hey|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/;
       botRegex_wtf = /\bwtf/i;
       botRegex_all = /@all|@squad/;
       botRegex_bot = /@Squadbot.*?/i;
+      userName = request.name;
+      Greetings = [
+        "Hey " + userName +
+    ];
 
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
@@ -32,6 +36,7 @@ function respond() {
     }
   } else {
     console.log("don't care");
+    console.log("RECIEVED: " + request);
     this.res.writeHead(200);
     this.res.end();
   }
