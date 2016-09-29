@@ -6,14 +6,17 @@ var groupID = process.env.GROUP_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex_damn = /\bdamn\b/i;
+      botRegex_damn = /\bdamn\b/i; botRegex_hi = /\bhi\b/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/;
       botRegex_wtf = /\bwtf/i;
       botRegex_all = /@all|@squad/;
+      botRegex_bot = /@Squadbot.*?/i;
 
-  if(request.text && botRegex_damn.test(request.text) && botRegex_oneword.test(request.text)) {
+  if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
-    postMessage("- Jamal Rogers");
+    if (botRegex_damn.test(request.text)) {
+      postMessage("- Jamal Rogers");
+    }
     // postMessage("Actually, " + request.name + " sent that");
     // postMessage("request" + this.req.chunks[0]);
     this.res.end();
@@ -21,12 +24,12 @@ function respond() {
     this.res.writeHead(200);
     postMessage("I know, right!?");
     this.res.end();
-  } if(request.text && botRegex_all.test(request.text)) {
-    this.res.writeHead(200);
-    getInfo();
-    postMessage(botReq);
-    this.res.end();
-
+  } if(request.text && botRegex_bot.test(request.text)) {
+      if(botRegex_hi.test(request.text)) {
+      this.res.writeHead(200);
+      postMessage("Hello!");
+      this.res.end();
+    }
   } else {
     console.log("don't care");
     this.res.writeHead(200);
