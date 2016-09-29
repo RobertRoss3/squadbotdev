@@ -23,8 +23,10 @@ function respond() {
     this.res.end();
   } if(request.text && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
-    postMessage("@Robert Ross");
+    getInfo();
+    postMessage(botReq);
     this.res.end();
+
   } else {
     console.log("don't care");
     this.res.writeHead(200);
@@ -65,7 +67,7 @@ function postMessage(botResponse) {
   botReq.end(JSON.stringify(body));
 }
 
-function getInfo(botRequest) {
+function getInfo() {
   var botRequest, options, botReq;
 
   options = {
