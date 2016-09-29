@@ -13,8 +13,7 @@ function respond() {
       botRegex_bot = /@Squadbot.*?/i;
       userName = request.name;
       Greetings = [
-        "Hey " + userName +
-    ];
+        "Hey " + userName, "hello!"];
 
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
