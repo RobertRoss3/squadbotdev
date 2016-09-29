@@ -35,7 +35,8 @@ function respond() {
     }
   } else {
     console.log("don't care");
-    console.log("RECIEVED: " + request);
+    console.log("CHUNKS[0]: " + this.req.chunks[0]);
+    console.log("CHUNKS[1]: " + this.req.chunks[1]);
     this.res.writeHead(200);
     this.res.end();
   }
