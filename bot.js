@@ -2,6 +2,7 @@ var HTTPS = require('https');
 var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
+var groupID = process.env.GROUP_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
@@ -13,8 +14,8 @@ function respond() {
   if(request.text && botRegex_damn.test(request.text) && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     postMessage("- Jamal Rogers");
-    postMessage("Actually, " + request.name + " sent that");
-    postMessage("request" + this.req.chunks[0]);
+    // postMessage("Actually, " + request.name + " sent that");
+    // postMessage("request" + this.req.chunks[0]);
     this.res.end();
   } if(request.text && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
@@ -64,5 +65,37 @@ function postMessage(botResponse) {
   botReq.end(JSON.stringify(body));
 }
 
+function getInfo(botRequest) {
+  var botRequest, options, botReq;
+
+  options = {
+    hostname: 'api.groupme.com',
+    path: 'v3/bots/post',
+    method: 'GET'
+  };
+
+  body = {
+    "bot_id" : botID,
+    "id" : groupID
+  };
+
+  console.log('requesting ' + groupID + ' from ' + botID);
+
+  botReq = HTTPS.request(options, function(res) {
+      if(res.statusCode == 202) {
+        console.log(botReq);
+      } else {
+        console.log('rejecting bad status code ' + res.statusCode);
+      }
+  });
+
+  botReq.on('error', function(err) {
+    console.log('error recieving info '  + JSON.stringify(err));
+  });
+  botReq.on('timeout', function(err) {
+    console.log('timeout recieving info '  + JSON.stringify(err));
+  });
+  botReq.end(JSON.stringify(body));
+}
 
 exports.respond = respond;
