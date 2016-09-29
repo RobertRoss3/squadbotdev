@@ -11,9 +11,10 @@ function respond() {
       botRegex_wtf = /\bwtf/i;
       botRegex_all = /@all|@squad/;
       botRegex_bot = /@Squadbot.*?/i;
-      userName = request.name;
+      userName = request.name; userIDNum = request.user_id;
       Greetings = [
-        "Hey " + userName, "hello!"];
+        ["Hey, @" + userName + "!",[5,(5 + userName.length)],userIDNum],
+        ["What's up, @" + userName + "?"],[11,(11+userName.length)],userIDNum];
 
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
@@ -30,7 +31,7 @@ function respond() {
   } if(request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
-      postMessage("Hello!");
+      postMessage(Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]]);
       this.res.end();
     }
   } else {
@@ -41,8 +42,8 @@ function respond() {
   console.log("CHUNKS[0]: " + this.req.chunks[0]);
 }
 
-function postMessage(botResponse) {
-  var botResponse, options, body, botReq;
+function postMessage(botResponse,type,args) {
+  var botResponse, type, args, options, body, botReq;
 
   options = {
     hostname: 'api.groupme.com',
@@ -50,10 +51,25 @@ function postMessage(botResponse) {
     method: 'POST'
   };
 
-  body = {
-    "bot_id" : botID,
-    "text" : botResponse
-  };
+  if(type == 'tag') {
+    body = {
+      "bot_id" : botID,
+      "text" : botResponse,
+      "attachments" : [
+        {
+          "loci" : [args[0]],
+          "type" : "mentions",
+          "user_ids" : [args[1]]
+        }
+      ]
+    };
+  } else {
+    body = {
+      "bot_id" : botID,
+      "text" : botResponse
+    };
+  }
+
 
   console.log('sending ' + botResponse + ' to ' + botID);
 
