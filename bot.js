@@ -194,7 +194,7 @@ function getInfo() {
     "id" : groupID
   };
 
-  console.log('requesting ' + groupID + ' from ' + botID);
+  console.log('requesting ' + groupID + ' from ' + path);
 
   botReq = HTTPS.request(options, function(res) {
       if(res.statusCode == 202) {
