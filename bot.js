@@ -24,9 +24,9 @@ function respond() {
         sayDay = "super late evening";
       }
       Greetings = [
+        ["Good " + sayDay + ", " + userName + ".",[(6+sayDay.length),(5+sayDay.length+userName.length),userIDNum],
         ["Hey, @" + userName + "!",[5,(4 + userName.length)],userIDNum],
-        ["What's up, @" + userName + "?"],[11,(10+userName.length)],userIDNum],
-        ["Good " + sayDay + ", " + userName + ".",[(6+sayDay.length),(5+sayDay.length+userName.length)]];
+        ["What's up, @" + userName + "?"],[11,(10+userName.length)],userIDNum]];
 
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
@@ -43,7 +43,7 @@ function respond() {
   } if(request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
-      message = Greetings[2][0],'tag', [Greetings[2][1], Greetings[2][2]];
+      message = Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]];
       console.log("Senging message: " + message);
       postMessage(message);
       this.res.end();
