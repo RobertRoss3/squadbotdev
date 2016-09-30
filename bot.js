@@ -38,6 +38,11 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
   }
+  if (request.text == "info") {
+    this.res.writeHead(200);
+    getInfo();
+    this.res.end();
+  }
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
@@ -208,4 +213,3 @@ function getInfo() {
 }
 
 exports.respond = respond;
-console.log("REPONSE: " + exports.respond)
