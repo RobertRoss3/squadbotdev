@@ -29,11 +29,11 @@ function respond() {
         sayDay = "super late evening";
       }
       Greetings = [
-        ["Good " + sayDay + ", @" + userName + ".",[(7+sayDay.length),(6+sayDay.length+userName.length)],userIDNum],
-        ["Hey, @" + userName + "!",[5,(4 + userName.length)],userIDNum],
-        ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum],
-        ["Hi there, @" + userName + ".",[10,(9+userName.length)],userIDNum],
-        ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(userName.length)],userIDNum]];
+        ["Good " + sayDay + ", @" + userName + ".",[(7+sayDay.length),(1+sayDay.length+userName.length)],userIDNum],
+        ["Hey, @" + userName + "!",[5,(1 + userName.length)],userIDNum],
+        ["What's up, @" + userName + "?",[11,(1+userName.length)],userIDNum],
+        ["Hi there, @" + userName + ".",[10,(1+userName.length)],userIDNum],
+        ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(userName.length+1)],userIDNum]];
 
   if ((request.text == "@Squadbot")||(request.text == "@squadbot")||(request.text == "@SquadBot")) {
     response = ["What?","What is it?",
@@ -43,7 +43,7 @@ function respond() {
   }
   if (request.text == "info") {
     this.res.writeHead(200);
-    getInfo();
+    getInfo(groupID);
     this.res.end();
   }
   if(request.text && botRegex_oneword.test(request.text)) {
@@ -101,6 +101,33 @@ function respond() {
     this.res.end();
   }
   console.log("CHUNKS[0]: " + this.req.chunks[0]);
+}
+
+function getInfo(groupsID) {
+  var options = {
+    host: 'api.groupme.com',
+    path: '/v3/groups/:' + groupsID
+  };
+
+  var callback = function(response) {
+    var str = '';
+
+    response.on('data', function(chunck){
+      str += chunck;
+    });
+
+    response.on('end', function() {
+      if (!(str && JSON.parse(str).data[0])) {
+        console.log("THAT DIDN'T WORK!");
+      } else {
+        var id = JSON.parse(str).data[0].id;
+        var responses = id;
+        console.log(responses);
+      }
+    });
+  };
+
+  HTTP.request(options, callback).end();
 }
 
 function searchGiphy(giphyToSearch) {
