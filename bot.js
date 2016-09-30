@@ -44,7 +44,7 @@ function respond() {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
       message = Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]];
-      console.log("Senging message: " + message);
+      console.log("Senging message: " + message + "with loci [" + message[2] + "].");
       postMessage(message);
       this.res.end();
     }
@@ -58,7 +58,7 @@ function respond() {
 
 function postMessage(botResponse,type,args) {
   var botResponse, type, args, options, body, botReq;
-
+  console.log("Type if of: " + type);
   options = {
     hostname: 'api.groupme.com',
     path: '/v3/bots/post',
