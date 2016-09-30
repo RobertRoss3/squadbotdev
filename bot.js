@@ -44,12 +44,11 @@ function respond() {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
       message = Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]];
-      console.log("Senging message: " + message + "with loci [" + message[2] + "].");
-      postMessage(message);
+      console.log("Sending message: " + string(message));
+      postMessage(Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]]);
       this.res.end();
     }
   } else {
-    console.log("don't care");
     this.res.writeHead(200);
     this.res.end();
   }
@@ -58,7 +57,7 @@ function respond() {
 
 function postMessage(botResponse,type,args) {
   var botResponse, type, args, options, body, botReq;
-  console.log("Type if of: " + type);
+  console.log("Type is of: " + type);
   options = {
     hostname: 'api.groupme.com',
     path: '/v3/bots/post',
@@ -104,37 +103,37 @@ function postMessage(botResponse,type,args) {
   botReq.end(JSON.stringify(body));
 }
 
-function getInfo() {
-  var botRequest, options, botReq;
-
-  options = {
-    hostname: 'api.groupme.com',
-    path: 'v3/bots/post',
-    method: 'GET'
-  };
-
-  body = {
-    "bot_id" : botID,
-    "id" : groupID
-  };
-
-  console.log('requesting ' + groupID + ' from ' + botID);
-
-  botReq = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
-        console.log(botReq);
-      } else {
-        console.log('rejecting bad status code ' + res.statusCode);
-      }
-  });
-
-  botReq.on('error', function(err) {
-    console.log('error recieving info '  + JSON.stringify(err));
-  });
-  botReq.on('timeout', function(err) {
-    console.log('timeout recieving info '  + JSON.stringify(err));
-  });
-  botReq.end(JSON.stringify(body));
-}
+// function getInfo() {
+//   var botRequest, options, botReq;
+//
+//   options = {
+//     hostname: 'api.groupme.com',
+//     path: 'v3/bots/post',
+//     method: 'GET'
+//   };
+//
+//   body = {
+//     "bot_id" : botID,
+//     "id" : groupID
+//   };
+//
+//   console.log('requesting ' + groupID + ' from ' + botID);
+//
+//   botReq = HTTPS.request(options, function(res) {
+//       if(res.statusCode == 202) {
+//         console.log(botReq);
+//       } else {
+//         console.log('rejecting bad status code ' + res.statusCode);
+//       }
+//   });
+//
+//   botReq.on('error', function(err) {
+//     console.log('error recieving info '  + JSON.stringify(err));
+//   });
+//   botReq.on('timeout', function(err) {
+//     console.log('timeout recieving info '  + JSON.stringify(err));
+//   });
+//   botReq.end(JSON.stringify(body));
+// }
 
 exports.respond = respond;
