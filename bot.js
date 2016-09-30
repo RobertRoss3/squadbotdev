@@ -57,7 +57,7 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
-  } if(request.text && botRegex_bot.test(request.text)) {
+  } if((request.sender_type != "bot") && request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
       randomNumber = Math.floor(Math.random()*Greetings.length);
