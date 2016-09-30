@@ -34,9 +34,12 @@ function respond() {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
       postMessage("- Jamal Rogers");
+    } if (botRegex_bot.test(request.text)) {
+      response = ["What?","What is it?",
+                  "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
+      randomNumber = Math.floor(Math.random()*response.length);
+      postMessage(response[randomNumber]);
     }
-    // postMessage("Actually, " + request.name + " sent that");
-    // postMessage("request" + this.req.chunks[0]);
     this.res.end();
   } if(request.text && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
@@ -72,10 +75,6 @@ function respond() {
       this.res.end();
     } else {
       this.res.writeHead(200);
-      response = ["What?","What is it?",
-                  "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
-      randomNumber = Math.floor(Math.random()*response.length);
-      postMessage(response[randomNumber]);
       this.res.end();
     }
   } else {
