@@ -15,7 +15,9 @@ function respond() {
       botRegex_bot = /@Squadbot.*?/i; giphyCommand = '/giphy'; botRegex_giphy = /^([\/]giphy)/i;
       userName = request.name; userIDNum = request.user_id;
       time = new Date();
-      timeofDay = time.getHours();
+      timeofDay = time.getHours(); timeofDay = timeofDay - 4;
+      if (timeofDay < 0) {timeofDay = 23 + timeofDay;}
+      if (timeofDay > 23) {timeofDay = 23 - timeofDay;}
       console.log("Current hour is: " + timeofDay);
       if ((timeofDay > 4) && (timeofDay < 12)) {
         sayDay = "morning";
