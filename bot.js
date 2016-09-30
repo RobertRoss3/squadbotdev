@@ -42,7 +42,7 @@ function respond() {
     this.res.writeHead(200);
     postMessage("I know, right!?");
     this.res.end();
-  } if(request.text && botRegex_ass.test(request.text)) {
+  } if((request.sender_type != "bot") && request.text && botRegex_ass.test(request.text)) {
     this.res.writeHead(200);
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?",
