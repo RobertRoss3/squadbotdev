@@ -47,7 +47,7 @@ function respond() {
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?",
                 "..."];
-    randomNumbe1r = Math.floor(Math.random()*response.length);
+    randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
   } if(request.text && botRegex_bot.test(request.text)) {
