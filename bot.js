@@ -12,10 +12,11 @@ function respond() {
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
       botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
       botRegex_all = /@all|@squad/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
-      botRegex_bot = /@Squadbot.*?/i; giphyCommand = '/giphy';
+      botRegex_bot = /@Squadbot.*?/i; giphyCommand = '/giphy'; botRegex_giphy = /^([\/]giphy)/i;
       userName = request.name; userIDNum = request.user_id;
       time = new Date();
       timeofDay = time.getHours();
+      console.log("Current hour is: " + timeofDay);
       if ((timeofDay > 4) && (timeofDay < 12)) {
         sayDay = "morning";
       } else if ((timeofDay>11)&&(timeofDay<18)) {
@@ -53,12 +54,11 @@ function respond() {
     this.res.writeHead(200);
     postMessage("I know, right!?");
     this.res.end();
+    // Commands
   } if(request.text.charAt(0) == '/') {
-      if(request.text &&
-       request.text.length > giphyCommand.length &&
-       request.text.substring(0, giphyCommand.length) === giphyCommand) {
+      if(request.text && botRegex_giphy.test(request.text)) {
       this.res.writeHead(200);
-      searchGiphy(request.text.substring(giphyCommand.length + 1));
+      searchGiphy(request.text.substring(7));
       this.res.end();
     }
     this.res.end();
@@ -180,37 +180,37 @@ function postMessage(botResponse,type,args) {
   botReq.end(JSON.stringify(body));
 }
 
-function getInfo() {
-  var botRequest, options, botReq;
-
-  options = {
-    hostname: 'api.groupme.com',
-    path: 'v3/groups/:' + groupID,
-    //GET /groups/:id
-    method: 'GET'
-  };
-
-  body = {
-    "id" : groupID
-  };
-
-  console.log('requesting ' + groupID + ' from ' + options.path);
-
-  botReq = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
-        console.log(botReq);
-      } else {
-        console.log('rejecting bad status code ' + res.statusCode);
-      }
-  });
-
-  botReq.on('error', function(err) {
-    console.log('error recieving info '  + JSON.stringify(err));
-  });
-  botReq.on('timeout', function(err) {
-    console.log('timeout recieving info '  + JSON.stringify(err));
-  });
-  botReq.end(JSON.stringify(body));
-}
+// function getInfo() {
+//   var botRequest, options, botReq;
+//
+//   options = {
+//     hostname: 'api.groupme.com',
+//     path: 'v3/groups/:' + groupID,
+//     //GET /groups/:id
+//     method: 'GET'
+//   };
+//
+//   body = {
+//     "id" : groupID
+//   };
+//
+//   console.log('requesting ' + groupID + ' from ' + options.path);
+//
+//   botReq = HTTPS.request(options, function(res) {
+//       if(res.statusCode == 202) {
+//         console.log(botReq);
+//       } else {
+//         console.log('rejecting bad status code ' + res.statusCode);
+//       }
+//   });
+//
+//   botReq.on('error', function(err) {
+//     console.log('error recieving info '  + JSON.stringify(err));
+//   });
+//   botReq.on('timeout', function(err) {
+//     console.log('timeout recieving info '  + JSON.stringify(err));
+//   });
+//   botReq.end(JSON.stringify(body));
+// }
 
 exports.respond = respond;
