@@ -75,7 +75,7 @@ function respond() {
       response = ["What?","What is it?",
                   "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
       randomNumber = Math.floor(Math.random()*response.length);
-      postMessage(response);
+      postMessage(response[randomNumber]);
       this.res.end();
     }
   } else {
