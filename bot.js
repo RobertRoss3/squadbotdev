@@ -33,7 +33,7 @@ function respond() {
         ["Hey, @" + userName + "!",[5,(4 + userName.length)],userIDNum],
         ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum],
         ["Hi there, @" + userName + ".",[10,(9+userName.length)],userIDNum],
-        ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(10+userName.length)],userIDNum]];
+        ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(userName.length)],userIDNum]];
 
   if ((request.text == "@Squadbot")||(request.text == "@squadbot")||(request.text == "@SquadBot")) {
     response = ["What?","What is it?",
