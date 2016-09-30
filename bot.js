@@ -7,9 +7,9 @@ var groupID = process.env.GROUP_ID;
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|sup|wassup\b).*?/i;
-      botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats) ass\b)(.*?)/i;
-      botRegex_wtf = /\bwtf/i;
-      botRegex_all = /@all|@squad/;
+      botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
+      botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
+      botRegex_all = /@all|@squad/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
       botRegex_bot = /@Squadbot.*?/i;
       userName = request.name; userIDNum = request.user_id;
       time = new Date();
@@ -46,7 +46,14 @@ function respond() {
     this.res.writeHead(200);
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?",
-                "..."];
+                "...", "Gross."];
+    randomNumber = Math.floor(Math.random()*response.length);
+    postMessage(response[randomNumber]);
+    this.res.end();
+  } if((request.sender_type != "bot") && request.text && botRegex_thanks.test(request.text)) {
+    this.res.writeHead(200);
+    response = ["You're welcome! 😊",
+                "No problem."];
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
@@ -55,6 +62,21 @@ function respond() {
       this.res.writeHead(200);
       randomNumber = Math.floor(Math.random()*Greetings.length);
       postMessage(Greetings[randomNumber][0],'tag', [Greetings[randomNumber][1], Greetings[randomNumber][2]]);
+      this.res.end();
+    } if(botRegex_insult.test(request.text)) {
+      this.res.writeHead(200);
+      response = ["Well fuck you too.",
+                  "Whatever", "Rude...", "Ok...and?", "Damn okay then..."];
+      randomNumber = Math.floor(Math.random()*response.length);
+      postMessage(response[randomNumber]);
+      this.res.end();
+    } else {
+      this.res.writeHead(200);
+      response = ["What?",
+                  ["What is it, @" + userName + "?",'tag',[[12,(11+userName.length],[userIDNum]]],
+                  "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
+      randomNumber = Math.floor(Math.random()*response.length);
+      postMessage(response[randomNumber]);
       this.res.end();
     }
   } else {
