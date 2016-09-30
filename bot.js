@@ -8,7 +8,7 @@ var apiKey = process.env.API_KEY;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|sup|wassup\b).*?/i;
+      botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
       botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
       botRegex_all = /@all|@squad/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
@@ -175,37 +175,37 @@ function postMessage(botResponse,type,args) {
   botReq.end(JSON.stringify(body));
 }
 
-// function getInfo() {
-//   var botRequest, options, botReq;
-//
-//   options = {
-//     hostname: 'api.groupme.com',
-//     path: 'v3/bots/post',
-//     method: 'GET'
-//   };
-//
-//   body = {
-//     "bot_id" : botID,
-//     "id" : groupID
-//   };
-//
-//   console.log('requesting ' + groupID + ' from ' + botID);
-//
-//   botReq = HTTPS.request(options, function(res) {
-//       if(res.statusCode == 202) {
-//         console.log(botReq);
-//       } else {
-//         console.log('rejecting bad status code ' + res.statusCode);
-//       }
-//   });
-//
-//   botReq.on('error', function(err) {
-//     console.log('error recieving info '  + JSON.stringify(err));
-//   });
-//   botReq.on('timeout', function(err) {
-//     console.log('timeout recieving info '  + JSON.stringify(err));
-//   });
-//   botReq.end(JSON.stringify(body));
-// }
+function getInfo() {
+  var botRequest, options, botReq;
+
+  options = {
+    hostname: 'api.groupme.com',
+    path: 'v3/groups/',
+    method: 'GET'
+  };
+
+  body = {
+    "id" : groupID
+  };
+
+  console.log('requesting ' + groupID + ' from ' + botID);
+
+  botReq = HTTPS.request(options, function(res) {
+      if(res.statusCode == 202) {
+        console.log(botReq);
+      } else {
+        console.log('rejecting bad status code ' + res.statusCode);
+      }
+  });
+
+  botReq.on('error', function(err) {
+    console.log('error recieving info '  + JSON.stringify(err));
+  });
+  botReq.on('timeout', function(err) {
+    console.log('timeout recieving info '  + JSON.stringify(err));
+  });
+  botReq.end(JSON.stringify(body));
+}
 
 exports.respond = respond;
+console.log("REPONSE: " + exports.respond)
