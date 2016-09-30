@@ -6,8 +6,8 @@ var groupID = process.env.GROUP_ID;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botRegex_damn = /\bdamn\b/i; botRegex_hi = /(\bhi|hello|hey|sup|wassup\b).*?/i;
-      botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/;
+      botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|sup|wassup\b).*?/i;
+      botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats) ass\b)(.*?)/i;
       botRegex_wtf = /\bwtf/i;
       botRegex_all = /@all|@squad/;
       botRegex_bot = /@Squadbot.*?/i;
@@ -41,6 +41,14 @@ function respond() {
   } if(request.text && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
     postMessage("I know, right!?");
+    this.res.end();
+  } if(request.text && botRegex_ass.test(request.text)) {
+    this.res.writeHead(200);
+    response = ["Eating ass never was, isn't, and never will be cool.",
+                "Can we not talk about eating ass right now?",
+                "..."];
+    randomNumbe1r = Math.floor(Math.random()*response.length);
+    postMessage(response[randomNumber]);
     this.res.end();
   } if(request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text)) {
