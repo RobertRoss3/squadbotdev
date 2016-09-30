@@ -44,7 +44,7 @@ function respond() {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
       message = Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]];
-      console.log("Sending message: " + string(message));
+      console.log("Sending message: " + String(message));
       postMessage(Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]]);
       this.res.end();
     }
