@@ -26,7 +26,9 @@ function respond() {
       Greetings = [
         ["Good " + sayDay + ", @" + userName + ".",[(7+sayDay.length),(6+sayDay.length+userName.length)],userIDNum],
         ["Hey, @" + userName + "!",[5,(4 + userName.length)],userIDNum],
-        ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum]];
+        ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum]
+        ["Hi there, @" + userName + ".",[10,(9+userName.length)],userIDNum]
+        ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(10+userName.length)],userIDNum]];
 
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
@@ -43,9 +45,8 @@ function respond() {
   } if(request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
-      message = Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]];
-      console.log("Sending message: " + String(message));
-      postMessage(Greetings[0][0],'tag', [Greetings[0][1], Greetings[0][2]]);
+      randomNumber = Math.floor(Math.random()*Greetings.length);
+      postMessage(Greetings[randomNumber][0],'tag', [Greetings[randomNumber][1], Greetings[randomNumber][2]]);
       this.res.end();
     }
   } else {
