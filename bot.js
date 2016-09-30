@@ -12,7 +12,8 @@ function respond() {
       botRegex_all = /@all|@squad/;
       botRegex_bot = /@Squadbot.*?/i;
       userName = request.name; userIDNum = request.user_id;
-      timeofDay = Date.getHours();
+      time = new Date();
+      timeofDay = time.getHours();
       if ((timeofDay > 4) && (timeofDay < 12)) {
         sayDay = "morning";
       } else if ((timeofDay>11)&&(timeofDay<18)) {
