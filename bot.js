@@ -72,11 +72,10 @@ function respond() {
       this.res.end();
     } else {
       this.res.writeHead(200);
-      response = ["What?",
-                  ["What is it, @" + userName + "?",'tag',[[12,(11+userName.length)],userIDNum]],
+      response = ["What?","What is it?",
                   "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
       randomNumber = Math.floor(Math.random()*response.length);
-      postMessage(response[randomNumber][0],response[randomNumber][1],[response[randomNumber[2]],response[randomNumber[3]]]);
+      postMessage(response);
       this.res.end();
     }
   } else {
