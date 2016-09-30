@@ -29,16 +29,17 @@ function respond() {
         ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum],
         ["Hi there, @" + userName + ".",[10,(9+userName.length)],userIDNum],
         ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(10+userName.length)],userIDNum]];
-
+        
+  if ((request.text == "@Squadbot")||(request.text == "@squadbot") {
+    response = ["What?","What is it?",
+                "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
+    randomNumber = Math.floor(Math.random()*response.length);
+    postMessage(response[randomNumber]);
+  }
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
       postMessage("- Jamal Rogers");
-    } if (botRegex_bot.test(request.text)) {
-      response = ["What?","What is it?",
-                  "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
-      randomNumber = Math.floor(Math.random()*response.length);
-      postMessage(response[randomNumber]);
     }
     this.res.end();
   } if(request.text && botRegex_wtf.test(request.text)) {
