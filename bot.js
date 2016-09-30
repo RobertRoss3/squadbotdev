@@ -24,7 +24,7 @@ function respond() {
         sayDay = "super late evening";
       }
       Greetings = [
-        ["Good " + sayDay + ", " + userName + ".",[(6+sayDay.length),(5+sayDay.length+userName.length),userIDNum],
+        ["Good " + sayDay + ", @" + userName + ".",[(7+sayDay.length),(6+sayDay.length+userName.length)],userIDNum],
         ["Hey, @" + userName + "!",[5,(4 + userName.length)],userIDNum],
         ["What's up, @" + userName + "?"],[11,(10+userName.length)],userIDNum]];
 
