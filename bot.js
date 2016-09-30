@@ -1,8 +1,10 @@
 var HTTPS = require('https');
+var HTTP = require('http');
 var cool = require('cool-ascii-faces');
 
 var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
+var apiKey = process.env.API_KEY;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
@@ -10,7 +12,7 @@ function respond() {
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
       botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
       botRegex_all = /@all|@squad/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
-      botRegex_bot = /@Squadbot.*?/i;
+      botRegex_bot = /@Squadbot.*?/i; giphyCommand = '/giphy';
       userName = request.name; userIDNum = request.user_id;
       time = new Date();
       timeofDay = time.getHours();
@@ -47,8 +49,13 @@ function respond() {
     postMessage("I know, right!?");
     this.res.end();
   } if(request.text.charAt(0) == '/') {
-    this.res.writeHead(200);
-    postMessage("Commands are not here yet.");
+      if(request.text &&
+       request.text.length > giphyCommand.length &&
+       request.text.substring(0, giphyCommand.length) === giphyCommand) {
+      this.res.writeHead(200);
+      searchGiphy(request.text.substring(giphyCommand.length + 1));
+      this.res.end();
+    }
     this.res.end();
   } if((request.sender_type != "bot") && request.text && botRegex_ass.test(request.text)) {
     this.res.writeHead(200);
@@ -87,6 +94,37 @@ function respond() {
     this.res.end();
   }
   console.log("CHUNKS[0]: " + this.req.chunks[0]);
+}
+
+function searchGiphy(giphyToSearch) {
+  var options = {
+    host: 'api.giphy.com',
+    path: '/v1/gifs/search?q=' + encodeQuery(giphyToSearch) + '&api_key=' + apiKey
+  };
+
+  var callback = function(response) {
+    var str = '';
+
+    response.on('data', function(chunck){
+      str += chunck;
+    });
+
+    response.on('end', function() {
+      if (!(str && JSON.parse(str).data[0])) {
+        postMessage('Couldn\'t find a gif...');
+      } else {
+        var id = JSON.parse(str).data[0].id;
+        var giphyURL = 'http://i.giphy.com/' + id + '.gif';
+        postMessage(giphyURL);
+      }
+    });
+  };
+
+  HTTP.request(options, callback).end();
+}
+
+function encodeQuery(query) {
+  return query.replace(/\s/g, '+');;
 }
 
 function postMessage(botResponse,type,args) {
