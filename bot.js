@@ -43,7 +43,9 @@ function respond() {
   } if(request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text)) {
       this.res.writeHead(200);
-      postMessage(Greetings[2][0],'tag', [Greetings[2][1], Greetings[2][2]]);
+      message = Greetings[2][0],'tag', [Greetings[2][1], Greetings[2][2]];
+      console.log("Senging message: " + message);
+      postMessage(message);
       this.res.end();
     }
   } else {
