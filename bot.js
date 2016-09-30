@@ -29,8 +29,8 @@ function respond() {
         ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum],
         ["Hi there, @" + userName + ".",[10,(9+userName.length)],userIDNum],
         ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(10+userName.length)],userIDNum]];
-        
-  if ((request.text == "@Squadbot")||(request.text == "@squadbot") {
+
+  if ((request.text == "@Squadbot")||(request.text == "@squadbot")) {
     response = ["What?","What is it?",
                 "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
     randomNumber = Math.floor(Math.random()*response.length);
