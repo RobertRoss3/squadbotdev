@@ -104,7 +104,7 @@ function respond() {
 }
 
 function getInfo(groupsID) {
-  var options = {
+  var groupsID, options = {
     host: 'api.groupme.com',
     path: '/v3/groups/:' + groupsID
   };
@@ -124,6 +124,7 @@ function getInfo(groupsID) {
         var responses = id;
         console.log(responses);
       }
+      console.log("I RECIEVED: " + responses);
     });
   };
 
