@@ -26,8 +26,8 @@ function respond() {
       Greetings = [
         ["Good " + sayDay + ", @" + userName + ".",[(7+sayDay.length),(6+sayDay.length+userName.length)],userIDNum],
         ["Hey, @" + userName + "!",[5,(4 + userName.length)],userIDNum],
-        ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum]
-        ["Hi there, @" + userName + ".",[10,(9+userName.length)],userIDNum]
+        ["What's up, @" + userName + "?",[11,(10+userName.length)],userIDNum],
+        ["Hi there, @" + userName + ".",[10,(9+userName.length)],userIDNum],
         ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[11,(10+userName.length)],userIDNum]];
 
   if(request.text && botRegex_oneword.test(request.text)) {
