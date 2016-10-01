@@ -11,6 +11,9 @@ var bingKey = process.env.BING_KEY;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
+      botInfo = "Hi, I'm SquadBot version 1.0! " +
+                "You can use commands like '/giphy' and '/face' to post GIFs and ASCII faces. " +
+                "I'll respond to certain key words and phrases. Other features are to come! ";
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
@@ -46,10 +49,11 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
   }
-  if (request.text == "info") {
+  if (request.text == "/info") {
     this.res.writeHead(200);
-    console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
-    getInfo(groupID);
+    // console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
+    // getInfo(groupID);
+    postMessage(botInfo);
     this.res.end();
   }
   if(request.text && botRegex_oneword.test(request.text)) {
@@ -72,11 +76,12 @@ function respond() {
       this.res.writeHead(200);
       searchGiphy(request.text.substring(7));
       this.res.end();
-    } if(request.text && botRegex_bing.test(request.text)) {
-      this.res.writeHead(200);
-      searchBing(request.text.substring(6));
-      this.res.end();
     }
+    // if(request.text && botRegex_bing.test(request.text)) {
+    //   this.res.writeHead(200);
+    //   searchBing(request.text.substring(6));
+    //   this.res.end();
+    // }
     this.res.end();
   } if((request.sender_type != "bot") && request.text && botRegex_ass.test(request.text)) {
     this.res.writeHead(200);
@@ -172,39 +177,39 @@ function searchGiphy(giphyToSearch) {
   HTTP.request(options, callback).end();
 }
 
-function searchBing(imageToSearch) {
-  var options = {
-    host: 'api.cognitive.microsoft.com',
-    // path: '/bing/v5.0/images/search?q=' + imageToSearch + '&count=1&q=' + imageToSearch
-    path: '/bing/v5.0/images/search',
-    method : 'POST'
-  };
-  body = {
-    "count" : 1,
-    "q" : imageToSearch,
-    "Ocp-Apim-Subscription-Key" : bingKey
-  }
-
-
-  var callback = function(response) {
-    var str = '';
-
-    response.on('data', function(chunck){
-      str += chunck;
-    });
-
-    response.on('end', function() {
-      if (!(str && JSON.parse(str).data[0])) {
-        postMessage('Couldn\'t find an image...');
-      } else {
-        var id = JSON.parse(str).data[0].id;
-        console.log("IMAGE RESULTS: " + id);
-      }
-    });
-  };
-
-  HTTP.request(options, callback).end();
-}
+// function searchBing(imageToSearch) {
+//   var options = {
+//     host: 'api.cognitive.microsoft.com',
+//     // path: '/bing/v5.0/images/search?q=' + imageToSearch + '&count=1&q=' + imageToSearch
+//     path: '/bing/v5.0/images/search',
+//     method : 'POST'
+//   };
+//   body = {
+//     "count" : 1,
+//     "q" : imageToSearch,
+//     "Ocp-Apim-Subscription-Key" : bingKey
+//   }
+//
+//
+//   var callback = function(response) {
+//     var str = '';
+//
+//     response.on('data', function(chunck){
+//       str += chunck;
+//     });
+//
+//     response.on('end', function() {
+//       if (!(str && JSON.parse(str).data[0])) {
+//         postMessage('Couldn\'t find an image...');
+//       } else {
+//         var id = JSON.parse(str).data[0].id;
+//         console.log("IMAGE RESULTS: " + id);
+//       }
+//     });
+//   };
+//
+//   HTTP.request(options, callback).end();
+// }
 
 function encodeQuery(query) {
   return query.replace(/\s/g, '+');;
