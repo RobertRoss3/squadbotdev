@@ -45,7 +45,7 @@ function respond() {
   }
   if (request.text == "info") {
     this.res.writeHead(200);
-    console.log("Attempting to get info of group: " + groupID);
+    console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
     getInfo(groupID);
     this.res.end();
   }
