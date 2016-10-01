@@ -10,25 +10,26 @@ var accessToken = process.env.ACCESS_TOKEN;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
+      // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
       botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
       botRegex_all = /@all|@squad/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
-      botRegex_bot = /@Squadbot.*?/i; giphyCommand = '/giphy'; botRegex_giphy = /^([\/]giphy)/i;
+      botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
+      // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
+      // GET CURRENT TIME
       time = new Date();
       timeofDay = time.getHours(); timeofDay = timeofDay - 4;
-      if (timeofDay < 0) {timeofDay = 23 + timeofDay;}
-      if (timeofDay > 23) {timeofDay = 23 - timeofDay;}
-      console.log("Current hour is: " + timeofDay);
-      if ((timeofDay > 4) && (timeofDay < 12)) {
+      // BOT GREETING
+      if (timeofDay < 0) {timeofDay = 23 + timeofDay;} if (timeofDay > 23) {timeofDay = 23 - timeofDay;} if ((timeofDay > 4) && (timeofDay < 12)) {
         sayDay = "morning";
       } else if ((timeofDay>11)&&(timeofDay<18)) {
         sayDay = "afternoon";
       } else if ((timeofDay>17)&&(timeofDay<22)) {
         sayDay = "evening";
       } else {
-        sayDay = "super late evening";
+        sayDay = "night";
       }
       Greetings = [
         ["Good " + sayDay + ", @" + userName + ".",[(7+sayDay.length),(1+sayDay.length+userName.length)],userIDNum],
@@ -60,6 +61,10 @@ function respond() {
     postMessage("I know, right!?");
     this.res.end();
     // Commands
+  } if(request.text && botRegex_face.test(request.text)) {
+    this.res.writeHead(200);
+    postMessage(cool());
+    this.res.end();
   } if(request.text.charAt(0) == '/') {
       if(request.text && botRegex_giphy.test(request.text)) {
       this.res.writeHead(200);
@@ -103,7 +108,7 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
-  console.log(userName + "POSTED: " + this.req.chunks[0]);
+  console.log(userName + " POSTED: " + this.req.chunks[0]);
 }
 
 // function getInfo(groupsID) {
