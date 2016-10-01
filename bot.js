@@ -232,7 +232,10 @@ function getInfo() {
   botReq = HTTPS.request(options, function(res) {
       if(res.statusCode == 202) {
         console.log(botReq);
-      } else {
+      } if(res.statusCode == 200) {
+        console.log("BOTREQUEST: " + botReq);
+        console.log("FUNCTION(RES): " + function(res));
+      }else {
         console.log('rejecting bad status code ' + res.statusCode);
       }
   });
