@@ -218,7 +218,7 @@ function getInfo() {
 
   options = {
     hostname: 'api.groupme.com',
-    path: 'v3/groups/:' + groupID + '?token=' + accessToken
+    path: 'v3/groups/:' + groupID + '?token=' + accessToken,
     //GET /groups/:id
     method: 'GET'
   };
