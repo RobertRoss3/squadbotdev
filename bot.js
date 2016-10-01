@@ -103,7 +103,7 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
-  console.log(username + "POSTED: " + this.req.chunks[0]);
+  console.log(userName + "POSTED: " + this.req.chunks[0]);
 }
 
 // function getInfo(groupsID) {
