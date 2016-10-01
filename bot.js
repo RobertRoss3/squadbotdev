@@ -243,7 +243,7 @@ function getInfo() {
   botReq.on('timeout', function(err) {
     console.log('timeout recieving info '  + JSON.stringify(err));
   });
-  botReq.end(JSON.stringify(body));
+  // botReq.end(JSON.stringify(body));
 }
 
 exports.respond = respond;
