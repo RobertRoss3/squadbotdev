@@ -7,6 +7,7 @@ var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
 var apiKey = process.env.API_KEY;
 var accessToken = process.env.ACCESS_TOKEN;
+var bingKey = process.env.BING_KEY;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
@@ -14,8 +15,9 @@ function respond() {
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
       botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
-      botRegex_all = /@all|@squad/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
+      botRegex_all = /@all|@squad|@everyone/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
       botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
+      botRegex_bing = /^([\/]image)/i;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -69,6 +71,10 @@ function respond() {
       if(request.text && botRegex_giphy.test(request.text)) {
       this.res.writeHead(200);
       searchGiphy(request.text.substring(7));
+      this.res.end();
+    } if(request.text && botRegex_bing.test(request.text)) {
+      this.res.writeHead(200);
+      searchBing(request.text.substring(6));
       this.res.end();
     }
     this.res.end();
@@ -159,6 +165,40 @@ function searchGiphy(giphyToSearch) {
         var id = JSON.parse(str).data[0].id;
         var giphyURL = 'http://i.giphy.com/' + id + '.gif';
         postMessage(giphyURL);
+      }
+    });
+  };
+
+  HTTP.request(options, callback).end();
+}
+
+function searchBing(imageToSearch) {
+  var options = {
+    host: 'api.cognitive.microsoft.com',
+    // path: '/bing/v5.0/images/search?q=' + imageToSearch + '&count=1&q=' + imageToSearch
+    path: '/bing/v5.0/images/search',
+    method : 'POST'
+  };
+  body = {
+    "count" : 1,
+    "q" : imageToSearch,
+    "Ocp-Apim-Subscription-Key" : bingKey
+  }
+
+
+  var callback = function(response) {
+    var str = '';
+
+    response.on('data', function(chunck){
+      str += chunck;
+    });
+
+    response.on('end', function() {
+      if (!(str && JSON.parse(str).data[0])) {
+        postMessage('Couldn\'t find an image...');
+      } else {
+        var id = JSON.parse(str).data[0].id;
+        console.log("IMAGE RESULTS: " + id);
       }
     });
   };
