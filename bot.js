@@ -234,8 +234,8 @@ function getInfo() {
         console.log(botReq);
       } if(res.statusCode == 200) {
         console.log("BOTREQUEST: " + botReq);
-        console.log("FUNCTION(RES): " + function(res));
-      }else {
+        // console.log("FUNCTION(RES): " + function(res));
+      } else {
         console.log('rejecting bad status code ' + res.statusCode);
       }
   });
