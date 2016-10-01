@@ -103,7 +103,7 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
-  console.log("CHUNKS[0]: " + this.req.chunks[0]);
+  console.log(username + "POSTED: " + this.req.chunks[0]);
 }
 
 // function getInfo(groupsID) {
@@ -246,7 +246,7 @@ function getInfo() {
   botReq.on('timeout', function(err) {
     console.log('timeout recieving info '  + JSON.stringify(err));
   });
-  // botReq.end(JSON.stringify(body));
+  botReq.end();
 }
 
 exports.respond = respond;

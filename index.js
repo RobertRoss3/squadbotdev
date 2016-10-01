@@ -12,6 +12,10 @@ router = new director.http.Router({
   }
 });
 
+// getter = new director.http.Router({
+//   '/'
+// })
+
 server = http.createServer(function (req, res) {
   req.chunks = [];
   req.on('data', function (chunk) {
