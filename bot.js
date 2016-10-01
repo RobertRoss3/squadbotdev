@@ -106,33 +106,33 @@ function respond() {
   console.log("CHUNKS[0]: " + this.req.chunks[0]);
 }
 
-function getInfo(groupsID) {
-  var groupsID, options = {
-    host: 'api.groupme.com',
-    path: '/v3/groups/:' + groupsID + '?token=' + accessToken
-  };
-
-  var callback = function(response) {
-    var str = '';
-
-    response.on('data', function(chunck){
-      str += chunck;
-    });
-
-    response.on('end', function() {
-      if (!(str && JSON.parse(str).data[0])) {
-        console.log("THAT DIDN'T WORK!");
-      } else {
-        var id = JSON.parse(str).data[0].id;
-        var responses = id;
-        console.log(responses);
-      }
-      console.log("I RECIEVED: " + responses);
-    });
-  };
-
-  HTTP.request(options, callback).end();
-}
+// function getInfo(groupsID) {
+//   var groupsID, options = {
+//     host: 'api.groupme.com',
+//     path: '/v3/groups/:' + groupsID + '?token=' + accessToken
+//   };
+//
+//   var callback = function(response) {
+//     var str = '';
+//
+//     response.on('data', function(chunck){
+//       str += chunck;
+//     });
+//
+//     response.on('end', function() {
+//       if (!(str && JSON.parse(str).data[0])) {
+//         console.log("THAT DIDN'T WORK!");
+//       } else {
+//         var id = JSON.parse(str).data[0].id;
+//         var responses = id;
+//         console.log(responses);
+//       }
+//       console.log("I RECIEVED: " + responses);
+//     });
+//   };
+//
+//   HTTP.request(options, callback).end();
+// }
 
 function searchGiphy(giphyToSearch) {
   var options = {
@@ -213,37 +213,37 @@ function postMessage(botResponse,type,args) {
   botReq.end(JSON.stringify(body));
 }
 
-// function getInfo() {
-//   var botRequest, options, botReq;
-//
-//   options = {
-//     hostname: 'api.groupme.com',
-//     path: 'v3/groups/:' + groupID + '?token=' + accessToken
-//     //GET /groups/:id
-//     method: 'GET'
-//   };
-//   //
-//   // body = {
-//   //   "id" : groupID
-//   // };
-//
-//   console.log('requesting ' + groupID + ' from ' + options.path);
-//
-//   botReq = HTTPS.request(options, function(res) {
-//       if(res.statusCode == 202) {
-//         console.log(botReq);
-//       } else {
-//         console.log('rejecting bad status code ' + res.statusCode);
-//       }
-//   });
-//
-//   botReq.on('error', function(err) {
-//     console.log('error recieving info '  + JSON.stringify(err));
-//   });
-//   botReq.on('timeout', function(err) {
-//     console.log('timeout recieving info '  + JSON.stringify(err));
-//   });
-//   botReq.end(JSON.stringify(body));
-// }
+function getInfo() {
+  var botRequest, options, botReq;
+
+  options = {
+    hostname: 'api.groupme.com',
+    path: 'v3/groups/:' + groupID + '?token=' + accessToken
+    //GET /groups/:id
+    method: 'GET'
+  };
+  //
+  // body = {
+  //   "id" : groupID
+  // };
+
+  console.log('REQUESTING ' + groupID + ' FROM ' + options.path);
+
+  botReq = HTTPS.request(options, function(res) {
+      if(res.statusCode == 202) {
+        console.log(botReq);
+      } else {
+        console.log('rejecting bad status code ' + res.statusCode);
+      }
+  });
+
+  botReq.on('error', function(err) {
+    console.log('error recieving info '  + JSON.stringify(err));
+  });
+  botReq.on('timeout', function(err) {
+    console.log('timeout recieving info '  + JSON.stringify(err));
+  });
+  botReq.end(JSON.stringify(body));
+}
 
 exports.respond = respond;
