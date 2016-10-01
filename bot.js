@@ -1,10 +1,12 @@
 var HTTPS = require('https');
 var HTTP = require('http');
 var cool = require('cool-ascii-faces');
+var index = require('./index.js');
 
 var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
 var apiKey = process.env.API_KEY;
+var accessToken = process.env.ACCESS_TOKEN;
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
@@ -43,6 +45,7 @@ function respond() {
   }
   if (request.text == "info") {
     this.res.writeHead(200);
+    console.log("Attempting to get info of group: " + groupID);
     getInfo(groupID);
     this.res.end();
   }
@@ -106,7 +109,7 @@ function respond() {
 function getInfo(groupsID) {
   var groupsID, options = {
     host: 'api.groupme.com',
-    path: '/v3/groups/:' + groupsID
+    path: '/v3/groups/:' + groupsID + '?token=' + accessToken
   };
 
   var callback = function(response) {
@@ -215,14 +218,14 @@ function postMessage(botResponse,type,args) {
 //
 //   options = {
 //     hostname: 'api.groupme.com',
-//     path: 'v3/groups/:' + groupID,
+//     path: 'v3/groups/:' + groupID + '?token=' + accessToken
 //     //GET /groups/:id
 //     method: 'GET'
 //   };
-//
-//   body = {
-//     "id" : groupID
-//   };
+//   //
+//   // body = {
+//   //   "id" : groupID
+//   // };
 //
 //   console.log('requesting ' + groupID + ' from ' + options.path);
 //
