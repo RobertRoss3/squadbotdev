@@ -16,6 +16,7 @@ var cleverKey = process.env.CLEVER_KEY;
     session = 'Squadbot1';
     cleverBot.setNick(session);
 var weatherKey = process.env.WEATHER_KEY;
+var mathKey = process.env.MATH_KEY;
 
 // Initialize
 var forecast = new Forecast({
@@ -46,6 +47,7 @@ function respond() {
       botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
       botRegex_bing = /^([\/]image)/i; weatherRegex = /\bweather\b/i;
       wifiRegex = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
+      mathRegex = /^\/\bmath\b/i;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -92,10 +94,14 @@ function respond() {
     postMessage(cool());
     this.res.end();
   }
+  // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
     if(request.text && botRegex_giphy.test(request.text)) {
-    this.res.writeHead(200);
-    searchGiphy(request.text.substring(7));
+      this.res.writeHead(200);
+      searchGiphy(request.text.substring(7));
+    }
+    if (mathRegex.test(request.text)) {
+      getMath(request.text.substring(5));
     }
     if (weatherRegex.test(request.text)) {
       Regexnow = /\b(now|current)\b/i; Regextoday = /\b(today|day)\b/i;
@@ -117,8 +123,7 @@ function respond() {
         // console.log(weather.daily);
         postMessage("Weather this week is " + weather.daily.summary);
       }
-
-      });
+    });
     }
     if (request.text == "/info") {
       this.res.writeHead(200);
@@ -199,33 +204,31 @@ function respond() {
   console.log(userName + " POSTED: " + this.req.chunks[0]);
 }
 
-// function getInfo(groupsID) {
-//   var groupsID, options = {
-//     host: 'api.groupme.com',
-//     path: '/v3/groups/:' + groupsID + '?token=' + accessToken
-//   };
-//
-//   var callback = function(response) {
-//     var str = '';
-//
-//     response.on('data', function(chunck){
-//       str += chunck;
-//     });
-//
-//     response.on('end', function() {
-//       if (!(str && JSON.parse(str).data[0])) {
-//         console.log("THAT DIDN'T WORK!");
-//       } else {
-//         var id = JSON.parse(str).data[0].id;
-//         var responses = id;
-//         console.log(responses);
-//       }
-//       console.log("I RECIEVED: " + responses);
-//     });
-//   };
-//
-//   HTTP.request(options, callback).end();
-// }
+function getMath(equation) {
+  var options = {
+    host: 'api.wolframalpha.com',
+    path: '/v2/query?input=' + equation + '&appid=' + mathKey
+  };
+
+  var callback = function(response) {
+    var str = '';
+
+    response.on('data', function(chunck){
+      str += chunck;
+    });
+
+    response.on('end', function() {
+      if (!(str && JSON.parse(str).data[0])) {
+        postMessage('Can\'t calculate that...');
+      } else {
+        var response = JSON.parse(str);
+        console.log("WOLFRAM RESPONSE IS: " + response);
+      }
+    });
+  };
+
+  HTTP.request(options, callback).end();
+}
 
 function searchGiphy(giphyToSearch) {
   var options = {
@@ -253,40 +256,6 @@ function searchGiphy(giphyToSearch) {
 
   HTTP.request(options, callback).end();
 }
-
-// function searchBing(imageToSearch) {
-//   var options = {
-//     host: 'api.cognitive.microsoft.com',
-//     // path: '/bing/v5.0/images/search?q=' + imageToSearch + '&count=1&q=' + imageToSearch
-//     path: '/bing/v5.0/images/search',
-//     method : 'POST'
-//   };
-//   body = {
-//     "count" : 1,
-//     "q" : imageToSearch,
-//     "Ocp-Apim-Subscription-Key" : bingKey
-//   }
-//
-//
-//   var callback = function(response) {
-//     var str = '';
-//
-//     response.on('data', function(chunck){
-//       str += chunck;
-//     });
-//
-//     response.on('end', function() {
-//       if (!(str && JSON.parse(str).data[0])) {
-//         postMessage('Couldn\'t find an image...');
-//       } else {
-//         var id = JSON.parse(str).data[0].id;
-//         console.log("IMAGE RESULTS: " + id);
-//       }
-//     });
-//   };
-//
-//   HTTP.request(options, callback).end();
-// }
 
 function encodeQuery(query) {
   return query.replace(/\s/g, '+');;
