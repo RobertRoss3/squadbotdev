@@ -98,10 +98,20 @@ function respond() {
       this.res.writeHead(200);
       searchGiphy(request.text.substring(7));
     } if (weatherRegex.test(request.text)) {
-      // Retrieve weather information from coordinates (Sydney, Australia)
+      Regexnow = /\bnow\b/i; Regextoday = /\btoday\b/i;
+      Regexweek = /\b(this week)|(for the week)\b/i;
+      // Retrieve weather information from Statesboro
       forecast.get([32.4128, -81.7957], function(err, weather) {
-        if(err) return console.log(err);
+        if(err) return console.log("Having trouble getting weather...");
         console.log(weather);
+      if (Regexnow.test(request.text)) {
+        console.log("CURRENT WEATHER: " + weather.currently.summary)
+      } else if (Regextoday.test(request.text)) {
+
+      } else {
+
+      }
+
       });
     }
     // if(request.text && botRegex_bing.test(request.text)) {
