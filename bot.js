@@ -3,7 +3,8 @@ var HTTP = require('http');
 var cool = require('cool-ascii-faces');
 var index = require('./index.js');
 var cleverbot = require('cleverbot.io');
-
+var Forecast = require('forecast');
+//     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
 var apiKey = process.env.API_KEY;
@@ -14,6 +15,20 @@ var cleverKey = process.env.CLEVER_KEY;
     cleverBot = new cleverbot(cleverUser,cleverKey);
     session = 'Squadbot1';
     cleverBot.setNick(session);
+var weatherKey = process.env.WEATHER_KEY;
+
+// Initialize
+var forecast = new Forecast({
+  service: 'darksky',
+  key: weatherKey,
+  units: 'fahrenheit',
+  cache: true,      // Cache API requests
+  ttl: {            // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/
+    minutes: 27,
+    seconds: 45
+  }
+});
+
 var passwords = [['Forum 1415','12345679']];
 
 function respond() {
@@ -27,7 +42,7 @@ function respond() {
       botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
       botRegex_all = /@all|@squad|@everyone/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
       botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
-      botRegex_bing = /^([\/]image)/i;
+      botRegex_bing = /^([\/]image)/i; weatherRegex = /\bweather\b/i;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -82,7 +97,12 @@ function respond() {
       if(request.text && botRegex_giphy.test(request.text)) {
       this.res.writeHead(200);
       searchGiphy(request.text.substring(7));
-      this.res.end();
+    } if (weatherRegex.test(request.text)) {
+      // Retrieve weather information from coordinates (Sydney, Australia)
+      forecast.get([32.4128, -81.7957], function(err, weather) {
+        if(err) return console.dir(err);
+        console.log(weather);
+      });
     }
     // if(request.text && botRegex_bing.test(request.text)) {
     //   this.res.writeHead(200);
@@ -267,7 +287,7 @@ function postMessage(botResponse,type,args) {
   }
 
 
-  console.log('sending ' + botResponse + ' to ' + botID);
+  console.log('sending \"' + botResponse + '\" to ' + botID);
 
   botReq = HTTPS.request(options, function(res) {
       if(res.statusCode == 202) {

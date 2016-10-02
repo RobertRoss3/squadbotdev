@@ -9,7 +9,8 @@
   "dependencies": {
     "cleverbot.io": "^1.0.4",
     "cool-ascii-faces": "~1.3.x",
-    "director": ""
+    "director": "",
+    "forecast": "^0.3.0"
   },
   "engines": {
     "node": "0.10.x"
