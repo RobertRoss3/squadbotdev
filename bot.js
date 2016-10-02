@@ -118,7 +118,7 @@ function respond() {
       this.res.end();
     } else {
       this.res.writeHead(200);
-      bot.ask("Just a small town girl", function (err, response) {
+      cleverBot.ask("Just a small town girl", function (err, response) {
         console.log("CLEVERBOT RESPONSE: " + response); // Will likely be: "Living in a lonely world"
       });
       this.res.end();
