@@ -106,6 +106,8 @@ function respond() {
         console.log(weather);
       if (Regexnow.test(request.text)) {
         console.log("CURRENT WEATHER: " + weather.currently.summary)
+        postMessage("Current weather is " + weather.currently.summar.toLowerCase() +
+                    " with a temperature of " + weather.currently.temperature + "°F.");
       } else if (Regextoday.test(request.text)) {
 
       } else {
