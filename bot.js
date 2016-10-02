@@ -33,9 +33,11 @@ var passwords = [['Forum 1415','12345679']];
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botInfo = "Hi, I'm SquadBot version 1.0! " +
-                "You can use commands like '/giphy' and '/face' to post GIFs and ASCII faces. " +
-                "I'll respond to certain key words and phrases. Other features are to come! ";
+      botInfo = "Hi, I'm SquadBot version 1.0! \n" +
+                "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
+                "Use /weather [now][today][this week] to get the weather for those times. \n" +
+                "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
+                "Other features are to come! ";
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
@@ -43,6 +45,7 @@ function respond() {
       botRegex_all = /@all|@squad|@everyone/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
       botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
       botRegex_bing = /^([\/]image)/i; weatherRegex = /\bweather\b/i;
+      wifiRegex = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -71,34 +74,31 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
   }
-  if (request.text == "/info") {
-    this.res.writeHead(200);
-    // console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
-    // getInfo(groupID);
-    postMessage(botInfo);
-    this.res.end();
-  }
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
       postMessage("- Jamal Rogers");
     }
     this.res.end();
-  } if(request.text && botRegex_wtf.test(request.text)) {
+  }
+  if(request.text && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
     postMessage("I know, right!?");
     this.res.end();
     // Commands
-  } if(request.text && botRegex_face.test(request.text)) {
+  }
+  if(request.text && botRegex_face.test(request.text)) {
     this.res.writeHead(200);
     postMessage(cool());
     this.res.end();
-  } if(request.text.charAt(0) == '/') {
-      if(request.text && botRegex_giphy.test(request.text)) {
-      this.res.writeHead(200);
-      searchGiphy(request.text.substring(7));
-    } if (weatherRegex.test(request.text)) {
-      Regexnow = /\bnow\b/i; Regextoday = /\btoday\b/i;
+  }
+  if(request.text.charAt(0) == '/') {
+    if(request.text && botRegex_giphy.test(request.text)) {
+    this.res.writeHead(200);
+    searchGiphy(request.text.substring(7));
+    }
+    if (weatherRegex.test(request.text)) {
+      Regexnow = /\b(now|current)\b/i; Regextoday = /\b(today|day)\b/i;
       Regexweek = /\b(this week)|(for the week)|(week)\b/i;
       // Retrieve weather information from Statesboro
       forecast.get([32.4128, -81.7957], function(err, weather) {
@@ -119,6 +119,13 @@ function respond() {
       }
 
       });
+    }
+    if (request.text == "/info") {
+      this.res.writeHead(200);
+      // console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
+      // getInfo(groupID);
+      postMessage(botInfo);
+      this.res.end();
     }
     // if(request.text && botRegex_bing.test(request.text)) {
     //   this.res.writeHead(200);
@@ -153,6 +160,24 @@ function respond() {
                   "Whatever", "Rude...", "Ok...and?", "Damn okay then..."];
       randomNumber = Math.floor(Math.random()*response.length);
       postMessage(response[randomNumber]);
+      this.res.end();
+    } else if (wifiRegex.test(request.text)) {
+      this.res.writeHead(200);
+      forum1415Regex = /^(?=.*\bForum\b)(?=.*\b1415\b).*$/im;
+      forum1831Regex = /^(?=.*\bForum\b)(?=.*\b1831\b).*$/im;
+      rm111roomRegex = /^(?=.*\b(111|911)\b)(?=.*\bSouth\b).*$/;
+      if (forum1831Regex.test(request.text)) {
+        postMessage("The code for The Forum 1831 is:");
+        postMessage("Unknown. You'll have to be there.")
+      } else if (forum1415Regex.test(request.text)) {
+        postMessage("The code for the Forum 1415 is:");
+        postMessage("E483996D5FEA")
+      } else if (rm111roomRegex.test(request.text)) {
+        postMessage("The code for 911 South is: ");
+        postMessage("Unknown. You'll have to be there.");
+      } else {
+        postMessage("I don't know the wifi to that place...");
+      }
       this.res.end();
     } else {
       this.res.writeHead(200);
