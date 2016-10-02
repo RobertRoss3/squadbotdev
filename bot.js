@@ -118,8 +118,10 @@ function respond() {
       this.res.end();
     } else {
       this.res.writeHead(200);
-      cleverBot.ask("Just a small town girl", function (err, response) {
+      cleverQuestion = request.text.substring(9);
+      cleverBot.ask(cleverQuestion, function (err, response) {
         console.log("CLEVERBOT RESPONSE: " + response); // Will likely be: "Living in a lonely world"
+        postMessage(response);
       });
       this.res.end();
     }
