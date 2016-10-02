@@ -112,7 +112,7 @@ function respond() {
         hourlySummary = weather.hourly.summary.toLowerCase();
         hourlySummary = hourlySummary.substring(0,hourlySummary.length-1);
         postMessage("Weather today is " + hourlySummary +
-                    " with an average temperature of " + weather.hourly.data.temperature + "°F.");
+                    " with an average temperature of " + weather.hourly.data[0].temperature + "°F.");
       } else {
         console.log(weather.daily);
         postMessage("Weather this week is " + weather.daily.summary);
