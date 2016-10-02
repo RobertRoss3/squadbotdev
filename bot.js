@@ -103,7 +103,6 @@ function respond() {
       // Retrieve weather information from Statesboro
       forecast.get([32.4128, -81.7957], function(err, weather) {
         if(err) return console.log(err);
-        postMessage("Having trouble getting weather...");
 
       if (Regexnow.test(request.text)) {
         postMessage("Current weather is " + weather.currently.summary.toLowerCase() +
