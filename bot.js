@@ -103,14 +103,18 @@ function respond() {
       // Retrieve weather information from Statesboro
       forecast.get([32.4128, -81.7957], function(err, weather) {
         if(err) return console.log("Having trouble getting weather...");
-        console.log(weather.daily);
+
       if (Regexnow.test(request.text)) {
         postMessage("Current weather is " + weather.currently.summary.toLowerCase() +
                     " with a temperature of " + weather.currently.temperature + "°F.");
       } else if (Regextoday.test(request.text)) {
-        postMessage("Weather today is " + weather.hourly.summary.toLowerCase() +
+        console.log(weather.hourly);
+        hourlySummary = weather.hourly.summary.toLowerCase();
+        hourlySummary = hourlySummary.substring(0,hourlySummary.length-1);
+        postMessage("Weather today is " + hourlySummary +
                     " with an average temperature of " + weather.hourly.data.temperature + "°F.");
       } else {
+        console.log(weather.daily);
         postMessage("Weather this week is " + weather.daily.summary);
       }
 
