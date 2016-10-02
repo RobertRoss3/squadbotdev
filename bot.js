@@ -99,22 +99,23 @@ function respond() {
       searchGiphy(request.text.substring(7));
     } if (weatherRegex.test(request.text)) {
       Regexnow = /\bnow\b/i; Regextoday = /\btoday\b/i;
-      Regexweek = /\b(this week)|(for the week)\b/i;
+      Regexweek = /\b(this week)|(for the week)|(week)\b/i;
       // Retrieve weather information from Statesboro
       forecast.get([32.4128, -81.7957], function(err, weather) {
-        if(err) return console.log("Having trouble getting weather...");
+        if(err) return console.log(err);
+        postMessage("Having trouble getting weather...");
 
       if (Regexnow.test(request.text)) {
         postMessage("Current weather is " + weather.currently.summary.toLowerCase() +
                     " with a temperature of " + weather.currently.temperature + "°F.");
       } else if (Regextoday.test(request.text)) {
-        console.log(weather.hourly);
+        // console.log(weather.hourly);
         hourlySummary = weather.hourly.summary.toLowerCase();
         hourlySummary = hourlySummary.substring(0,hourlySummary.length-1);
         postMessage("Weather today is " + hourlySummary +
                     " with an average temperature of " + weather.hourly.data[0].temperature + "°F.");
       } else {
-        console.log(weather.daily);
+        // console.log(weather.daily);
         postMessage("Weather this week is " + weather.daily.summary);
       }
 
