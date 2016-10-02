@@ -100,7 +100,7 @@ function respond() {
     } if (weatherRegex.test(request.text)) {
       // Retrieve weather information from coordinates (Sydney, Australia)
       forecast.get([32.4128, -81.7957], function(err, weather) {
-        if(err) return console.dir(err);
+        if(err) return console.log(err);
         console.log(weather);
       });
     }
