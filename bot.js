@@ -11,8 +11,10 @@ var accessToken = process.env.ACCESS_TOKEN;
 var bingKey = process.env.BING_KEY;
 var cleverUser = process.env.CLEVER_USER;
 var cleverKey = process.env.CLEVER_KEY;
+    cleverBot = new cleverbot(cleverUser,cleverKey);
+    session = 'Squadbot1';
+    cleverBot.setNick(session);
 var passwords = [['Forum 1415','12345679']];
-cleverBot = new cleverbot(cleverUser,cleverKey);
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
@@ -229,7 +231,7 @@ function encodeQuery(query) {
   return query.replace(/\s/g, '+');;
 }
 
-session = 'Squadbot1';
+
 cleverBot.create(function (err, session) {
   // session is your session name, it will either be as you set it previously, or cleverbot.io will generate one for you
 
