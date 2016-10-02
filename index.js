@@ -1,9 +1,10 @@
-var http, director, cool, bot, router, server, port;
+var http, director, cool, bot, router, server, port, cleverbot;
 
 http        = require('http');
 director    = require('director');
 cool        = require('cool-ascii-faces');
 bot         = require('./bot.js');
+cleverbot = require('cleverbot.io');
 
 router = new director.http.Router({
   '/' : {

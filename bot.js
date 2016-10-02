@@ -2,12 +2,17 @@ var HTTPS = require('https');
 var HTTP = require('http');
 var cool = require('cool-ascii-faces');
 var index = require('./index.js');
+var cleverbot = require('cleverbot.io');
 
 var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
 var apiKey = process.env.API_KEY;
 var accessToken = process.env.ACCESS_TOKEN;
 var bingKey = process.env.BING_KEY;
+var cleverUser = process.env.CLEVER_USER;
+var cleverKey = process.env.CLEVER_KEY;
+var passwords = [['Forum 1415','12345679']];
+cleverBot = new cleverbot(cleverUser,cleverKey);
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
@@ -104,7 +109,7 @@ function respond() {
       randomNumber = Math.floor(Math.random()*Greetings.length);
       postMessage(Greetings[randomNumber][0],'tag', [Greetings[randomNumber][1], Greetings[randomNumber][2]]);
       this.res.end();
-    } if(botRegex_insult.test(request.text)) {
+    } else if(botRegex_insult.test(request.text)) {
       this.res.writeHead(200);
       response = ["Well fuck you too.",
                   "Whatever", "Rude...", "Ok...and?", "Damn okay then..."];
@@ -113,6 +118,9 @@ function respond() {
       this.res.end();
     } else {
       this.res.writeHead(200);
+      bot.ask("Just a small town girl", function (err, response) {
+        console.log("CLEVERBOT RESPONSE: " + response); // Will likely be: "Living in a lonely world"
+      });
       this.res.end();
     }
   } else {
@@ -214,6 +222,13 @@ function searchGiphy(giphyToSearch) {
 function encodeQuery(query) {
   return query.replace(/\s/g, '+');;
 }
+
+session = '';
+cleverBot.create(function (err, session) {
+  // session is your session name, it will either be as you set it previously, or cleverbot.io will generate one for you
+
+  // Woo, you initialized cleverbot.io.  Insert further code here
+});
 
 function postMessage(botResponse,type,args) {
   var botResponse, type, args, options, body, botReq;
