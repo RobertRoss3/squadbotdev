@@ -102,7 +102,6 @@ function respond() {
   if(request.text && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
     getInfo(groupID);
-    postMessage(members);
     this.res.end();
   }
   // ENTERED A COMMAND?
@@ -418,6 +417,7 @@ function getInfo(groupID) {
       }
   });
   var members = response.members;
+  postMessage(members);
 
   botReq.on('error', function(err) {
     console.log('error recieving info '  + JSON.stringify(err));
