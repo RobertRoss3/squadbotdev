@@ -416,7 +416,7 @@ function getInfo(groupID) {
         console.log('rejecting bad status code ' + res.statusCode);
       }
   });
-  var members = botreq.members;
+  var members = botReq.members;
   postMessage(members);
 
   botReq.on('error', function(err) {
