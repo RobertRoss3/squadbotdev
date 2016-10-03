@@ -407,6 +407,8 @@ function getInfo(groupID) {
     response.on('end', function() {
       if (!(str && JSON.parse(str))) {
         console.log("COULD NOT GET GROUP INFO!");
+        console.log("RESULT WAS: ");
+        console.log(str);
       } else {
         var groupinfo = JSON.parse(str).response;
         console.log(groupinfo);
