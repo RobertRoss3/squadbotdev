@@ -222,7 +222,7 @@ function getMath(equation) {
       var parser = new DOMParser();
       str = parser.parseFromString(str, "text/xml");
       JSONstr = xmlToJson(str);
-      if (!(JSONstr && JSONstr.data[0])) {
+      if (!(JSONstr)) {
         postMessage('Can\'t calculate that...');
       } else {
         var response = JSONstr;
