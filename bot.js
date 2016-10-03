@@ -4,6 +4,7 @@ var cool = require('cool-ascii-faces');
 var index = require('./index.js');
 var cleverbot = require('cleverbot.io');
 var Forecast = require('forecast');
+var DOMParser = require('xmldom').DOMParser;
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
