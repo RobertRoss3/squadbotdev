@@ -114,16 +114,17 @@ function respond() {
             for(var a=0; a<result.queryresult.pod.length; a++)
             {
                 var pod = result.queryresult.pod[a];
-                console.log(pod.$.title,": ");
-                for(var b=0; b<pod.subpod.length; b++)
-                {
-                    var subpod = pod.subpod[b];
-                    for(var c=0; c<subpod.plaintext.length; c++)
-                    {
-                        var text = subpod.plaintext[c];
-                        console.log('\t', text);
-                    }
-                }
+                // console.log(pod.$.title,": ");
+                console.log(pod.[1]);
+                // for(var b=0; b<pod.subpod.length; b++)
+                // {
+                //     var subpod = pod.subpod[b];
+                //     for(var c=0; c<subpod.plaintext.length; c++)
+                //     {
+                //         var text = subpod.plaintext[c];
+                //         console.log('\t', text);
+                //     }
+                // }
             }
         }
     });
