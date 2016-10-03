@@ -113,7 +113,14 @@ function respond() {
           answer = result.queryresult.pod[1].subpod[0].plaintext[0];
           //[ '4' ]
           console.log(answer);
-          postMessage("I think it's...");
+          response = ["I think it\'s...", "Hmm... is it",
+                      "My friend WolframAlpha says it\'s ",
+                      "My calculations say the answer is: ",
+                      "Ask your math professor, my guess is ",
+                      "You can\'t do that yourself? lol It\'s ",
+                      "Oh, that\'s easy! It\'s "];
+          randomNumber = Math.floor(Math.random()*response.length);
+          postMessage(response[randomNumber]);
           postMessage(answer);
             // for(var a=0; a<result.queryresult.pod.length; a++)
             // {
