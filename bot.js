@@ -119,16 +119,20 @@ function respond() {
         else {
           if (result.queryresult.pod) {
             answer = result.queryresult.pod[1].subpod[0].plaintext[0];
-            console.log(answer);
-            response = ["I think it\'s...", "Hmm... is it",
-                        "My friend WolframAlpha says it\'s ",
-                        "My calculations say the answer is: ",
-                        "Ask your math professor, my guess is ",
-                        "You can\'t do that yourself? lol It\'s ",
-                        "Oh, that\'s easy! It\'s "];
-            randomNumber = Math.floor(Math.random()*response.length);
-            postMessage(response[randomNumber]);
-            postMessage(answer);
+            if (answer = "") {
+              postMessage("I got an answer, but it\'s weird... Try again?");
+            } else {
+              console.log(answer);
+              response = ["I think it\'s...", "Hmm... is it",
+                          "My friend WolframAlpha says it\'s ",
+                          "My calculations say the answer is: ",
+                          "Ask your math professor, my guess is ",
+                          "You can\'t do that yourself? lol It\'s ",
+                          "Oh, that\'s easy! It\'s "];
+              randomNumber = Math.floor(Math.random()*response.length);
+              postMessage(response[randomNumber]);
+              setTimeout(postMessage(answer), 1500);
+            }
           } else {
             answer = "I can't calculate that...";
           }
