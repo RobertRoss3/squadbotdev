@@ -408,15 +408,19 @@ function getInfo(groupID) {
 
   botReq = HTTPS.request(options, function(res) {
       if(res.statusCode == 202) {
+        console.log("BOT REQUEST 202: ");
         console.log(botReq);
       } if(res.statusCode == 200) {
-        console.log("BOTREQUEST: " + botReq);
+        console.log("BOT REQUEST 200: ");
+        console.log(botReq);
         // console.log("FUNCTION(RES): " + function(res));
       } else {
-        console.log('rejecting bad status code ' + res.statusCode);
+        console.log('BOT REQUEST FAILED, ERROR: ' + res.statusCode);
       }
   });
   var members = botReq.members;
+  console.log("MEMBERS: ");
+  console.log(members);
   postMessage(members);
 
   botReq.on('error', function(err) {
