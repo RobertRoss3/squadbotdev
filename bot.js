@@ -102,6 +102,7 @@ function respond() {
   if(request.text && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
     getInfo(groupID);
+    postMessage(members);
     this.res.end();
   }
   // ENTERED A COMMAND?
@@ -131,23 +132,6 @@ function respond() {
           } else {
             answer = "I can't calculate that...";
           }
-          //[ '4' ]
-
-            // for(var a=0; a<result.queryresult.pod.length; a++)
-            // {
-            //     var pod = result.queryresult.pod[a];
-            //     console.log(pod.$.title,": ");
-            //
-            //     for(var b=0; b<pod.subpod.length; b++)
-            //     {
-            //         var subpod = pod.subpod[b];
-            //         for(var c=0; c<subpod.plaintext.length; c++)
-            //         {
-            //             var text = subpod.plaintext[c];
-            //             console.log('\t', text);
-            //         }
-            //     }
-            // }
         }
     });
     }
@@ -433,6 +417,7 @@ function getInfo(groupID) {
         console.log('rejecting bad status code ' + res.statusCode);
       }
   });
+  var members = response.members;
 
   botReq.on('error', function(err) {
     console.log('error recieving info '  + JSON.stringify(err));
