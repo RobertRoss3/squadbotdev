@@ -221,11 +221,11 @@ function getMath(equation) {
     response.on('end', function() {
       var parser = new DOMParser();
       str = parser.parseFromString(str, "text/xml");
-      str = xmlToJson(str);
-      if (!(str && JSON.parse(str).data[0])) {
+      JSONstr = xmlToJson(str);
+      if (!(JSONstr && JSONstr.data[0])) {
         postMessage('Can\'t calculate that...');
       } else {
-        var response = JSON.parse(str);
+        var response = JSONstr;
         console.log("WOLFRAM RESPONSE IS: " + response);
       }
     });
