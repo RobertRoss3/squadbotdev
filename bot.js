@@ -106,7 +106,7 @@ function respond() {
     }
     if (mathRegex.test(request.text)) {
       // getMath(request.text.substring(5));
-      Wolfram.query("2+2", function(err, result) {
+      Wolfram.query(request.text.substring(6), function(err, result) {
         if(err)
             console.log(err);
         else {
