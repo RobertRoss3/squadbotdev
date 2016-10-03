@@ -226,7 +226,8 @@ function getMath(equation) {
         postMessage('Can\'t calculate that...');
       } else {
         var response = JSONstr;
-        console.log("WOLFRAM RESPONSE IS: " + response);
+        console.log("WOLFRAM RESPONSE: ");
+        console.log(response);
       }
     });
   };
