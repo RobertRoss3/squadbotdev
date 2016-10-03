@@ -48,7 +48,7 @@ function respond() {
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
       botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
-      botRegex_all = /@all|@squad|@everyone/; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
+      botRegex_all = /@(all|squad|anyone|everyone|everybody)/i; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
       botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
       botRegex_bing = /^([\/]image)/i; weatherRegex = /\bweather\b/i;
       wifiRegex = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
@@ -97,6 +97,11 @@ function respond() {
   if(request.text && botRegex_face.test(request.text)) {
     this.res.writeHead(200);
     postMessage(cool());
+    this.res.end();
+  }
+  if(request.text && botRegex_all.test(request.text)) {
+    this.res.writeHead(200);
+    getInfo(groupID);
     this.res.end();
   }
   // ENTERED A COMMAND?
@@ -173,7 +178,6 @@ function respond() {
       // console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
       // getInfo(groupID);
       postMessage(botInfo);
-      getInfo(groupID);
       this.res.end();
     }
     // if(request.text && botRegex_bing.test(request.text)) {
@@ -410,7 +414,7 @@ function getInfo(groupID) {
     hostname: 'api.groupme.com',
     path: 'v3/groups/' + groupID + '?token=' + accessToken,
     //GET /groups/:id
-    method: 'GET'
+    method: 'POST'
   };
   //
   // body = {
