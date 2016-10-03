@@ -5,6 +5,8 @@ var index = require('./index.js');
 var cleverbot = require('cleverbot.io');
 var Forecast = require('forecast');
 var DOMParser = require('xmldom').DOMParser;
+var Client = require('node-wolfram');
+
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
@@ -18,6 +20,7 @@ var cleverKey = process.env.CLEVER_KEY;
     cleverBot.setNick(session);
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
+    Wolfram = new Client(mathKey);
 
 // Initialize
 var forecast = new Forecast({
@@ -102,7 +105,28 @@ function respond() {
       searchGiphy(request.text.substring(7));
     }
     if (mathRegex.test(request.text)) {
-      getMath(request.text.substring(5));
+      // getMath(request.text.substring(5));
+      Wolfram.query("2+2", function(err, result) {
+        if(err)
+            console.log(err);
+        else
+        {
+            for(var a=0; a<result.queryresult.pod.length; a++)
+            {
+                var pod = result.queryresult.pod[a];
+                console.log(pod.$.title,": ");
+                for(var b=0; b<pod.subpod.length; b++)
+                {
+                    var subpod = pod.subpod[b];
+                    for(var c=0; c<subpod.plaintext.length; c++)
+                    {
+                        var text = subpod.plaintext[c];
+                        console.log('\t', text);
+                    }
+                }
+            }
+        }
+    });
     }
     if (weatherRegex.test(request.text)) {
       Regexnow = /\b(now|current)\b/i; Regextoday = /\b(today|day)\b/i;
