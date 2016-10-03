@@ -414,7 +414,7 @@ function getInfo(groupID) {
     hostname: 'api.groupme.com',
     path: '/v3/groups/' + groupID + '?token=' + accessToken,
     //GET /groups/:id
-    method: 'POST'
+    method: 'GET'
   };
   //
   // body = {
