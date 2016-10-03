@@ -111,7 +111,7 @@ function respond() {
         if(err)
             console.log(err);
         else {
-          if (result.queryresult.pod[1]) {
+          if (result.queryresult.pod) {
             answer = result.queryresult.pod[1].subpod[0].plaintext[0];
           } else {
             answer = "I can't calculate that...";
@@ -409,7 +409,7 @@ function getInfo(groupID) {
     hostname: 'api.groupme.com',
     path: 'v3/groups/:' + groupID + '?token=' + accessToken,
     //GET /groups/:id
-    method: 'POST'
+    method: 'GET'
   };
   //
   // body = {
