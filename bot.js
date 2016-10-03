@@ -101,7 +101,8 @@ function respond() {
   }
   if(request.text && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
-    getInfo(groupID);
+    // getInfo(groupID);
+    postMessage("That doesn\'t work yet...");
     this.res.end();
   }
   // ENTERED A COMMAND?
