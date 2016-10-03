@@ -111,7 +111,7 @@ function respond() {
         if(err)
             console.log(err);
         else {
-          if (esult.queryresult.pod[1]) {
+          if (result.queryresult.pod[1]) {
             answer = result.queryresult.pod[1].subpod[0].plaintext[0];
           } else {
             answer = "I can't calculate that...";
