@@ -110,8 +110,11 @@ function respond() {
         if(err)
             console.log(err);
         else {
-          answer = result.queryresult.pod[1].subpod[0].plaintext;
+          answer = result.queryresult.pod[1].subpod[0].plaintext[0];
+          //[ '4' ]
           console.log(answer);
+          postMessage("I think it's...");
+          postMessage(answer);
             // for(var a=0; a<result.queryresult.pod.length; a++)
             // {
             //     var pod = result.queryresult.pod[a];
