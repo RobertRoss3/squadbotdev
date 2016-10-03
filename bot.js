@@ -121,6 +121,7 @@ function respond() {
             answer = result.queryresult.pod[1].subpod[0].plaintext[0];
             if (!(answer)) {
               postMessage("I got an answer, but it\'s weird... Try again?");
+              postMessage(result.queryresult);
             } else {
               console.log(answer);
               response = ["I think it\'s...", "Hmm... is it",
