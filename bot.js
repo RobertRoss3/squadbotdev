@@ -38,9 +38,10 @@ var passwords = [['Forum 1415','12345679']];
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botInfo = "Hi, I'm SquadBot version 1.0! \n" +
+      botInfo = "Hi, I'm SquadBot version 1.1! \n" +
                 "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
+                "Use /math [problem] to solve math problems with WolframAlpha. \n" +
                 "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
                 "Other features are to come! Please don't try to break me... ";
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
@@ -110,7 +111,11 @@ function respond() {
         if(err)
             console.log(err);
         else {
-          answer = result.queryresult.pod[1].subpod[0].plaintext[0];
+          if (esult.queryresult.pod[1]) {
+            answer = result.queryresult.pod[1].subpod[0].plaintext[0];
+          } else {
+            answer = "I can't calculate that...";
+          }
           //[ '4' ]
           console.log(answer);
           response = ["I think it\'s...", "Hmm... is it",
