@@ -218,6 +218,8 @@ function getMath(equation) {
     });
 
     response.on('end', function() {
+      var parser = new DOMParser();
+      str = parser.parseFromString(str, "text/xml");
       str = xmlToJson(str);
       if (!(str && JSON.parse(str).data[0])) {
         postMessage('Can\'t calculate that...');
