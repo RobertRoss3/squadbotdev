@@ -172,6 +172,7 @@ function respond() {
       // console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
       // getInfo(groupID);
       postMessage(botInfo);
+      getInfo(groupID);
       this.res.end();
     }
     // if(request.text && botRegex_bing.test(request.text)) {
@@ -401,14 +402,14 @@ function postMessage(botResponse,type,args) {
   botReq.end(JSON.stringify(body));
 }
 
-function getInfo() {
+function getInfo(groupID) {
   var botRequest, options, botReq;
 
   options = {
     hostname: 'api.groupme.com',
     path: 'v3/groups/:' + groupID + '?token=' + accessToken,
     //GET /groups/:id
-    method: 'GET'
+    method: 'POST'
   };
   //
   // body = {
