@@ -391,45 +391,30 @@ function postMessage(botResponse,type,args) {
 }
 
 function getInfo(groupID) {
-  var botRequest, options, botReq;
-
-  options = {
+  var options = {
     hostname: 'api.groupme.com',
     path: '/v3/groups/' + groupID + '?token=' + accessToken,
-    //GET /groups/:id
     method: 'GET'
   };
-  //
-  // body = {
-  //   "id" : groupID
-  // };
 
-  console.log('REQUESTING ' + groupID + ' FROM ' + options.path);
+  var callback = function(response) {
+    var str = '';
 
-  botReq = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
-        console.log("BOT REQUEST 202: ");
-        console.log(botReq);
-      } if(res.statusCode == 200) {
-        console.log("BOT REQUEST 200: ");
-        console.log(botReq);
-        // console.log("FUNCTION(RES): " + function(res));
+    response.on('data', function(chunck){
+      str += chunck;
+    });
+
+    response.on('end', function() {
+      if (!(str && JSON.parse(str))) {
+        console.log("COULD NOT GET GROUP INFO!");
       } else {
-        console.log('BOT REQUEST FAILED, ERROR: ' + res.statusCode);
+        var groupinfo = JSON.parse(str).response;
+        console.log(groupinfo);
       }
-  });
-  var members = botReq.members;
-  console.log("MEMBERS: ");
-  console.log(members);
-  postMessage(members);
+    });
+  };
 
-  botReq.on('error', function(err) {
-    console.log('error recieving info '  + JSON.stringify(err));
-  });
-  botReq.on('timeout', function(err) {
-    console.log('timeout recieving info '  + JSON.stringify(err));
-  });
-  botReq.end();
+  HTTP.request(options, callback).end();
 }
 
 exports.respond = respond;
