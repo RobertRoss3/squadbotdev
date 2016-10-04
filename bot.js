@@ -48,12 +48,13 @@ var passwords = [['Forum 1415','12345679']];
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botInfo = "Hi, I'm SquadBot version 1.1! \n" +
+      botInfo = "Hi, I'm SquadBot version 1.2! \n" +
                 "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
                 "Use /math [problem] to solve math problems with WolframAlpha. \n" +
                 "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
-                "Other features are to come! Please don't try to break me... ";
+                "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
+                "Other features are to come! Please don\'t try to break me... ";
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
