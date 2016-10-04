@@ -110,14 +110,25 @@ function respond() {
   }
   if(request.text && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
+    API.Groups.show(accessToken, groupID, function(err,ret) {
+      if (!err) {
+        console.log("GOT GROUP MEMBERS!");
+        members = ret.members;
+        console.log("NUMBER OF MEMBERS: " + members.length);
+      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+    });
     response = '';
     usersID = [];
+    usersLoci = [];
     for (i=0; i < members.length; i++){
       response += '@' + members[i].nickname + ' ';
       usersID[i] = members[i].user_id;
+      start = (response.length - (members[i].nickname.length + 1));
+      usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
     }
     postMessage(response);
     console.log(usersID);
+    console.log(usersLoci);
   }
   // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
