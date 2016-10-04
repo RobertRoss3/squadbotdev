@@ -7,6 +7,7 @@ var cleverbot = require('cleverbot.io');
 var Forecast = require('forecast');
 var DOMParser = require('xmldom').DOMParser;
 var Client = require('node-wolfram');
+var ImageService = require('groupme').ImageService;
 
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
@@ -153,8 +154,17 @@ function respond() {
               answer = result.queryresult.pod[1].subpod[0].img[0].$.src;
               // postMessage("Look at this...");
               console.log(answer);
-              postMessage("The graph looks like this...");
-              setTimeout(postMessage(answer),1500);
+              // postMessage("The graph looks like this...");
+              IMAGE_PATH = answer;
+              ImageService.post(
+                IMAGE_PATH,
+                    function(err,ret) {
+                      if (err) {
+                        console.log(err)
+                      } else {
+                        console.log(ret);
+                      }
+                    });
             } else {
               console.log(answer);
               response = ["I think it\'s...", "Hmm... is it",

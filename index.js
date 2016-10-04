@@ -3,6 +3,7 @@ var http, director, cool, bot, router, server, port, cleverbot, Forecast;
 http        = require('http');
 director    = require('director');
 API         = require('groupme').Stateless;
+ImageService = require('groupme').ImageService;
 cool        = require('cool-ascii-faces');
 bot         = require('./bot.js');
 cleverbot = require('cleverbot.io');
