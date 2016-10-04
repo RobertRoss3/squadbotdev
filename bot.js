@@ -37,8 +37,8 @@ var forecast = new Forecast({
 
 API.Groups.show(accessToken, groupID, function(err,ret) {
   if (!err) {
-    console.log("GOT GROUP INFO!");
-    console.log(ret);
+    console.log("GOT GROUP MEMBERS!");
+    console.log(ret.members);
   } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
 });
 
