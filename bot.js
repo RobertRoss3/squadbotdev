@@ -155,13 +155,13 @@ function respond() {
     usersLoci = [];
     usersNicknames = [];
     for (i=0; i < members.length; i++){
-      if (mealPlan.includes(members[i].user_id)) {
+      if (mealPlan.indexOf(members[i].user_id) > -1) {
         response += '@' + members[i].nickname + ' ';
         usersNicknames[i] = members[i].nickname;
         usersID[i] = members[i].user_id;
         start = (response.length - (members[i].nickname.length + 2));
         usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
-      }
+      } else {console.log(mealPlan.indexOf(members[i].user_id)); console.log(members[i].user_id);}
     }
     postMessage(response,'tag',[usersLoci,usersID]);
     console.log(usersNicknames);
