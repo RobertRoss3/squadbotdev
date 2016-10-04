@@ -79,12 +79,13 @@ function respond() {
       } else {
         sayDay = "night";
       }
-      Greetings = [
-        ["Good " + sayDay + ", @" + userName + ".",[[(7+sayDay.length),(1+sayDay.length+userName.length)],[userIDNum]]],
-        ["Hey, @" + userName + "!",[[5,(1 + userName.length)],[userIDNum]]],
-        ["What's up, @" + userName + "?",[[11,(1+userName.length)],[userIDNum]]],
-        ["Hi there, @" + userName + ".",[[10,(1+userName.length)],[userIDNum]]],
-        ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[[11,(userName.length+1)],[userIDNum]]]];
+      // Greetings = [
+      //   ["Good " + sayDay + ", @" + userName + ".",[[(7+sayDay.length),(1+sayDay.length+userName.length)],[userIDNum]]],
+      //   ["Hey, @" + userName + "!",[[5,(1 + userName.length)],[userIDNum]]],
+      //   ["What's up, @" + userName + "?",[[11,(1+userName.length)],[userIDNum]]],
+      //   ["Hi there, @" + userName + ".",[[10,(1+userName.length)],[userIDNum]]],
+      //   ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[[11,(userName.length+1)],[userIDNum]]]
+      // ];
 
   if ((request.text == "@Squadbot")||(request.text == "@squadbot")||(request.text == "@SquadBot")) {
     response = ["What?","What is it?",
@@ -239,8 +240,10 @@ function respond() {
   } if((request.sender_type != "bot") && request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text) || botRegex_morning.test(request.text)) {
       this.res.writeHead(200);
+      Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine " + sayDay + "?"];
       randomNumber = Math.floor(Math.random()*Greetings.length);
-      postMessage(Greetings[randomNumber][0],'tag', Greetings[randomNumber][1]);
+      // postMessage(Greetings[randomNumber][0],'tag', Greetings[randomNumber][1]);
+      postMessage(Greetings[randomNumber]);
       this.res.end();
     } else if (botRegex_bye.test(request.text)) {
       response = ["Okay, bye!", "Laters.", "See ya!",
