@@ -156,7 +156,7 @@ function respond() {
               // postMessage("Look at this...");
               console.log(answer);
               postMessage("The graph looks like this...");
-              setTimeout(postMessage(answer), 1500);
+              setTimeout(postMessage(answer), 3000);
             } else {
               console.log(answer);
               response = ["I think it\'s...", "Hmm... is it",
@@ -167,7 +167,7 @@ function respond() {
                           "Oh, that\'s easy! It\'s "];
               randomNumber = Math.floor(Math.random()*response.length);
               postMessage(response[randomNumber]);
-              setTimeout(postMessage(answer), 1500);
+              setTimeout(postMessage(answer), 3000);
             }
           } else {
             answer = "I can't calculate that...";
