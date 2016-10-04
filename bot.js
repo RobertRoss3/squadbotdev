@@ -123,7 +123,7 @@ function respond() {
     for (i=0; i < members.length; i++){
       response += '@' + members[i].nickname + ' ';
       usersID[i] = members[i].user_id;
-      start = (response.length - (members[i].nickname.length + 1));
+      start = (response.length - (members[i].nickname.length + 2));
       usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
     }
     postMessage(response);
