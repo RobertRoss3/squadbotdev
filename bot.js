@@ -53,6 +53,7 @@ function respond() {
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
                 "Use /math [problem] to solve math problems with WolframAlpha. \n" +
                 "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
+                "Use \'@mealplan\' to tag anyone with a meal plan and \'@engineers\' for engineers. \n" +
                 "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
                 "Other features are to come! Please don\'t try to break me... ";
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
