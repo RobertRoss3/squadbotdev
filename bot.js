@@ -141,7 +141,7 @@ function respond() {
     }
   }
   if (request.text && request.sender_type != "bot" && tagRegex_mealplan.test(request.text)) {
-    this.res.writehead(200);
+    this.res.writeHead(200);
     mealPlan = ['24488525','18341900','29824624','18252184', '30151684','28758543','41361709','24474608','18922923'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
       if (!err) {
