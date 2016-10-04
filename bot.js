@@ -110,7 +110,7 @@ function respond() {
       } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
     });
     response = '';
-    for (i=0; i < members.length, i++){
+    for (i=0; i < members.length; i++){
       response += members[i].nickname + ' ';
     }
     postMessage(response);
