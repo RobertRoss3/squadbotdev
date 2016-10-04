@@ -240,7 +240,7 @@ function respond() {
       if(botRegex_hi.test(request.text) || botRegex_morning.test(request.text)) {
       this.res.writeHead(200);
       randomNumber = Math.floor(Math.random()*Greetings.length);
-      postMessage(Greetings[randomNumber][0],'tag', [Greetings[randomNumber][1], Greetings[randomNumber][2]]);
+      postMessage(Greetings[randomNumber][0],'tag', [[Greetings[randomNumber][1]], [Greetings[randomNumber][2]]]);
       this.res.end();
     } else if (botRegex_bye.test(request.text)) {
       response = ["Okay, bye!", "Laters.", "See ya!",
@@ -412,6 +412,7 @@ function postMessage(botResponse,type,args) {
   };
 
   if(type == 'tag') {
+    //[response,'tag',[[loci],[userIDs]]]
     body = {
       "bot_id" : botID,
       "text" : botResponse,
