@@ -120,11 +120,9 @@ function respond() {
           if (result.queryresult.pod) {
             answer = result.queryresult.pod[1].subpod[0].plaintext[0];
             if (!(answer)) {
-              postMessage("I got an answer, but it\'s weird... Try again?");
-              console.log("SUBPOD 1: ");
-              console.log(result.queryresult.pod[1]);
-              console.log("SUBPOD 2: ");
-              setTimeout(console.log(result.queryresult.pod[2]), 1500);
+              answer = result.queryresult.pod[1].subpod[0].img._src;
+              postMessage("Look at this...");
+              setTimeout(postMessage(answer),1500);
             } else {
               console.log(answer);
               response = ["I think it\'s...", "Hmm... is it",
