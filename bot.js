@@ -108,7 +108,7 @@ function respond() {
     postMessage(cool());
     this.res.end();
   }
-  if(request.text && botRegex_all.test(request.text)) {
+  if(request.text && request.sender_type != "bot" && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
     API.Groups.show(accessToken, groupID, function(err,ret) {
       if (!err) {
@@ -126,9 +126,7 @@ function respond() {
       start = (response.length - (members[i].nickname.length + 2));
       usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
     }
-    postMessage(response);
-    console.log(usersID);
-    console.log(usersLoci);
+    postMessage(response,'tag',[usersLoci,usersID]);
   }
   // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
