@@ -276,14 +276,16 @@ function respond() {
     } else {
       this.res.writeHead(200);
       cleverQuestion = request.text.substring(9);
-      cleverBot.ask(cleverQuestion, function (err, response) {
-        console.log("CLEVERBOT RESPONSE: " + response); // Will likely be: "Living in a lonely world"
-        if (response == "Error, the reference \"\" does not exist") {
-          postMessage("I have nothing to say to that...");
-        } else {
-          postMessage(response);
-        }
-      });
+      if (cleverQuestion) {
+        cleverBot.ask(cleverQuestion, function (err, response) {
+          console.log("CLEVERBOT RESPONSE: " + response); // Will likely be: "Living in a lonely world"
+          if (response == "Error, the reference \"\" does not exist") {
+            postMessage("I have nothing to say to that...");
+          } else {
+            postMessage(response);
+          }
+        });
+      }
       this.res.end();
     }
   } else {
