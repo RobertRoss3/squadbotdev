@@ -35,12 +35,7 @@ var forecast = new Forecast({
   }
 });
 
-API.Groups.show(accessToken, groupID, function(err,ret) {
-  if (!err) {
-    console.log("GOT GROUP MEMBERS!");
-    console.log(ret.members);
-  } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
-});
+
 
 var passwords = [['Forum 1415','12345679']];
 
@@ -109,9 +104,18 @@ function respond() {
   }
   if(request.text && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
-    // getInfo(groupID);
-    // postMessage("That doesn\'t work yet...");
-    // this.res.end();
+    API.Groups.show(accessToken, groupID, function(err,ret) {
+      if (!err) {
+        console.log("GOT GROUP MEMBERS!");
+        members = ret.members;
+        console.log("NUMBER OF MEMBERS: " + members.length);
+      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+    });
+    response = '';
+    for (i=0; i < members.length, i++){
+      response += members[i].nickname + ' ';
+    }
+    postMessage(response);
   }
   // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
