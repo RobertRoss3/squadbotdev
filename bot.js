@@ -110,23 +110,30 @@ function respond() {
   }
   if(request.text && request.sender_type != "bot" && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
-    API.Groups.show(accessToken, groupID, function(err,ret) {
-      if (!err) {
-        console.log("GOT GROUP MEMBERS!");
-        members = ret.members;
-        console.log("NUMBER OF MEMBERS: " + members.length);
-      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
-    });
-    response = '';
-    usersID = [];
-    usersLoci = [];
-    for (i=0; i < members.length; i++){
-      response += '@' + members[i].nickname + ' ';
-      usersID[i] = members[i].user_id;
-      start = (response.length - (members[i].nickname.length + 2));
-      usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
+    if (request.user_id == '18252184') {postMessage("Fuck off David...");}
+    else {
+      API.Groups.show(accessToken, groupID, function(err,ret) {
+        if (!err) {
+          console.log("GOT GROUP MEMBERS!");
+          members = ret.members;
+          console.log("NUMBER OF MEMBERS: " + members.length);
+        } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+      });
+      response = '';
+      usersID = [];
+      usersLoci = [];
+      usersNicknames = [];
+      for (i=0; i < members.length; i++){
+        response += '@' + members[i].nickname + ' ';
+        usersNicknames[i] = members[i].nickname;
+        usersID[i] = members[i].user_id;
+        start = (response.length - (members[i].nickname.length + 2));
+        usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
+      }
+      postMessage(response,'tag',[usersLoci,usersID]);
+      console.log(usersNicknames);
+      console.log(usersID);
     }
-    postMessage(response,'tag',[usersLoci,usersID]);
   }
   // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
