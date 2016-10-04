@@ -179,6 +179,17 @@ function respond() {
       Regexnow = /\b(now|current)\b/i; Regextoday = /\b(today|day)\b/i;
       Regexweek = /\b(this week)|(for the week)|(week)\b/i;
       // Retrieve weather information from Statesboro
+      // Initialize
+      var forecast = new Forecast({
+        service: 'darksky',
+        key: weatherKey,
+        units: 'fahrenheit',
+        cache: true,      // Cache API requests
+        ttl: {            // How long to cache requests. Uses syntax from moment.js: http://momentjs.com/docs/#/durations/creating/
+          minutes: 27,
+          seconds: 45
+        }
+      });
       forecast.get([32.4128, -81.7957], function(err, weather) {
         if(err) return console.log(err);
 
