@@ -121,7 +121,8 @@ function respond() {
             answer = result.queryresult.pod[1].subpod[0].plaintext[0];
             if (!(answer)) {
               answer = result.queryresult.pod[1].subpod[0].img;
-              postMessage("Look at this...");
+              // postMessage("Look at this...");
+              console.log(answer);
               setTimeout(postMessage(answer),1500);
             } else {
               console.log(answer);
