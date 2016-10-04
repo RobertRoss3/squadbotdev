@@ -80,10 +80,10 @@ function respond() {
         sayDay = "night";
       }
       Greetings = [
-        ["Good " + sayDay + ", @" + userName + ".",[[(7+sayDay.length),(1+sayDay.length+userName.length)],[userIDNum]],
-        ["Hey, @" + userName + "!",[[5,(1 + userName.length)],[userIDNum]],
-        ["What's up, @" + userName + "?",[[11,(1+userName.length)],[userIDNum]],
-        ["Hi there, @" + userName + ".",[[10,(1+userName.length)],[userIDNum]],
+        ["Good " + sayDay + ", @" + userName + ".",[[(7+sayDay.length),(1+sayDay.length+userName.length)],[userIDNum]]],
+        ["Hey, @" + userName + "!",[[5,(1 + userName.length)],[userIDNum]]],
+        ["What's up, @" + userName + "?",[[11,(1+userName.length)],[userIDNum]]],
+        ["Hi there, @" + userName + ".",[[10,(1+userName.length)],[userIDNum]]],
         ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[[11,(userName.length+1)],[userIDNum]]]];
 
   if ((request.text == "@Squadbot")||(request.text == "@squadbot")||(request.text == "@SquadBot")) {
