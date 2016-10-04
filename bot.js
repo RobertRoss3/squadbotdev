@@ -62,8 +62,8 @@ function respond() {
       botRegex_all = /@(all|squad|anyone|everyone|everybody)/i; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
       botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
       botRegex_bing = /^([\/]image)/i; weatherRegex = /\bweather\b/i;
-      wifiRegex = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
-      mathRegex = /^\/\bmath\b/i;
+      wifiRegex = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im; botRegex_bye = /\b(good night)|(bye)|(goodbye)\b/i;
+      mathRegex = /^\/\bmath\b/i; botRegex_morning = /\b(good morning)\b/i;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -220,17 +220,23 @@ function respond() {
     this.res.end();
   } if((request.sender_type != "bot") && request.text && botRegex_thanks.test(request.text)) {
     this.res.writeHead(200);
-    response = ["You're welcome! 😊",
-                "No problem."];
+    response = ["You're welcome! 😊", "Don't mention it!",
+                "No problem.", "Any time."];
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
   } if((request.sender_type != "bot") && request.text && botRegex_bot.test(request.text)) {
-      if(botRegex_hi.test(request.text)) {
+      if(botRegex_hi.test(request.text) || botRegex_morning.test(request.text)) {
       this.res.writeHead(200);
       randomNumber = Math.floor(Math.random()*Greetings.length);
       postMessage(Greetings[randomNumber][0],'tag', [Greetings[randomNumber][1], Greetings[randomNumber][2]]);
       this.res.end();
+    } else if (botRegex_bye.test(request.text)) {
+      response = ["Okay, bye!", "Laters.", "See ya!",
+                  "In a while, crocodile.", "Good riddance.",
+                  "Didn\'t wanna talk anyway...", "Peace.", "Peace out."];
+      randomNumber = Math.floor(Math.random()*response.length);
+      postMessage(response[randomNumber]);
     } else if(botRegex_insult.test(request.text)) {
       this.res.writeHead(200);
       response = ["Well fuck you too.",
