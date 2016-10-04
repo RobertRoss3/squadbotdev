@@ -58,12 +58,14 @@ function respond() {
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
-      botRegex_wtf = /\bwtf|wth/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
+      botRegex_wtf = /\b(wtf|wth|what the (hell|fuck))\b/i; botRegex_thanks = /\b(thanks|(thank you))\b/i;
       botRegex_all = /@(all|squad\b|anyone|everyone|everybody)/i; botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
       botRegex_bot = /@Squadbot.*?/i; botRegex_giphy = /^([\/]giphy)/i; botRegex_face = /^[\/]face$/i;
       botRegex_bing = /^([\/]image)/i; weatherRegex = /\bweather\b/i;
       wifiRegex = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im; botRegex_bye = /\b(good night)|(bye)|(goodbye)|(goodnight)\b/i;
-      mathRegex = /^\/\bmath\b/i; botRegex_morning = /\b(good morning)\b/i;
+      mathRegex = /^\/\b(math|calc|wolf)\b/i; botRegex_morning = /\b(good morning)\b/i;
+      tagRegex_mealplan = /@(food|meal plan|mealplan)/i; tagRegex_engineers = /@engineers/i;
+      tagRegex_forum = /@forum/i; tagRegex_oneeleven = /@(111|911)/i;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -100,7 +102,7 @@ function respond() {
     }
     this.res.end();
   }
-  if(request.text && botRegex_wtf.test(request.text)) {
+  if(request.text && request.sender_type != "bot" && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
     postMessage("I know, right!?");
     this.res.end();
@@ -113,7 +115,7 @@ function respond() {
   }
   if(request.text && request.sender_type != "bot" && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
-    if (request.user_id == '18252184') {postMessage("Fuck off David...");}
+    if (request.user_id == '') {postMessage("???");}
     else {
       API.Groups.show(accessToken, groupID, function(err,ret) {
         if (!err) {
@@ -137,6 +139,33 @@ function respond() {
       console.log(usersNicknames);
       console.log(usersID);
     }
+  }
+  if (request.text && request.sender_type != "bot" && tagRegex_mealplan.test(request.text)) {
+    this.res.writehead(200);
+    mealPlan = ['24488525','18341900','29824624','18252184', '30151684','28758543','41361709','24474608','18922923'];
+    API.Groups.show(accessToken, groupID, function(err,ret) {
+      if (!err) {
+        console.log("GOT GROUP MEMBERS!");
+        members = ret.members;
+        console.log("NUMBER OF MEMBERS: " + members.length);
+      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+    });
+    response = '';
+    usersID = [];
+    usersLoci = [];
+    usersNicknames = [];
+    for (i=0; i < members.length; i++){
+      if (mealPlan.includes(members[i].user_id) {
+        response += '@' + members[i].nickname + ' ';
+        usersNicknames[i] = members[i].nickname;
+        usersID[i] = members[i].user_id;
+        start = (response.length - (members[i].nickname.length + 2));
+        usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
+      }
+    }
+    postMessage(response,'tag',[usersLoci,usersID]);
+    console.log(usersNicknames);
+    console.log(usersID);
   }
   // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
