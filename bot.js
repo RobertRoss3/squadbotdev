@@ -154,17 +154,8 @@ function respond() {
               answer = result.queryresult.pod[1].subpod[0].img[0].$.src;
               // postMessage("Look at this...");
               console.log(answer);
-              // postMessage("The graph looks like this...");
-              IMAGE_PATH = answer;
-              ImageService.post(
-                IMAGE_PATH,
-                    function(err,ret) {
-                      if (err) {
-                        console.log(err)
-                      } else {
-                        console.log(ret);
-                      }
-                    });
+              postMessage("The graph looks like this...");
+              setTimeout(postMessage(answer), 1500);
             } else {
               console.log(answer);
               response = ["I think it\'s...", "Hmm... is it",
