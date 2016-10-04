@@ -135,6 +135,9 @@ function respond() {
         start = (response.length - (members[i].nickname.length + 2));
         usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
       }
+      usersNicknames = usersNicknames.filter(function(n){ return n != undefined });
+      usersLoci = usersLoci.filter(function(n){ return n != undefined });
+      usersID = usersID.filter(function(n){ return n != undefined });
       postMessage(response,'tag',[usersLoci,usersID]);
       console.log(usersNicknames);
       console.log(usersID);
@@ -163,6 +166,9 @@ function respond() {
         usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
       }
     }
+    usersNicknames = usersNicknames.filter(function(n){ return n != undefined });
+    usersLoci = usersLoci.filter(function(n){ return n != undefined });
+    usersID = usersID.filter(function(n){ return n != undefined });
     postMessage(response,'tag',[usersLoci,usersID]);
     console.log(usersNicknames);
     console.log(usersID);
@@ -190,6 +196,9 @@ function respond() {
         usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
       }
     }
+    usersNicknames = usersNicknames.filter(function(n){ return n != undefined });
+    usersLoci = usersLoci.filter(function(n){ return n != undefined });
+    usersID = usersID.filter(function(n){ return n != undefined });
     postMessage(response,'tag',[usersLoci,usersID]);
     console.log(usersNicknames);
     console.log(usersID);
@@ -217,6 +226,9 @@ function respond() {
         usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
       }
     }
+    usersNicknames = usersNicknames.filter(function(n){ return n != undefined });
+    usersLoci = usersLoci.filter(function(n){ return n != undefined });
+    usersID = usersID.filter(function(n){ return n != undefined });
     postMessage(response,'tag',[usersLoci,usersID]);
     console.log(usersNicknames);
     console.log(usersID);
