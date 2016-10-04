@@ -246,6 +246,7 @@ function respond() {
     }
     postMessage(response,'tag',[usersLoci,usersID]);
     console.log(usersNicknames);
+    console.log(usersLoci);
     console.log(usersID);
   }
   // ENTERED A COMMAND?
