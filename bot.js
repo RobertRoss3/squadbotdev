@@ -105,13 +105,12 @@ function respond() {
     API.Groups.show(accessToken, groupID, function(err,ret) {
       if (!err) {
         console.log("GOT GROUP MEMBERS!");
-        members = ret.members;
-        console.log("NUMBER OF MEMBERS: " + members.length);
+        console.log("NUMBER OF MEMBERS: " + ret.members.length);
       } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
     });
     response = '';
-    for (i=0; i < members.length; i++){
-      response += members[i].nickname + ' ';
+    for (i=0; i < ret.members.length; i++){
+      response += ret.members[i].nickname + ' ';
     }
     postMessage(response);
   }
