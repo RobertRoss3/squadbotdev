@@ -155,7 +155,7 @@ function respond() {
     usersLoci = [];
     usersNicknames = [];
     for (i=0; i < members.length; i++){
-      if (mealPlan.includes(members[i].user_id) {
+      if (mealPlan.includes(members[i].user_id)) {
         response += '@' + members[i].nickname + ' ';
         usersNicknames[i] = members[i].nickname;
         usersID[i] = members[i].user_id;
