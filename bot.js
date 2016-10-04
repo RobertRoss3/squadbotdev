@@ -35,8 +35,6 @@ var forecast = new Forecast({
   }
 });
 
-
-
 var passwords = [['Forum 1415','12345679']];
 
 function respond() {
