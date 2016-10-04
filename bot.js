@@ -161,7 +161,88 @@ function respond() {
         usersID[i] = members[i].user_id;
         start = (response.length - (members[i].nickname.length + 2));
         usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
-      } else {console.log(mealPlan.indexOf(members[i].user_id)); console.log(members[i].user_id);}
+      }
+    }
+    postMessage(response,'tag',[usersLoci,usersID]);
+    console.log(usersNicknames);
+    console.log(usersID);
+  }
+  if (request.text && request.sender_type != "bot" && tagRegex_engineers.test(request.text)) {
+    this.res.writeHead(200);
+    Engineers = ['30824774','29824624','12558120','28758543','29879154','29823868'];
+    API.Groups.show(accessToken, groupID, function(err,ret) {
+      if (!err) {
+        console.log("GOT GROUP MEMBERS!");
+        members = ret.members;
+        console.log("NUMBER OF MEMBERS: " + members.length);
+      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+    });
+    response = '';
+    usersID = [];
+    usersLoci = [];
+    usersNicknames = [];
+    for (i=0; i < members.length; i++){
+      if (Engineers.indexOf(members[i].user_id) > -1) {
+        response += '@' + members[i].nickname + ' ';
+        usersNicknames[i] = members[i].nickname;
+        usersID[i] = members[i].user_id;
+        start = (response.length - (members[i].nickname.length + 2));
+        usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
+      }
+    }
+    postMessage(response,'tag',[usersLoci,usersID]);
+    console.log(usersNicknames);
+    console.log(usersID);
+  }
+  if (request.text && request.sender_type != "bot" && tagRegex_forum.test(request.text)) {
+    this.res.writeHead(200);
+    Forum = ['18341900','29824624','18252184','30151684','28758543','29879154','41361709','38221747'];
+    API.Groups.show(accessToken, groupID, function(err,ret) {
+      if (!err) {
+        console.log("GOT GROUP MEMBERS!");
+        members = ret.members;
+        console.log("NUMBER OF MEMBERS: " + members.length);
+      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+    });
+    response = '';
+    usersID = [];
+    usersLoci = [];
+    usersNicknames = [];
+    for (i=0; i < members.length; i++){
+      if (Forum.indexOf(members[i].user_id) > -1) {
+        response += '@' + members[i].nickname + ' ';
+        usersNicknames[i] = members[i].nickname;
+        usersID[i] = members[i].user_id;
+        start = (response.length - (members[i].nickname.length + 2));
+        usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
+      }
+    }
+    postMessage(response,'tag',[usersLoci,usersID]);
+    console.log(usersNicknames);
+    console.log(usersID);
+  }
+  if (request.text && request.sender_type != "bot" && tagRegex_oneeleven.test(request.text)) {
+    this.res.writeHead(200);
+    OneEleven = ['30824774','24488525','31575032','12558120'];
+    API.Groups.show(accessToken, groupID, function(err,ret) {
+      if (!err) {
+        console.log("GOT GROUP MEMBERS!");
+        members = ret.members;
+        console.log("NUMBER OF MEMBERS: " + members.length);
+      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+    });
+    response = '';
+    usersID = [];
+    usersLoci = [];
+    usersNicknames = [];
+    for (i=0; i < members.length; i++){
+      if (OneEleven.indexOf(members[i].user_id) > -1) {
+        response += '@' + members[i].nickname + ' ';
+        usersNicknames[i] = members[i].nickname;
+        usersID[i] = members[i].user_id;
+        start = (response.length - (members[i].nickname.length + 2));
+        usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
+      }
     }
     postMessage(response,'tag',[usersLoci,usersID]);
     console.log(usersNicknames);
