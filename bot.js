@@ -111,10 +111,13 @@ function respond() {
   if(request.text && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
     response = '';
+    usersID = [];
     for (i=0; i < members.length; i++){
-      response += members[i].nickname + ' ';
+      response += '@' + members[i].nickname + ' ';
+      usersID[i] = members[i].user_id;
     }
     postMessage(response);
+    console.log(usersID);
   }
   // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
