@@ -120,7 +120,7 @@ function respond() {
           if (result.queryresult.pod) {
             answer = result.queryresult.pod[1].subpod[0].plaintext[0];
             if (!(answer)) {
-              answer = result.queryresult.pod[1].subpod[0].img.src;
+              answer = result.queryresult.pod[1].subpod[0].img;
               postMessage("Look at this...");
               setTimeout(postMessage(answer),1500);
             } else {
