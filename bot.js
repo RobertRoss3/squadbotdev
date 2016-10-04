@@ -1,5 +1,6 @@
 var HTTPS = require('https');
 var HTTP = require('http');
+var API = require('groupme').Stateless;
 var cool = require('cool-ascii-faces');
 var index = require('./index.js');
 var cleverbot = require('cleverbot.io');
@@ -32,6 +33,13 @@ var forecast = new Forecast({
     minutes: 27,
     seconds: 45
   }
+});
+
+API.Groups.show(accessToken, groupID, function(err,ret) {
+  if (!err) {
+    console.log("GOT GROUP INFO!");
+    console.log(ret);
+  } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
 });
 
 var passwords = [['Forum 1415','12345679']];
@@ -123,6 +131,7 @@ function respond() {
               answer = result.queryresult.pod[1].subpod[0].img[0].$.src;
               // postMessage("Look at this...");
               console.log(answer);
+              postMessage("The graph looks like this...");
               setTimeout(postMessage(answer),1500);
             } else {
               console.log(answer);
