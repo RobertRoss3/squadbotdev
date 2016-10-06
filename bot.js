@@ -37,7 +37,8 @@ pg.connect(process.env.DATABASE_URL, function(err, client) {
   client
     .query('SELECT table_schema,table_name FROM information_schema.tables;')
     .on('row', function(row) {
-      console.log(JSON.stringify(row));
+      // console.log(JSON.stringify(row));
+      console.log("Got schemas!")
     });
 });
 
@@ -156,9 +157,14 @@ function respond() {
       usersNicknames = usersNicknames.filter(function(n){ return n != undefined });
       usersLoci = usersLoci.filter(function(n){ return n != undefined });
       usersID = usersID.filter(function(n){ return n != undefined });
-      postMessage(response,'tag',[usersLoci,usersID]);
-      console.log(usersNicknames);
-      console.log(usersID);
+      if (request.attachments.user_ids.indexOf('18922923') > -1){
+        //temp fix for tagging names with "squad" in it
+      } else {
+        postMessage(response,'tag',[usersLoci,usersID]);
+        console.log(usersNicknames);
+        console.log(usersID);
+      }
+
     }
   }
   if (request.text && request.sender_type != "bot" && tagRegex_mealplan.test(request.text)) {
