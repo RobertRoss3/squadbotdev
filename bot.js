@@ -394,7 +394,7 @@ function respond() {
       console.log("BANG!");
       postMessage("wow son");
     } else {
-      console.log("*CHINK*");
+      console.log("*CHINK*...\'" + randomNumber + "\'");
     }
     this.res.end();
   }

@@ -1,8 +1,8 @@
 # GroupMe Bot For Squad
 
-Thanks for checking out the documentation to see how to use this thing!
+![SquadBot current logo](https://i.groupme.com/1078x1077.jpeg.6edbc8b306e64f2789bed0b28e67ca14) Thanks for checking out the documentation to see how to use this thing!
 
-## KeyWords
+## Keywords
 
 SquadBot responds to a number of key words such as:
 
