@@ -10,6 +10,8 @@ SquadBot responds to a number of key words such as:
   * Saying 'WTF'
   * Saying 'thank you'
   * Saying 'damn'
+  * Saying '#kicksquadbot'
+  * David saying literally anything
 
 ## Commands
 

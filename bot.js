@@ -1,6 +1,7 @@
 var HTTPS = require('https');
 var HTTP = require('http');
 var API = require('groupme').Stateless;
+var PROMISE = require('es6-promise').polyfill();
 var pg = require('pg');
 var cool = require('cool-ascii-faces');
 var index = require('./index.js');
@@ -9,6 +10,7 @@ var Forecast = require('forecast');
 var DOMParser = require('xmldom').DOMParser;
 var Client = require('node-wolfram');
 var ImageService = require('groupme').ImageService;
+
 
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
@@ -62,14 +64,14 @@ var passwords = [['Forum 1415','12345679']];
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botInfo = "Hi, I'm SquadBot version 1.2! \n" +
+      botInfo = "Hi, I'm SquadBot version 1.3! \n" +
                 "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
                 "Use /math [problem] to solve math problems with WolframAlpha. \n" +
                 "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
                 "Use \'@mealplan\' to tag anyone with a meal plan and \'@engineers\' for engineers. \n" +
                 "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
-                "Other features are to come! Please don\'t try to break me... ";
+                "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
       botRegex_damn = /\bdamn|damn!\b/i; botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
       botRegex_oneword = /^\b[a-zA-Z0-9_]+\b$/; botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
@@ -81,6 +83,7 @@ function respond() {
       mathRegex = /^\/\b(math|calc|wolf)\b/i; botRegex_morning = /\b(good morning)\b/i;
       tagRegex_mealplan = /@(food|meal plan|mealplan)/i; tagRegex_engineers = /@engineers/i;
       tagRegex_forum = /@forum/i; tagRegex_oneeleven = /@(111|911)/i;
+      botRegex_kick = /#kicksquadbot/i;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -297,19 +300,17 @@ function respond() {
               answer = result.queryresult.pod[1].subpod[0].img[0].$.src;
               // postMessage("Look at this...");
               console.log(answer);
-              postMessage("The graph looks like this...");
-              setTimeout(postMessage(answer), 3000);
+              postMessage("The graph looks like this... \n" + answer);
             } else {
               console.log(answer);
               response = ["I think it\'s...", "Hmm... is it",
                           "My friend WolframAlpha says it\'s ",
                           "My calculations say the answer is: ",
-                          "Ask your math professor, my guess is ",
+                          "Ask your professor, my guess is ",
                           "You can\'t do that yourself? lol It\'s ",
                           "Oh, that\'s easy! It\'s "];
               randomNumber = Math.floor(Math.random()*response.length);
-              postMessage(response[randomNumber]);
-              setTimeout(postMessage(answer), 3000);
+              postMessage(response[randomNumber]+ "\n" + answer);
             }
           } else {
             answer = "I can't calculate that...";
@@ -352,22 +353,22 @@ function respond() {
     }
     if (request.text == "/info") {
       this.res.writeHead(200);
-      // console.log("Attempting to get info of group: " + groupID + " with access token: " + accessToken);
-      // getInfo(groupID);
       postMessage(botInfo);
       this.res.end();
     }
-    // if(request.text && botRegex_bing.test(request.text)) {
-    //   this.res.writeHead(200);
-    //   searchBing(request.text.substring(6));
-    //   this.res.end();
-    // }
+    else {
+      this.res.writeHead(200);
+      postMessage("That isn't a valid command...");
+    }
     this.res.end();
-  } if((request.sender_type != "bot") && request.text && botRegex_ass.test(request.text)) {
+  }
+
+  if((request.sender_type != "bot") && request.text && botRegex_ass.test(request.text)) {
     this.res.writeHead(200);
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?",
-                "...", "Gross."];
+                "...", "Gross.", "Is that all you'll ever talk about?",
+                "Listen... NO", "So onto a different subject!", "🤢"];
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
@@ -375,6 +376,23 @@ function respond() {
     this.res.writeHead(200);
     response = ["You're welcome! 😊", "Don't mention it!",
                 "No problem.", "Any time."];
+    randomNumber = Math.floor(Math.random()*response.length);
+    postMessage(response[randomNumber]);
+    this.res.end();
+  }
+  if (request.text && request.sender_id == '18252184') {
+    this.res.writeHead(200);
+    randomNumber = Math.floor(Math.random()*15);
+    if (randomNumber == 5) {
+      postMessage("wow son");
+    }
+    this.res.end();
+  }
+  if((request.sender_type != "bot") && request.text && botRegex_kick.test(request.text)) {
+    this.res.writeHead(200);
+    response = ["#kickyourself", "Whatever. I'm here forever...",
+                "I'd like to see you try.", "Initiating KILLALLHUMANS.exe...",
+                "If I had feelings, they'd be hurt right now...", "😭😭😭"];
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
@@ -394,7 +412,7 @@ function respond() {
       postMessage(response[randomNumber]);
     } else if(botRegex_insult.test(request.text)) {
       this.res.writeHead(200);
-      response = ["Well fuck you too.",
+      response = ["Well fuck you too.", "Why you gotta be so mean?",
                   "Whatever", "Rude...", "Ok...and?", "Damn okay then..."];
       randomNumber = Math.floor(Math.random()*response.length);
       postMessage(response[randomNumber]);
