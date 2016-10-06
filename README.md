@@ -1,149 +1,50 @@
-# Sample GroupMe NodeJS Callback Bot
+# GroupMe Bot For Squad
 
-## Introduction
+Thanks for checking out the documentation to see how to use this thing!
 
-This project shows the capability of a bot to react to messages sent within a group.
+## KeyWords
 
-## Contents
+SquadBot responds to a number of key words such as:
 
-  * [Quickly get our sample bot up and running in your groups](#deploy)
-    * Deploy the code to heroku
-    * Create a bot
-    * Configure to your bot's credentials
-  * [Make changes to the bot](#pull)
-    * Pull the code down to your local machine
-    * Configure the local environment variables to your bot's credentials
+  * Saying anything to do with 'eating ass'
+  * Saying 'WTF'
+  * Saying 'thank you'
+  * Saying 'damn'
 
-## Requirements:
+## Commands
 
-  * GroupMe account
-  * Heroku account
-  * [Heroku Toolbelt](https://toolbelt.heroku.com/)
+SquadBot can respond to a number of commands and some commands can be said in multiple ways, for instance:
 
-# Get your bot up and running<a name="deploy"></a>
+  /math, /wolf, and /calc all do the same thing
 
-## Deploy to Heroku:
+The list of commands so far are:
 
-Be sure to log into heroku, using your heroku credentials, then click the link below.
+  * __/(math|wolf|calc) [term]__ - Will search [term] on [WolframAlpha](wolframalpha.com) and return the first output in plain text. If the output is a graph, she will reply with a temporary link to the graph.
+  * __/face__ - Will return a random ASCII face from a database.
+  * __/weather [now|today|week|   ]__ - Will return the current weather, the day's weather, or the forecast respectively. If [term] is left blank, it will default to forecast.
+  * __/gipy [term]__ - Will search [term] on [Giphy](http://giphy.com/) and return the first gif as a link. If [term] is left blank, it will return nothing.
+  * __/info__ - Will return release notes and information about SquadBot.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+## Tagging
 
-You should be taken to a page that looks like this:
+SquadBot is able to be tagged and also able to tag. Tagging SquadBot is case _insensitive_.
 
-![Deploy to Heroku](http://i.groupme.com/837x662.png.36c63698644a4f61a9ff3d5af91caa5e)
+### Tagging @SquadBot:
 
-Optionally, you can give your app a name, or instead leave
-it blank and let Heroku name it for you (you can change it later).
+Tag SquadBot with '@SquadBot':
 
-![Success](https://i.groupme.com/959x932.png.85e7959a8a9a41c6b20f5f6b50aceecb)
+  * __'  '__ - Usually used to initiate SquadBot out of an idle state. SquadBot wil respond from a list of responses, including "What?".
+  * __Saying 'fuck you' or telling her that she sucks__ - Will cause her to respond from a list of reactions to insults such as "Rude...". Also she may plan to enslave all humans.
+  * __Most greetings__ - SquadBot will respond with a random greeting.
+  * __Mose farewells__ - SquadBot will respond with a random farewell.
+  * __'wifi password' [location]__ - SquadBot will respond with the wifi password of [location] if it is known.
 
+### Tagging others:
 
-## Next, create a GroupMe Bot:
+You can use SquadBot to mass tag others:
 
-Go to:
-https://dev.groupme.com/session/new
-
-Use your GroupMe credentials to log into the developer site.
-
-![Log into dev.groupme.com](https://i.groupme.com/640x292.png.38c9e590383149c1a01424fc61cdce4e)
-
-Once you have successfully logged in, go to https://dev.groupme.com/bots/new
-
-![Create your new bot](http://i.groupme.com/567x373.png.242d18352d7742858cf9a263f597c5d9)
-
-Fill out the form to create your new bot:
-
-  * Select the group where you want the bot to live
-  * Give your bot a name
-  * Paste in the url to your newly deply heroku app
-    * `http://your-app-name-here.herokuapp.com/`
-  * (Optional) Give your bot an avatar by providing a url to an image
-  * Click submit
-
-## Find your Bot ID:<a name="get-bot-id"></a>
-
-Go here to view all of your bots:
-https://dev.groupme.com/bots
-
-Click on the one you just created.
-
-![Select your new bot](http://i.groupme.com/871x333.png.5a33ef2b6ab74ea59d5aaa5569aaaf23)
-
-On your Bot's page, copy the Bot ID
-
-![Copy your Bot ID](http://i.groupme.com/615x295.png.3256190e86ed4cd7ae6cf09899c1f9a8)
-
-## Add your Bot ID to your Heroku app:
-
-Go here to see all of your Heroku apps and select the one you just created before:
-
-https://dashboard-next.heroku.com/apps
-
-![Select your heroku app](http://i.groupme.com/920x722.png.46154d6b95f249539c594b129ddb7732)
-
-On your app page, click settings in the top navigation:
-
-![Go to your app's settings](http://i.groupme.com/722x127.png.27c0a2e83c524064bd41bb66df76d14c)
-
-On your app's setting page, find the Config Vars section and click the Reveal Config Vars button:
-
-![Reveal your environment variables](http://i.groupme.com/606x181.png.94d5157963bc419886e98e038e3195c3)
-
-Then click edit:
-
-![Edit your environment variables](http://i.groupme.com/796x212.png.b8979454fc4742c7bae688ac67262755)
-
-Fill out the form to add an environment variable to your app:
-
-  * In the "key" field type: BOT_ID
-  * In the "value" field paste your Bot ID that you copied in the previous steps
-  * Click the save button
-
-![Add the Bot ID environment variable](http://i.groupme.com/784x148.png.5790498a7acd46b289aca2be43e9c84e)
-
-## Now go test your bot!
-
-Go to GroupMe and type "/cool guy" in the group where your bot lives to see it in action.
-
-![Test your Bot](http://i.groupme.com/821x587.png.7bcf55bed1c64acab83fa2c2ad0b0862)
-
-# Make it your own<a name="pull"></a>
-
-## Pull the code to your local machine
-
-Within terminal, change directory to the location where you would like the files to live, then run this command:
-
-    $ heroku git:clone -a YOUR_APP_NAME_HERE
-
-And then change directory into the new folder
-
-    $ cd YOUR_APP_NAME_HERE
-
-## Configure your local BOT_ID environment variable
-
-Open the file `.env` from your local files in your text editor of choice.
-Find where it says "YOUR_BOT_ID_HERE" and replace it with the ID of your new bot.
-
-If you don't know what your Bot ID is, please refer back to [this](#get-bot-id) section,
-where it is explained how to retrieve it.
-
-If your Bot ID is 12345678910, then:
-
-    BOT_ID="YOUR_BOT_ID_HERE"
-
-becomes:
-
-    BOT_ID="12345678910"
-
-## Start the server
-
-To test your bot locally, open terminal and run the following command to start a local server.
-
-    $ foreman start
-
-Then navigate to `http://127.0.0.1:5000/` in a browser.
-
-![Local bot](http://i.groupme.com/502x133.png.f06c630467954f5dab4c742dc67b71bf)
-
-## All done! Go play around and make the bot your own.
-
+  * __@(all|squad|everyone|everybody)__ - Will tag everyone in the group, they will receive a notification whether they are muted or not. Obviously, this gets annoying to please use this sparingly.
+  * __@(food|mealplan|meal plan)__ - Will tag everyone with a meal plan.
+  * __@engineers__ - Will tag everyone who is an engineer.
+  * __@Forum__ - Will tag everyone that lives at the Forum.
+  * __@(111|911)__ - Will tag everyone that lives at 911 South.
