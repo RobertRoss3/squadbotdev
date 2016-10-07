@@ -380,10 +380,13 @@ function respond() {
     this.res.end();
   } if((request.sender_type != "bot") && request.text && botRegex_thanks.test(request.text)) {
     this.res.writeHead(200);
-    response = ["You're welcome! 😊", "Don't mention it!",
-                "No problem.", "Any time."];
-    randomNumber = Math.floor(Math.random()*response.length);
-    postMessage(response[randomNumber]);
+    randomNumber2 = randomNumber = Math.floor(Math.random()*10);
+    if (randomNumber2 == 5) {
+      response = ["You're welcome! 😊", "Don't mention it!",
+                  "No problem.", "Any time."];
+      randomNumber = Math.floor(Math.random()*response.length);
+      postMessage(response[randomNumber]);
+    }
     this.res.end();
   }
   if (request.text && request.sender_id == '18252184') {
@@ -414,6 +417,11 @@ function respond() {
       // postMessage(Greetings[randomNumber][0],'tag', Greetings[randomNumber][1]);
       postMessage(Greetings[randomNumber]);
       this.res.end();
+    } else if (botRegex_thanks.test(request.text)) {
+      response = ["You're welcome! 😊", "Don't mention it!",
+                  "No problem.", "Any time.","np","yw"];
+      randomNumber = Math.floor(Math.random()*response.length);
+      postMessage(response[randomNumber]);
     } else if (botRegex_bye.test(request.text)) {
       response = ["Okay, bye!", "Laters.", "See ya!",
                   "In a while, crocodile.", "Good riddance.",
