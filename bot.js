@@ -21,7 +21,9 @@ var bingKey = process.env.BING_KEY;
 var cleverUser = process.env.CLEVER_USER;
 var cleverKey = process.env.CLEVER_KEY;
     cleverBot = new cleverbot(cleverUser,cleverKey);
-    session = 'Squadbot1';
+    randomNumber = randomNumber = Math.floor(Math.random()*999);
+    session = 'Squadbot1'+randomNumber;
+    console.log("INITIATING CLEVERBOT SESSION: " + session)
     cleverBot.setNick(session);
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
@@ -32,7 +34,7 @@ var mathKey = process.env.MATH_KEY;
 pg.defaults.ssl = true;
 pg.connect(process.env.DATABASE_URL, function(err, client) {
   if (err) throw err;
-  console.log('Connected to postgres! Getting schemas...');
+  // console.log('Connected to postgres! Getting schemas...');
 
   client
     .query('SELECT table_schema,table_name FROM information_schema.tables;')
@@ -55,9 +57,7 @@ var forecast = new Forecast({
 
 API.Groups.show(accessToken, groupID, function(err,ret) {
   if (!err) {
-    console.log("GOT GROUP MEMBERS!");
     members = ret.members;
-    console.log("NUMBER OF MEMBERS: " + members.length);
   } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
 });
 
@@ -108,16 +108,16 @@ function respond() {
       //   ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[[11,(userName.length+1)],[userIDNum]]]
       // ];
 
-  if ((request.text == "@Squadbot")||(request.text == "@squadbot")||(request.text == "@SquadBot")) {
-    response = ["What?","What is it?",
-                "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
-    randomNumber = Math.floor(Math.random()*response.length);
-    postMessage(response[randomNumber]);
-  }
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
       postMessage("- Jamal Rogers");
+    }
+    if (botRegex_bot.test(request.text)) {
+      response = ["What?","What is it?", "?",
+                  "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
+      randomNumber = Math.floor(Math.random()*response.length);
+      postMessage(response[randomNumber]);
     }
     this.res.end();
   }
@@ -389,7 +389,7 @@ function respond() {
   if (request.text && request.sender_id == '18252184') {
     this.res.writeHead(200);
     console.log("PULLING TRIGGER...");
-    randomNumber = Math.floor(Math.random()*15);
+    randomNumber = Math.floor(Math.random()*10);
     if (randomNumber == 5) {
       console.log("BANG!");
       postMessage("wow son");
@@ -447,10 +447,11 @@ function respond() {
       this.res.end();
     } else {
       this.res.writeHead(200);
-      cleverQuestion = request.text.substring(9);
+      cleverQuestion = request.text;
+      cleverQuestion = cleverQuestion.replace(/@squadbot/i,'');
       if (cleverQuestion) {
+        console.log("SENDING \"" + cleverQuestion + "\" TO CLEVERBOT");
         cleverBot.ask(cleverQuestion, function (err, response) {
-          console.log("CLEVERBOT RESPONSE: " + response); // Will likely be: "Living in a lonely world"
           if (response == "Error, the reference \"\" does not exist") {
             postMessage("I have nothing to say to that...");
           } else {
