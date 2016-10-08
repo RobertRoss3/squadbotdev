@@ -356,15 +356,13 @@ function respond() {
         postMessage("Weather this week is " + weather.daily.summary);
       }
     });
-    }
-    if (request.text == "/info") {
+    } if (request.text == "/info") {
       this.res.writeHead(200);
       postMessage(botInfo);
       this.res.end();
-    }
-    else {
+    } else {
       this.res.writeHead(200);
-      postMessage("That isn't a valid command...");
+      // postMessage("That isn't a valid command...");
     }
     this.res.end();
   }
