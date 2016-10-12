@@ -157,7 +157,8 @@ function respond() {
       usersNicknames = usersNicknames.filter(function(n){ return n != undefined });
       usersLoci = usersLoci.filter(function(n){ return n != undefined });
       usersID = usersID.filter(function(n){ return n != undefined });
-      if (request.attachments.user_ids.indexOf('18922923') > -1){
+      misfire = /\b(Squad (mother|father|ginger))\b/i;
+      if (misfire.test(request.text)){
         //temp fix for tagging names with "squad" in it
       } else {
         postMessage(response,'tag',[usersLoci,usersID]);
