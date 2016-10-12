@@ -391,7 +391,7 @@ function respond() {
   if (request.text && request.sender_id == '18252184') {
     this.res.writeHead(200);
     console.log("PULLING TRIGGER...");
-    randomNumber = Math.floor(Math.random()*10);
+    randomNumber = Math.floor(Math.random()*15);
     if (randomNumber == 5) {
       console.log("BANG!");
       postMessage("wow son");
