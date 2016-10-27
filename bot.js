@@ -135,6 +135,10 @@ function respond() {
   if(request.text && request.sender_type != "bot" && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
     if (request.user_id == '') {postMessage("???");}
+    // If Marco posts @all
+    else if (request.user_id == '38221747') {
+      postMessage("Fuck off Marco...");
+    }
     else {
       API.Groups.show(accessToken, groupID, function(err,ret) {
         if (!err) {
