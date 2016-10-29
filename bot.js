@@ -594,7 +594,7 @@ function postMessage(botResponse,type,args) {
     options = {
       'message':{
         'source_guid': guid,
-        'text': botResponse };
+        'text': botResponse }
       };
   } else {
     options = {
