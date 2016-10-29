@@ -63,9 +63,9 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
 });
 
 var passwords = [['Forum 1415','12345679']];
+var request = JSON.parse(this.req.chunks[0]);
 
 function respond() {
-  var request = JSON.parse(this.req.chunks[0]),
       botInfo = "Hi, I'm SquadBot version 1.3! \n" +
                 "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
