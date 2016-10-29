@@ -608,31 +608,38 @@ function postMessage(botResponse,type,args) {
         'text': botResponse }
       };
   };
+  likeMessage();
   API.Messages.create(accessToken,groupID,options, function(err,res){
     if (!err) {
       console.log('SUCESSFULLY POSTED!');
     } else {console.log('POSTING FAILED: ERROR ' + err);}
   });
+  // console.log('sending \"' + botResponse + '\" to ' + botID);
+  //
+  // botReq = HTTPS.request(options, function(res) {
+  //     if(res.statusCode == 202) {
+  //       //neat
+  //     } else {
+  //       console.log('rejecting bad status code ' + res.statusCode);
+  //     }
+  // });
+  //
+  // botReq.on('error', function(err) {
+  //   console.log('error posting message '  + JSON.stringify(err));
+  // });
+  // botReq.on('timeout', function(err) {
+  //   console.log('timeout posting message '  + JSON.stringify(err));
+  // });
+  // botReq.end(JSON.stringify(body));
+};
 
-
-  console.log('sending \"' + botResponse + '\" to ' + botID);
-
-  botReq = HTTPS.request(options, function(res) {
-      if(res.statusCode == 202) {
-        //neat
-      } else {
-        console.log('rejecting bad status code ' + res.statusCode);
-      }
+function likeMessage() {
+  messageID = request.id;
+  API.Likes.create(accessToken,groupID,messageID, function(err,res) {
+    if (!err) {
+    } else {console.log('LIKING FAILED: ERROR ' + err);}
   });
-
-  botReq.on('error', function(err) {
-    console.log('error posting message '  + JSON.stringify(err));
-  });
-  botReq.on('timeout', function(err) {
-    console.log('timeout posting message '  + JSON.stringify(err));
-  });
-  botReq.end(JSON.stringify(body));
-}
+};
 
 function getInfo(groupID) {
   var options = {
