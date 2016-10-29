@@ -122,7 +122,7 @@ function respond() {
     }
     this.res.end();
   }
-  if(request.text && request.sender_type != "bot" && botRegex_wtf.test(request.text)) {
+  if(request.text && request.sender_type != "bot" && request.user_id != '43525551' && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
     postMessage("I know, right!?");
     this.res.end();
@@ -133,7 +133,7 @@ function respond() {
     postMessage(cool());
     this.res.end();
   }
-  if(request.text && request.sender_type != "bot" && botRegex_all.test(request.text)) {
+  if(request.text && request.user_id != '43525551' && request.sender_type != "bot" && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
     if (request.user_id == '') {postMessage("???");}
     // If Marco posts @all
@@ -173,7 +173,7 @@ function respond() {
 
     }
   }
-  if (request.text && request.sender_type != "bot" && tagRegex_mealplan.test(request.text)) {
+  if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_mealplan.test(request.text)) {
     this.res.writeHead(200);
     mealPlan = ['24488525','18341900','29824624','18252184', '30151684','28758543','41361709','24474608','18922923'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
@@ -203,7 +203,7 @@ function respond() {
     console.log(usersNicknames);
     console.log(usersID);
   }
-  if (request.text && request.sender_type != "bot" && tagRegex_engineers.test(request.text)) {
+  if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_engineers.test(request.text)) {
     this.res.writeHead(200);
     Engineers = ['30824774','29824624','12558120','28758543','29879154','29823868'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
@@ -233,7 +233,7 @@ function respond() {
     console.log(usersNicknames);
     console.log(usersID);
   }
-  if (request.text && request.sender_type != "bot" && tagRegex_forum.test(request.text)) {
+  if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_forum.test(request.text)) {
     this.res.writeHead(200);
     Forum = ['18341900','29824624','18252184','30151684','28758543','29879154','41361709','38221747'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
@@ -263,7 +263,7 @@ function respond() {
     console.log(usersNicknames);
     console.log(usersID);
   }
-  if (request.text && request.sender_type != "bot" && tagRegex_oneeleven.test(request.text)) {
+  if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_oneeleven.test(request.text)) {
     this.res.writeHead(200);
     OneEleven = ['30824774','24488525','31575032','12558120'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
@@ -373,7 +373,7 @@ function respond() {
     this.res.end();
   }
 
-  if((request.sender_type != "bot") && request.text && botRegex_ass.test(request.text)) {
+  if((request.sender_type != "bot" && request.user_id != '43525551' ) && request.text && botRegex_ass.test(request.text)) {
     this.res.writeHead(200);
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?",
@@ -382,7 +382,7 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
-  } if((request.sender_type != "bot") && request.text && botRegex_thanks.test(request.text)) {
+  } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_thanks.test(request.text)) {
     this.res.writeHead(200);
     randomNumber2 = randomNumber = Math.floor(Math.random()*10);
     if (randomNumber2 == 5) {
@@ -405,7 +405,7 @@ function respond() {
     }
     this.res.end();
   }
-  if((request.sender_type != "bot") && request.text && botRegex_kick.test(request.text)) {
+  if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_kick.test(request.text)) {
     this.res.writeHead(200);
     response = ["#kickyourself", "Whatever. I'm here forever...",
                 "I'd like to see you try.", "Initiating KILLALLHUMANS.exe...",
@@ -413,7 +413,7 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
-  } if((request.sender_type != "bot") && request.text && botRegex_bot.test(request.text)) {
+  } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_bot.test(request.text)) {
       if(botRegex_hi.test(request.text) || botRegex_morning.test(request.text)) {
       this.res.writeHead(200);
       Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine " + sayDay + "?"];
