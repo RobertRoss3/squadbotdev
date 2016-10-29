@@ -63,7 +63,7 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
 });
 
 var passwords = [['Forum 1415','12345679']];
-var refresh = (new Date().getTime() / 1000) - 60000;
+var refresh = (new Date().getTime() / 1000) - 120;
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botInfo = "Hi, I'm SquadBot version 1.4! \n" +
@@ -204,7 +204,7 @@ function respond() {
         //temp fix for tagging names with "squad" in it
       } else {
         var newtime = new Date().getTime() / 1000;
-        if (newtime < refresh + 60000) {
+        if (newtime < refresh + 120) {
           postMessage('You\'re doing that too much...');
         } else {
           postMessage(response,'tag',[usersLoci,usersID]);
