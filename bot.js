@@ -111,9 +111,11 @@ function respond() {
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
+      likeMessage(request.id);
       postMessage("- Jamal Rogers");
     }
     if (botRegex_bot.test(request.text)) {
+      likeMessage(request.id);
       response = ["What?","What is it?", "?",
                   "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?"];
       randomNumber = Math.floor(Math.random()*response.length);
@@ -129,11 +131,13 @@ function respond() {
   }
   if(request.text && botRegex_face.test(request.text)) {
     this.res.writeHead(200);
+    likeMessage(request.id);
     postMessage(cool());
     this.res.end();
   }
   if(request.text && request.user_id != '43525551' && request.sender_type != "bot" && botRegex_all.test(request.text)) {
     this.res.writeHead(200);
+    likeMessage(request.id);
     if (request.user_id == '') {postMessage("???");}
     // If Marco posts @all
     else if (request.user_id == '38221747') {
@@ -174,6 +178,7 @@ function respond() {
   }
   if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_mealplan.test(request.text)) {
     this.res.writeHead(200);
+    likeMessage(request.id);
     mealPlan = ['24488525','18341900','29824624','18252184', '30151684','28758543','41361709','24474608','18922923'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
       if (!err) {
@@ -204,6 +209,7 @@ function respond() {
   }
   if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_engineers.test(request.text)) {
     this.res.writeHead(200);
+    likeMessage(request.id);
     Engineers = ['30824774','29824624','12558120','28758543','29879154','29823868'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
       if (!err) {
@@ -234,6 +240,7 @@ function respond() {
   }
   if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_forum.test(request.text)) {
     this.res.writeHead(200);
+    likeMessage(request.id);
     Forum = ['18341900','29824624','18252184','30151684','28758543','29879154','41361709','38221747'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
       if (!err) {
@@ -264,6 +271,7 @@ function respond() {
   }
   if (request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagRegex_oneeleven.test(request.text)) {
     this.res.writeHead(200);
+    likeMessage(request.id);
     OneEleven = ['30824774','24488525','31575032','12558120'];
     API.Groups.show(accessToken, groupID, function(err,ret) {
       if (!err) {
@@ -297,10 +305,12 @@ function respond() {
   if(request.text.charAt(0) == '/') {
     if(request.text && botRegex_giphy.test(request.text)) {
       this.res.writeHead(200);
+      likeMessage(request.id);
       searchGiphy(request.text.substring(7));
     }
     if (mathRegex.test(request.text)) {
       // getMath(request.text.substring(5));
+      likeMessage(request.id);
       Wolfram.query(request.text.substring(6), function(err, result) {
         if(err)
             console.log(err);
@@ -360,9 +370,11 @@ function respond() {
         // console.log(weather.daily);
         postMessage("Weather this week is " + weather.daily.summary);
       }
+      likeMessage(request.id);
     });
     } if (request.text == "/info") {
       this.res.writeHead(200);
+      likeMessage(request.id);
       postMessage(botInfo);
       this.res.end();
     } else {
@@ -388,6 +400,7 @@ function respond() {
       response = ["You're welcome! 😊", "Don't mention it!",
                   "No problem.", "Any time."];
       randomNumber = Math.floor(Math.random()*response.length);
+      likeMessage(request.id);
       postMessage(response[randomNumber]);
     }
     this.res.end();
@@ -398,6 +411,7 @@ function respond() {
     randomNumber = Math.floor(Math.random()*15);
     if (randomNumber == 5) {
       console.log("BANG!");
+      likeMessage(request.id);
       postMessage("wow son");
     } else {
       console.log("*CHINK*...\'" + randomNumber + "\'");
@@ -418,18 +432,21 @@ function respond() {
       Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine " + sayDay + "?"];
       randomNumber = Math.floor(Math.random()*Greetings.length);
       // postMessage(Greetings[randomNumber][0],'tag', Greetings[randomNumber][1]);
+      likeMessage(request.id);
       postMessage(Greetings[randomNumber]);
       this.res.end();
     } else if (botRegex_thanks.test(request.text)) {
       response = ["You're welcome! 😊", "Don't mention it!",
                   "No problem.", "Any time.","np","yw"];
       randomNumber = Math.floor(Math.random()*response.length);
+      likeMessage(request.id);
       postMessage(response[randomNumber]);
     } else if (botRegex_bye.test(request.text)) {
       response = ["Okay, bye!", "Laters.", "See ya!",
                   "In a while, crocodile.", "Good riddance.",
                   "Didn\'t wanna talk anyway...", "Peace.", "Peace out."];
       randomNumber = Math.floor(Math.random()*response.length);
+      likeMessage(request.id);
       postMessage(response[randomNumber]);
     } else if(botRegex_insult.test(request.text)) {
       this.res.writeHead(200);
@@ -455,6 +472,7 @@ function respond() {
       } else {
         postMessage("I don't know the wifi to that place...");
       }
+      likeMessage(request.id);
       this.res.end();
     } else {
       this.res.writeHead(200);
@@ -466,6 +484,7 @@ function respond() {
           if (response == "Error, the reference \"\" does not exist") {
             postMessage("I have nothing to say to that...");
           } else {
+            likeMessage(request.id);
             postMessage(response);
           }
         });
@@ -607,7 +626,6 @@ function postMessage(botResponse,type,args) {
         'text': botResponse }
       };
   };
-  likeMessage(request.id);
   API.Messages.create(accessToken,groupID,options, function(err,res){
     if (!err) {
       console.log('SUCESSFULLY POSTED!');
