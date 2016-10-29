@@ -63,11 +63,9 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
 });
 
 var passwords = [['Forum 1415','12345679']];
-var messageID = '0';
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      messageID = request.id;
       botInfo = "Hi, I'm SquadBot version 1.3! \n" +
                 "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
@@ -110,7 +108,6 @@ function respond() {
       //   ["Hi there, @" + userName + ".",[[10,(1+userName.length)],[userIDNum]]],
       //   ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[[11,(userName.length+1)],[userIDNum]]]
       // ];
-
   if(request.text && botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
@@ -610,7 +607,7 @@ function postMessage(botResponse,type,args) {
         'text': botResponse }
       };
   };
-  likeMessage();
+  likeMessage(request.id);
   API.Messages.create(accessToken,groupID,options, function(err,res){
     if (!err) {
       console.log('SUCESSFULLY POSTED!');
@@ -635,10 +632,10 @@ function postMessage(botResponse,type,args) {
   // botReq.end(JSON.stringify(body));
 };
 
-function likeMessage() {
+function likeMessage(messageID) {
   API.Likes.create(accessToken,groupID,messageID, function(err,res) {
     if (!err) {
-    } else {console.log('LIKING FAILED: ERROR ' + err);}
+    } else {console.log('LIKING FAILED: ERROR ' + JSON.stringify(err));}
   });
 };
 
