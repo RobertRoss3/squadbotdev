@@ -167,8 +167,6 @@ function respond() {
         //temp fix for tagging names with "squad" in it
       } else {
         postMessage(response,'tag',[usersLoci,usersID]);
-        console.log(usersNicknames);
-        console.log(usersID);
       }
 
     }
