@@ -151,18 +151,15 @@ function respond() {
           console.log("NUMBER OF MEMBERS: " + members.length);
         } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
       });
-      response = '';
+      response = 'Everyone, ' + request.name + ' says: ' + request.text;
       usersID = [];
       usersLoci = [];
-      usersNicknames = [];
       for (i=0; i < members.length; i++){
-        response += '@' + members[i].nickname + ' ';
-        usersNicknames[i] = members[i].nickname;
-        usersID[i] = members[i].user_id;
-        start = (response.length - (members[i].nickname.length + 2));
-        usersLoci[i] = [start,(start + members[i].nickname.length + 1)];
+        if(request.user_id != '43525551') {
+          usersID[i] = members[i].user_id;
+          usersLoci[i] = [0,7];
+        }
       }
-      usersNicknames = usersNicknames.filter(function(n){ return n != undefined });
       usersLoci = usersLoci.filter(function(n){ return n != undefined });
       usersID = usersID.filter(function(n){ return n != undefined });
       misfire = /\b(Squad (mother|father|ginger))\b/i;
