@@ -205,8 +205,7 @@ function respond() {
       } else {
         var newtime = new Date().getTime() / 1000;
         if (newtime < refresh + 120000) {
-          postMessage('You\'re doing that too much... \n' +
-                      'Try again in ' + (refresh + 120000)-newtime + ' seconds.');
+          postMessage('You\'re doing that too much...');
         } else {
           postMessage(response,'tag',[usersLoci,usersID]);
           refresh = newtime;
