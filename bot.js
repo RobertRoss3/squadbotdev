@@ -176,7 +176,7 @@ function respond() {
       }
       reslength = response.length;
       response += request.name;
-      if (request.text != '') {
+      if (!(botRegex_oneword.test(request.text))) {
         response += ' says: ' + request.text;
       } else {
         response += ' wants your attention.';
@@ -192,7 +192,7 @@ function respond() {
             || botRegex_all.test(request.text))
             {
             usersID[i] = members[i].user_id;
-            usersLoci[i] = [0,reslength-3];
+            usersLoci[i] = [0,reslength-2];
           }
         }
       }
