@@ -592,20 +592,20 @@ function postMessage(botResponse,type,args) {
   guid = Guid.create();
   if(type=='tag'){
     options = {
-      'message':{
-        'source_guid': guid,
-        'text': botResponse }
-      };
+    'message':{
+      'source_guid': guid,
+      'text': botResponse,
+      'attachments' : [{
+        'loci' : args[0],
+        'type' : 'mentions',
+        'user_ids' : args[1]
+      }]}
+    };
   } else {
     options = {
       'message':{
         'source_guid': guid,
-        'text': botResponse,
-        'attachments' : [{
-          'loci' : args[0],
-          'type' : 'mentions',
-          'user_ids' : args[1]
-        }]}
+        'text': botResponse }
       };
   };
   API.Messages.create(accessToken,groupID,options, function(err,res){
