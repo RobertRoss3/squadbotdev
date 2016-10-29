@@ -12,6 +12,8 @@ var Client = require('node-wolfram');
 var ImageService = require('groupme').ImageService;
 var Guid = require('guid');
 
+console.log("INITIATING APPLICATION...");
+
 
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
