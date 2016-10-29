@@ -62,11 +62,12 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
   } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
 });
 
+var refresh = new Date().getTime() / 1000;
 var passwords = [['Forum 1415','12345679']];
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
-      botInfo = "Hi, I'm SquadBot version 1.3! \n" +
+      botInfo = "Hi, I'm SquadBot version 1.4! \n" +
                 "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
                 "Use /math [problem] to solve math problems with WolframAlpha. \n" +
@@ -202,7 +203,14 @@ function respond() {
       if (misfire.test(request.text)){
         //temp fix for tagging names with "squad" in it
       } else {
-        postMessage(response,'tag',[usersLoci,usersID]);
+        var newtime = new Date().getTime() / 1000;
+        if (newtime < refresh + 120000) {
+          postMessage('You\'re doing that too much...');
+        } else {
+          postMessage(response,'tag',[usersLoci,usersID]);
+          refresh = newtime;
+        }
+
       }
 
     }
