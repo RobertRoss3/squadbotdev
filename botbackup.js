@@ -10,13 +10,12 @@ var Forecast = require('forecast');
 var DOMParser = require('xmldom').DOMParser;
 var Client = require('node-wolfram');
 var ImageService = require('groupme').ImageService;
-var Guid = require('guid');
 
 
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
 var groupID = process.env.GROUP_ID;
-var GiphyapiKey = process.env.GIPHY_API_KEY;
+var apiKey = process.env.API_KEY;
 var accessToken = process.env.ACCESS_TOKEN;
 var bingKey = process.env.BING_KEY;
 var cleverUser = process.env.CLEVER_USER;
@@ -513,7 +512,7 @@ function getMath(equation) {
 function searchGiphy(giphyToSearch) {
   var options = {
     host: 'api.giphy.com',
-    path: '/v1/gifs/search?q=' + encodeQuery(giphyToSearch) + '&api_key=' + GiphyapiKey
+    path: '/v1/gifs/search?q=' + encodeQuery(giphyToSearch) + '&api_key=' + apiKey
   };
 
   var callback = function(response) {
@@ -588,31 +587,33 @@ function xmlToJson(xml) {
 };
 
 function postMessage(botResponse,type,args) {
-  var botResponse, type, args, options, body, botReq, guid;
-  guid = Guid.create();
-  if(type=='tag'){
-    options = {
-      'message':{
-        'source_guid': guid,
-        'text': botResponse };
-      };
-  } else {
-    options = {
-      'message':{
-        'source_guid': guid,
-        'text': botResponse,
-        'attachments' : [{
-          'loci' : args[0],
-          'type' : 'mentions',
-          'user_ids' : args[1]
-        }]}
-      };
+  var botResponse, type, args, options, body, botReq;
+  console.log("Type is of: " + type);
+  options = {
+    hostname: 'api.groupme.com',
+    path: '/v3/bots/post',
+    method: 'POST'
   };
-  API.Messages.create(accessToken,groupID,options, function(err,res){
-    if (!err) {
-      console.log('SUCESSFULLY POSTED!');
-    } else {console.log('POSTING FAILED: ERROR ' + err);}
-  });
+
+  if(type == 'tag') {
+    //[response,'tag',[[loci],[userIDs]]]
+    body = {
+      "bot_id" : botID,
+      "text" : botResponse,
+      "attachments" : [
+        {
+          "loci" : args[0],
+          "type" : "mentions",
+          "user_ids" : args[1]
+        }
+      ]
+    };
+  } else {
+    body = {
+      "bot_id" : botID,
+      "text" : botResponse
+    };
+  }
 
 
   console.log('sending \"' + botResponse + '\" to ' + botID);
