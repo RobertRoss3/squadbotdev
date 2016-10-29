@@ -62,9 +62,8 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
   } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
 });
 
-var refresh = new Date().getTime() / 1000;
 var passwords = [['Forum 1415','12345679']];
-
+var refresh = (new Date().getTime() / 1000) - 120000;
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       botInfo = "Hi, I'm SquadBot version 1.4! \n" +
@@ -147,6 +146,7 @@ function respond() {
   ) {
     this.res.writeHead(200);
     likeMessage(request.id);
+
     mealPlan = ['24488525','18341900','29824624','18252184', '30151684','28758543','41361709','24474608','18922923'];
     Engineers = ['30824774','29824624','12558120','28758543','29879154','29823868'];
     Forum = ['18341900','29824624','18252184','30151684','28758543','29879154','41361709','38221747'];
