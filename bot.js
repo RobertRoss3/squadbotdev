@@ -411,7 +411,7 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
-  console.log(userName + " POSTED: " + this.req.chunks[0]);
+  console.log(userName + "(" + request.user_id + ") POSTED: " + this.req.chunks[0]);
 }
 
 function getMath(equation) {
@@ -458,7 +458,7 @@ function searchGiphy(giphyToSearch) {
     });
 
     response.on('end', function() {
-      if (!(str && JSON.parse(str).data[0])) {
+      if (!(str && JSON.parse(str))) {
         postMessage('Couldn\'t find a gif...');
       } else {
         var id = JSON.parse(str).data[0].id;
