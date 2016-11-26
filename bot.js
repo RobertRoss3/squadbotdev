@@ -327,8 +327,6 @@ function respond() {
     randomNumber = Math.floor(Math.random()*15);
     if (randomNumber == 5) {
       console.log("BANG!");
-      likeMessage(request.id);
-      postMessage("wow son");
     } else {
       console.log("*CHINK*...\'" + randomNumber + "\'");
     }
