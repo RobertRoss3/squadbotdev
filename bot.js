@@ -167,15 +167,30 @@ function respond() {
         } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
       });
       if(tagRegex_forum.test(request.text)){
-        response = 'Forum boys, ';
+        response = ["Forum boys, ",
+                    "Peeps who live at the Forum, ",
+                    "Forum residents, ",
+                    "Hey Forum, "];
+        randomNumber = Math.floor(Math.random()*response.length);
+        response = response[randomNumber]
       } else if (tagRegex_oneeleven.test(request.text)) {
         response = '111 crew, ';
       } else if (tagRegex_mealplan.test(request.text)) {
-        response = 'Food people, ';
+        response = ["Food people, ",
+                    "Anyone with a meal plan, ",
+                    "Landy squad, ", "Lakeside crew, ",
+                    "Those who would like to eat, "];
+        randomNumber = Math.floor(Math.random()*response.length);
+        response = response[randomNumber];
       } else if (tagRegex_engineers.test(request.text)) {
         response = 'All engineers, ';
       } else {
-        response = 'Everyone, ';
+        response = ["Everyone, ",
+                    "Hey everybody, ",
+                    "LISTEN UP, ",
+                    "Calling all humans, "];
+        randomNumber = Math.floor(Math.random()*response.length);
+        response = response[randomNumber];
       }
       reslength = response.length;
       response += request.name;
@@ -375,14 +390,11 @@ function respond() {
       forum1831Regex = /^(?=.*\bForum\b)(?=.*\b1831\b).*$/im;
       rm111roomRegex = /^(?=.*\b(111|911)\b)(?=.*\bSouth\b).*$/;
       if (forum1831Regex.test(request.text)) {
-        postMessage("The code for The Forum 1831 is:");
-        postMessage("Unknown. You'll have to be there.")
+        postMessage("The code for The Forum 1831 is: \n Unknown. You'll have to be there.")
       } else if (forum1415Regex.test(request.text)) {
-        postMessage("The code for the Forum 1415 is:");
-        postMessage("E483996D5FEA")
+        postMessage("The code for the Forum 1415 is: \n E483996D5FEA")
       } else if (rm111roomRegex.test(request.text)) {
-        postMessage("The code for 911 South is: ");
-        postMessage("Unknown. You'll have to be there.");
+        postMessage("The code for 911 South is: \n Unknown. You'll have to be there.");
       } else {
         postMessage("I don't know the wifi to that place...");
       }
