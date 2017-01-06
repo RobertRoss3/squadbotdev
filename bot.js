@@ -87,6 +87,7 @@ function respond() {
       mathRegex = /^\/\b(math|calc|wolf)\b/i; botRegex_morning = /\b(good morning)\b/i;
       tagRegex_mealplan = /@(food|meal plan|mealplan)/i; tagRegex_engineers = /@engineers/i;
       tagRegex_forum = /@forum/i; tagRegex_oneeleven = /@(111|911)/i;
+      tagRegex_GSU = /@GSU/i;
       botRegex_kick = /#kicksquadbot/i;
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
@@ -144,7 +145,8 @@ function respond() {
       || tagRegex_forum.test(request.text)
       || tagRegex_oneeleven.test(request.text)
       || tagRegex_mealplan.test(request.text)
-      || tagRegex_engineers.test(request.text))
+      || tagRegex_engineers.test(request.text)
+      || tagRegex_GSU.test(request.text))
   ) {
     this.res.writeHead(200);
     likeMessage(request.id);
@@ -153,6 +155,8 @@ function respond() {
     Engineers = ['30824774','29824624','12558120','28758543','29823868'];
     Forum = ['18341900','29824624','18252184','30151684','28758543','29879154','38221747'];
     OneEleven = ['30824774','24488525','31575032','12558120'];
+    AtGSU = [];
+    ExcludeFromAll = ['29824624'];
     if (request.user_id == '') {postMessage("???");}
     // If Marco posts @all
     // else if (request.user_id == '38221747') {
@@ -207,7 +211,7 @@ function respond() {
             || (tagRegex_forum.test(request.text) && Forum.indexOf(members[i].user_id) > -1)
             || (tagRegex_mealplan.test(request.text) && mealPlan.indexOf(members[i].user_id) > -1)
             || (tagRegex_engineers.test(request.text) && Engineers.indexOf(members[i].user_id) > -1)
-            || botRegex_all.test(request.text))
+            || (botRegex_all.test(request.text) && ExcludeFromAll.indexOf(members[i].user_id) == -1))
             {
             usersID[i] = members[i].user_id;
             usersLoci[i] = [0,reslength-2];
@@ -308,6 +312,18 @@ function respond() {
       likeMessage(request.id);
       postMessage(botInfo);
       this.res.end();
+
+    } if (request.text == "/listmembers") {
+      this.res.writeHead(200);
+      likeMessage(request.id);
+      API.Groups.show(accessToken, groupID, function(err,ret) {
+        if (!err) {
+          console.log("GOT GROUP MEMBERS!");
+          members = ret.members;
+          console.log("MEMBERS: " + members);
+        } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+      });
+      this.res.end();
     } else {
       this.res.writeHead(200);
       // postMessage("That isn't a valid command...");
@@ -396,7 +412,7 @@ function respond() {
       } else if (rm111roomRegex.test(request.text)) {
         postMessage("The code for 911 South is: \n Unknown. You'll have to be there.");
       } else {
-        postMessage("I don't know the wifi to that place...");
+        postMessage("I don't know the wifsi to that place...");
       }
       likeMessage(request.id);
       this.res.end();
