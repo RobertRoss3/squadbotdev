@@ -320,7 +320,8 @@ function respond() {
         if (!err) {
           console.log("GOT GROUP MEMBERS!");
           members = ret.members;
-          console.log("MEMBERS: " + members);
+          console.log("MEMBERS: " + members.name);
+          console.log("IDS: " + members.id);
         } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
       });
       this.res.end();
