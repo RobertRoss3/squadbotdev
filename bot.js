@@ -427,7 +427,6 @@ function respond() {
       randomNumber = Math.floor(Math.random()*response.length);
       postMessage(response[randomNumber]);
       this.res.end();
-    } else if ()
     } else if (wifiRegex.test(request.text)) {
       this.res.writeHead(200);
       forum1415Regex = /^(?=.*\bForum\b)(?=.*\b1415\b).*$/im;
