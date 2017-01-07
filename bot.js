@@ -363,7 +363,7 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
-  } if (request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_joke.test(request.text)) {
+  } if ((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_joke.test(request.text)) {
     likeMessage(request.id);
     response = 'https://i.groupme.com/1215x2160.jpeg.95f793f6ae824fa782c88bd96dfd8b1b.large';
     postMessage(response);
