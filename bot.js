@@ -87,8 +87,16 @@ function respond() {
       mathRegex = /^\/\b(math|calc|wolf)\b/i; botRegex_morning = /\b(good morning)\b/i;
       tagRegex_mealplan = /@(food|meal plan|mealplan)/i; tagRegex_engineers = /@engineers/i;
       tagRegex_forum = /@forum/i; tagRegex_oneeleven = /@(111|911)/i;
-      tagRegex_GSU = /@GSU/i;
+      tagRegex_GSU = /@(GSU|southern)/i; botRegex_joke = /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i;
       botRegex_kick = /#kicksquadbot/i;
+      // ALL MEMBERS IN THE GROUP
+      Connor	=	'30824774'; Elias	= '24488525'; White_Matt	=	'18341900';
+      Caleb	=	  '31575032'; Dalvin	= '29824624'; David	= '18252184';
+      Kalan	=	  '30151684'; Nathan	= '12558120'; Robert	= '28758543';
+      Black_Matt	= '29879154'; Brittany	=	  '42281557'; Sara	= '29187291';
+      Nick	=	  '29823868'; Jay	=	  '41361709'; Marco	=	  '38221747';
+      Chad	= '24474608'; Tori	= '18922923'; Cayte	=	'43573131';
+
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       // GET CURRENT TIME
@@ -151,12 +159,12 @@ function respond() {
     this.res.writeHead(200);
     likeMessage(request.id);
 
-    mealPlan = ['24488525','18341900','29824624','18252184', '30151684','28758543','41361709','24474608'];
-    Engineers = ['30824774','29824624','12558120','28758543','29823868'];
-    Forum = ['18341900','29824624','18252184','30151684','28758543','29879154','38221747'];
-    OneEleven = ['30824774','24488525','31575032','12558120'];
-    AtGSU = [];
-    ExcludeFromAll = ['29824624'];
+    mealPlan = [David, Kalan, White_Matt, Elias, Chad];
+    Engineers = [Connor, Dalvin, Nathan, Robert, Nick];
+    Forum = [White_Matt, Dalvin, David, Kalan, Robert, Black_Matt, Marco];
+    OneEleven = [Connor, Elias, Nathan, Caleb];
+    AtGSU = [Connor, Elias, White_Matt, Caleb, Dalvin, David, Kalan, Nathan, Black_Matt, Sara, Nick, Marco, Chad, Cayte];
+    ExcludeFromAll = [];
     if (request.user_id == '') {postMessage("???");}
     // If Marco posts @all
     // else if (request.user_id == '38221747') {
@@ -188,6 +196,13 @@ function respond() {
         response = response[randomNumber];
       } else if (tagRegex_engineers.test(request.text)) {
         response = 'All engineers, ';
+      } else if (tagRegex_GSU.test(request.text)) {
+        response = ["Everyone in Statesboro, ",
+                    "Hey everybody at GSU, ",
+                    "LISTEN UP , ",
+                    "All humans in Statesboro, "];
+        randomNumber = Math.floor(Math.random()*response.length);
+        response = response[randomNumber];
       } else {
         response = ["Everyone, ",
                     "Hey everybody, ",
@@ -211,6 +226,7 @@ function respond() {
             || (tagRegex_forum.test(request.text) && Forum.indexOf(members[i].user_id) > -1)
             || (tagRegex_mealplan.test(request.text) && mealPlan.indexOf(members[i].user_id) > -1)
             || (tagRegex_engineers.test(request.text) && Engineers.indexOf(members[i].user_id) > -1)
+            || (tagRegex_GSU.test(request.text) && AtGSU.indexOf(members[i].user_id) > -1)
             || (botRegex_all.test(request.text) && ExcludeFromAll.indexOf(members[i].user_id) == -1))
             {
             usersID[i] = members[i].user_id;
@@ -226,7 +242,13 @@ function respond() {
       } else {
         var newtime = new Date().getTime() / 1000;
         if (newtime < refresh + 120) {
-          postMessage('You\'re doing that too much...');
+          response = ["You\'re doing that too much...",
+                      "Cool it, cowboy. ",
+                      "Wait a minute please...",
+                      "Give me a sec."];
+          randomNumber = Math.floor(Math.random()*response.length);
+          response = response[randomNumber];
+          postMessage(response);
         } else {
           postMessage(response,'tag',[usersLoci,usersID]);
           refresh = newtime;
@@ -341,6 +363,10 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
+  } if (request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_joke.test(request.text)) {
+    likeMessage(request.id);
+    response = 'https://i.groupme.com/1215x2160.jpeg.95f793f6ae824fa782c88bd96dfd8b1b.large';
+    postMessage(response);
   } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_thanks.test(request.text)) {
     this.res.writeHead(200);
     randomNumber2 = randomNumber = Math.floor(Math.random()*10);
@@ -401,6 +427,7 @@ function respond() {
       randomNumber = Math.floor(Math.random()*response.length);
       postMessage(response[randomNumber]);
       this.res.end();
+    } else if ()
     } else if (wifiRegex.test(request.text)) {
       this.res.writeHead(200);
       forum1415Regex = /^(?=.*\bForum\b)(?=.*\b1415\b).*$/im;
@@ -413,7 +440,7 @@ function respond() {
       } else if (rm111roomRegex.test(request.text)) {
         postMessage("The code for 911 South is: \n Unknown. You'll have to be there.");
       } else {
-        postMessage("I don't know the wifsi to that place...");
+        postMessage("I don't know the wifi to that place...");
       }
       likeMessage(request.id);
       this.res.end();
@@ -438,7 +465,7 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
-  console.log(userName + "(" + request.user_id + ") POSTED: " + this.req.chunks[0]);
+  console.log(userName + " (" + request.user_id + ") POSTED: " + this.req.chunks[0]);
 }
 
 function getMath(equation) {
