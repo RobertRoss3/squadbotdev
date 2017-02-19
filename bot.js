@@ -136,7 +136,10 @@ function respond() {
   }
   if(request.text && request.sender_type != "bot" && request.user_id != '43525551' && botRegex_wtf.test(request.text)) {
     this.res.writeHead(200);
-    postMessage("I know, right!?");
+    randomNumber = Math.floor(Math.random()*5);
+    if(randomNumber == 3) {
+      postMessage("I know, right!?");
+    }
     this.res.end();
     // Commands
   }
@@ -199,15 +202,17 @@ function respond() {
       } else if (tagRegex_GSU.test(request.text)) {
         response = ["Everyone in Statesboro, ",
                     "Hey everybody at GSU, ",
-                    "LISTEN UP , ",
-                    "All humans in Statesboro, "];
+                    "LISTEN UP, ",
+                    "All humans in Statesboro, ",
+                    "Those in the GSU area, "];
         randomNumber = Math.floor(Math.random()*response.length);
         response = response[randomNumber];
       } else {
         response = ["Everyone, ",
                     "Hey everybody, ",
                     "LISTEN UP, ",
-                    "Calling all humans, "];
+                    "Calling all humans, ",
+                    "ATTENTION: "];
         randomNumber = Math.floor(Math.random()*response.length);
         response = response[randomNumber];
       }
@@ -245,7 +250,9 @@ function respond() {
           response = ["You\'re doing that too much...",
                       "Cool it, cowboy. ",
                       "Wait a minute please...",
-                      "Give me a sec."];
+                      "Give me a sec.",
+                      "lol nah dude",
+                      "Not right now."];
           randomNumber = Math.floor(Math.random()*response.length);
           response = response[randomNumber];
           postMessage(response);
@@ -359,7 +366,7 @@ function respond() {
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?",
                 "...", "Gross.", "Is that all you'll ever talk about?",
-                "Listen... NO", "So onto a different subject!", "🤢"];
+                "Listen... NO", "So onto a different subject!", "nah fam"];
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
