@@ -450,23 +450,25 @@ function respond() {
       }
       likeMessage(request.id);
       this.res.end();
-    } else {
-      this.res.writeHead(200);
-      cleverQuestion = request.text;
-      cleverQuestion = cleverQuestion.replace(/@squadbot/i,'');
-      if (cleverQuestion) {
-        console.log("SENDING \"" + cleverQuestion + "\" TO CLEVERBOT");
-        cleverBot.ask(cleverQuestion, function (err, response) {
-          if (response == "Error, the reference \"\" does not exist") {
-            postMessage("I have nothing to say to that...");
-          } else {
-            likeMessage(request.id);
-            postMessage(response);
-          }
-        });
-      }
-      this.res.end();
     }
+    //} else
+    // {
+    //   this.res.writeHead(200);
+    //   cleverQuestion = request.text;
+    //   cleverQuestion = cleverQuestion.replace(/@squadbot/i,'');
+    //   if (cleverQuestion) {
+    //     console.log("SENDING \"" + cleverQuestion + "\" TO CLEVERBOT");
+    //     cleverBot.ask(cleverQuestion, function (err, response) {
+    //       if (response == "Error, the reference \"\" does not exist") {
+    //         postMessage("I have nothing to say to that...");
+    //       } else {
+    //         likeMessage(request.id);
+    //         postMessage(response);
+    //       }
+    //     });
+    //   }
+    //   this.res.end();
+    // }
   } else {
     this.res.writeHead(200);
     this.res.end();
