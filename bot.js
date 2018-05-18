@@ -467,7 +467,7 @@ function respond() {
           }
         }
         if(newQuotes.length > 0) {
-          console.log("Found " + newQuotes.length + " matching quotes...");
+          console.log("Found " + newQuotes.length + " matching quotes for \"" + findQuote + "\"...");
           randomNumber2 = Math.floor(Math.random()*newQuotes.length);
           postMessage("> " + newQuotes[randomNumber2]);
         } else {
