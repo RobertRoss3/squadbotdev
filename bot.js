@@ -469,11 +469,11 @@ function respond() {
         if(newQuotes.length > 0) {
           console.log("Found " + newQuotes.length + " matching quotes...");
           randomNumber2 = Math.floor(Math.random()*newQuotes.length);
-          postMessage(newQuotes[randomNumber2]);
+          postMessage("> " + newQuotes[randomNumber2]);
         } else {
           console.log("Couldn't find any matching quotes...");      // If a quote wasn't found, procede as normal.
           randomNumber = Math.floor(Math.random()*quotes.length);
-          postMessage(quotes[randomNumber]);
+          postMessage("> " + quotes[randomNumber]);
         }
 
       }
@@ -498,10 +498,10 @@ function respond() {
 	randomNumber1 = Math.floor(Math.random()*response1.length);
         randomNumber2 = Math.floor(Math.random()*response2.length);
 
-        response = "🎱 " + response1[randomNumber1] + response2[randomNumber2]  + ".";
+        response = "> 🎱 " + response1[randomNumber1] + response2[randomNumber2]  + ".";
         postMessage(response);
       } else {
-        postMessage("🎱 You have to ask a yes or no question.");
+        postMessage("> 🎱 You have to ask a yes or no question.");
       }
       this.res.end();
     } else {
