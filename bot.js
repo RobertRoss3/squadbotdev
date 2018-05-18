@@ -498,10 +498,10 @@ function respond() {
 	randomNumber1 = Math.floor(Math.random()*response1.length);
         randomNumber2 = Math.floor(Math.random()*response2.length);
 
-        response = "> 🎱 " + response1[randomNumber1] + response2[randomNumber2]  + ".";
+        response = "🎱 " + response1[randomNumber1] + response2[randomNumber2]  + ".";
         postMessage(response);
       } else {
-        postMessage("> 🎱 You have to ask a yes or no question.");
+        postMessage("🎱 You have to ask a yes or no question.");
       }
       this.res.end();
     } else {
