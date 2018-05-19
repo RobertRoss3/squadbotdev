@@ -12,6 +12,7 @@
     "director": "^1.2.8",
     "es6-promise": "^4.2.4",
     "forecast": "^0.3.0",
+    "google-spreadsheet": "^2.0.4",
     "groupme": "^0.5.7",
     "guid": "0.0.12",
     "node-wolfram": "0.0.1",
