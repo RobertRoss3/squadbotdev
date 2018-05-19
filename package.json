@@ -16,9 +16,8 @@
     "googleapis": "^30.0.0",
     "groupme": "^0.5.7",
     "guid": "0.0.12",
-    "node-wolfram": "0.0.1",
     "object-assign": "^4.1.0",
-    "pg": "6.1.0",
+    "pg": "^7.4.3",
     "tunnel-agent": "^0.6.0",
     "wolfram": "^0.3.4",
     "xmldom": "^0.1.22"

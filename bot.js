@@ -7,7 +7,6 @@ var index = require('./index.js');
 var cleverbot = require('cleverbot.io');
 var Forecast = require('forecast');
 var DOMParser = require('xmldom').DOMParser;
-var wolfClient = require('node-wolfram');
 var ImageService = require('groupme').ImageService;
 var Guid = require('guid');
 var GoogleSpreadsheet = require('google-spreadsheet');
@@ -70,7 +69,6 @@ var cleverKey = process.env.CLEVER_KEY;
 
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
-    Wolfram = new wolfClient(mathKey);
 
 console.log("Loading weather API...")
 var forecast = new Forecast({
