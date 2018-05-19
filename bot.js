@@ -217,6 +217,12 @@ function respond() {
     postMessage(cool());
     this.res.end();
   }
+  if(request.text == "tick"){
+    this.res.writeHead(200);
+    postMessage("tock");
+    likeMessage(request.id);
+    this.res.end();
+  }
   if(request.text
     && request.user_id != '43525551'
     && request.sender_type != "bot"
