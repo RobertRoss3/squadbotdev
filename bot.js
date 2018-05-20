@@ -21,7 +21,7 @@ async.series([
   function setAuth(step) {
     var creds_json = {
       client_email: 'robertrross3@gmail.com',
-      private_key: 'HzyUB4Apv5xDUVfDCzsKFr1b'
+      private_key: '{"web":{"auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","auth_uri":"https://accounts.google.com/o/oauth2/auth","client_id":"1099113201494-91acao1rn399uli9ujm65l870oi8odlc.apps.googleusercontent.com","client_secret":"HzyUB4Apv5xDUVfDCzsKFr1b","javascript_origins":["https://squadbot1.herokuapp.com","https://squadbotdev.herokuapp.com"],"project_id":"api-project-1099113201494","redirect_uris":["https://squadbotdev.herokuapp.com/","https://squadbot1.herokuapp.com/"],"token_uri":"https://accounts.google.com/o/oauth2/token"}}'
     }
 
     doc.useServiceAccountAuth(creds_json, step);
