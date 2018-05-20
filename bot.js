@@ -20,8 +20,35 @@ var sheet;
 async.series([
   function setAuth(step) {
     var creds_json = {
-      client_email: 'robertrross3@gmail.com',
-      private_key: '{"web":{"auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","auth_uri":"https://accounts.google.com/o/oauth2/auth","client_id":"1099113201494-91acao1rn399uli9ujm65l870oi8odlc.apps.googleusercontent.com","client_secret":"HzyUB4Apv5xDUVfDCzsKFr1b","javascript_origins":["https://squadbot1.herokuapp.com","https://squadbotdev.herokuapp.com"],"project_id":"api-project-1099113201494","redirect_uris":["https://squadbotdev.herokuapp.com/","https://squadbot1.herokuapp.com/"],"token_uri":"https://accounts.google.com/o/oauth2/token"}}'
+      client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
+      private_key: '-----BEGIN PRIVATE KEY-----
+      MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCk8Abq2EnYROAw
+      gg908S4c67+gsFDbh+tW1qF6auWIKm1tDlx/0WiEw5xWVIR9JeyDVqQyLNTE81mM
+      UayV14nC0MLSSfJp9CGEvL/9293L/Q6K4gGDhMv4Wh4SUaEq8o83zU5nleFj/U/E
+      Rj0kUot5tH8Nmb90bKA9JG7DsEgS2ZXrAdqNEpl1oKdfbnmSMtZQhtJbpBCLy3MR
+      PAEAb/GvvR2FNoTrRIA98IhJL4lvi+ND9AJpiLDOfvefFmwHEiRMCDTdyzhbT9/L
+      Kz4Y1OZkC7tTHM5NadvGbIIeDlMsugyz1eNt2zCReFe2YNcsBUbWEMgw5xkVIXM3
+      b/0HaTT5AgMBAAECggEAGtWcYn/+/6sxCGNYrW+Bz53BZxzYgucJsG6qBfc3UeCJ
+      Phl8jiUdSqBiop8MkSnm4XVqsGkf0s0+z/gHyrcvCB2b3MfAI2HfRC/LUrt/Se1p
+      fMoJcgLchpLu2o8iWBDvoSYLcAnwCisP28CLuQme/JWTqDxP7Fqx9VCknrzi9QHj
+      jOSRc5yA1wqWPyffKFLVmiKop5KPWletHyGI+TIqxEJqwkys6rArUAGOqQwxGBnf
+      G+SKkyvubJaBIopxbNVeBzrM7ilDQgPelJCu4ZMGeZjpIVQyqpd7DNbNFGe5cz7t
+      V28p05MrK+19UEpt4IUupxaO6LlolfHza+DzujJHMwKBgQDZUAFvhwDF9b/BdqKZ
+      1pF9SnL1B6P/efqSBIpPJTkkCacYOBcm9xlJ/vaFGwXjv+Xt0WBUgadlJoICaaiw
+      ufw1lyFr9C1tfYxo+050PZnkfL0k/wPjtNw+cFoSgS8j0X3h0yV8VvVOKntHqaO3
+      0x0LloeQJOCD3kuLlspUmI1LhwKBgQDCTQpTXsLolCTo5Igo9PPuBtPfYytF+gKL
+      GcNyel5ug2yP4+QYO9vWPYPh3WL9fk9Q3nKI/42byXugQBxmk89upnnZtUJg8TVE
+      Km53eVi0ss0cdpEhp4sjYolVFud4wPc481UNgTYthnwmijGl34CXPuH4PDqaj08q
+      2ItB0DqbfwKBgQCNGAQGnHnlDf0VqGhER+solQj0jKRvQIxu9+GxJ3LlMhs6f1iQ
+      5QiXYaI/o978E2E/Op034QKFiy4IUP/E1sypItoBVIWWPFjI5Ln4gPKFRnQsLCMj
+      Wg9RvvLMZvHraJ453DTPeUpGGRD342238as/FdoovbjEBbW5CQuPR4kdywKBgQCM
+      khwkUOyGQ5eofp4bs4w+6uWiOib2i3gHlu4WBn4HSkHioCdHeRcFGqAtanPRne5Y
+      PXdzsh+LU+uC9p8Vf16VWQ/S+BY7+IZm+KPPABWzNaC7NPSu+n3pbcKZsuZoMIMr
+      yrAAAzllGmT7pQNiVB6+TZpCc6CabZADGYM2bCXalQKBgQCxbHxjTk0VrU2wj8Lt
+      PjUx5md+kgDibZDmE78Ri6WPb8GwwPhpf6mDHnvxaJFcEiZhsGufSlkGu1H+6V3b
+      sK4F711rz0GcZo8EEeB9vHMPGNwAfFsH8YY8295IaSwCqHnJgtsUqsZri05hRT1r
+      0G8IzN1wnzUdtLMri46Of89gPA==
+      -----END PRIVATE KEY-----'
     }
 
     doc.useServiceAccountAuth(creds_json, step);
