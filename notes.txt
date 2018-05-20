@@ -1,0 +1,20 @@
+{
+  "attachments": [
+    {
+      "loci": [[0,12],[13,6]],
+      "type": "mentions",
+      "user_ids": ["43525551","18252184"]
+    }
+  ],
+  "avatar_url": "https://i.groupme.com/500x500.jpeg.ce6dce29e924499281c28634ee1ab87b",
+  "created_at": 1526783892,
+  "group_id": "25165949",
+  "id": "152678389216494022",
+  "name": "Robert",
+  "sender_id": "28758543",
+  "sender_type": "user",
+  "source_guid": "dfa7a132-4959-4b4b-bce0-1a9254b91bae",
+  "system": false,
+  "text": "@SquadBotDev @David ",
+  "user_id": "28758543"
+}

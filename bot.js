@@ -10,14 +10,39 @@ var DOMParser = require('xmldom').DOMParser;
 var wolfClient = require('node-wolfram');
 var ImageService = require('groupme').ImageService;
 var Guid = require('guid');
+var GoogleSpreadsheet = require('google-spreadsheet');
+var async = require('async');
+
+// spreadsheet key is the long id in the sheets URL
+var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
+var sheet;
+
+async.series([
+  function setAuth(step) {
+    var creds_json = {
+      client_email: 'robertrross3@gmail.com',
+      private_key: 'HzyUB4Apv5xDUVfDCzsKFr1b'
+    }
+
+    doc.useServiceAccountAuth(creds_json, step);
+  },
+  function getInfoAndWorksheets(step) {
+    doc.getInfo(function(err, info) {
+      console.log('Loaded doc: '+info.title+' by '+info.author.email);
+      sheet = info.worksheets[0];
+      console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+      step();
+    });
+  },
+],
+function(err){
+    if( err ) {
+      console.log('Error: '+err);
+    }
+});
 
 console.log("Starting up...");
-
-//    DATABASE INFORMATION
-var pg = require('pg');                             // Include the dependency
-var connectionString = process.env.DATABASE_URL;    // Provide connection string for the postgreSQL client
-var pgClient = new pg.Client(connectionString);     // Instantiate the client for postgres database
-pgClient.connect();                                 // Connect to database
+                                // Connect to database
 
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
