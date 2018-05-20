@@ -21,7 +21,7 @@ async.series([
   function setAuth(step) {
     var creds_json = {
       client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
-      private_key: process.env.GOOGLE_PRIVATE_KEY
+      private_key: String(process.env.GOOGLE_PRIVATE_KEY)
     }
 
     doc.useServiceAccountAuth(creds_json, step);
