@@ -39,7 +39,7 @@ async.series([
       }
 
     });
-  },
+  }
 ],
 function(err){
     if( err ) {
