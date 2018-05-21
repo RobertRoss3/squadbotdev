@@ -28,11 +28,16 @@ async.series([
   },
   function getInfoAndWorksheets(step) {
     doc.getInfo(function(err, info) {
-      console.log(info);
-      console.log('Loaded doc: '+info.title+' by '+info.author.email);
-      // sheet = info.worksheets[0];
-      // console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
-      step();
+      if (info != null){
+        console.log(info);
+        console.log('Loaded doc: '+info.title+' by '+info.author.email);
+        // sheet = info.worksheets[0];
+        // console.log('sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+        step();
+      } else {
+        console.log("Error: Spreadsheet returned undefined.")
+      }
+
     });
   },
 ],
