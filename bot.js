@@ -21,7 +21,34 @@ async.series([
   function setAuth(step) {
     var creds_json = {
       client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
-      private_key: '-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCk8Abq2EnYROAw\ngg908S4c67+gsFDbh+tW1qF6auWIKm1tDlx/0WiEw5xWVIR9JeyDVqQyLNTE81mM\nUayV14nC0MLSSfJp9CGEvL/9293L/Q6K4gGDhMv4Wh4SUaEq8o83zU5nleFj/U/E\nRj0kUot5tH8Nmb90bKA9JG7DsEgS2ZXrAdqNEpl1oKdfbnmSMtZQhtJbpBCLy3MR\nPAEAb/GvvR2FNoTrRIA98IhJL4lvi+ND9AJpiLDOfvefFmwHEiRMCDTdyzhbT9/L\nKz4Y1OZkC7tTHM5NadvGbIIeDlMsugyz1eNt2zCReFe2YNcsBUbWEMgw5xkVIXM3\nb/0HaTT5AgMBAAECggEAGtWcYn/+/6sxCGNYrW+Bz53BZxzYgucJsG6qBfc3UeCJ\nPhl8jiUdSqBiop8MkSnm4XVqsGkf0s0+z/gHyrcvCB2b3MfAI2HfRC/LUrt/Se1p\nfMoJcgLchpLu2o8iWBDvoSYLcAnwCisP28CLuQme/JWTqDxP7Fqx9VCknrzi9QHj\njOSRc5yA1wqWPyffKFLVmiKop5KPWletHyGI+TIqxEJqwkys6rArUAGOqQwxGBnf\nG+SKkyvubJaBIopxbNVeBzrM7ilDQgPelJCu4ZMGeZjpIVQyqpd7DNbNFGe5cz7t\nV28p05MrK+19UEpt4IUupxaO6LlolfHza+DzujJHMwKBgQDZUAFvhwDF9b/BdqKZ\n1pF9SnL1B6P/efqSBIpPJTkkCacYOBcm9xlJ/vaFGwXjv+Xt0WBUgadlJoICaaiw\nufw1lyFr9C1tfYxo+050PZnkfL0k/wPjtNw+cFoSgS8j0X3h0yV8VvVOKntHqaO3\n0x0LloeQJOCD3kuLlspUmI1LhwKBgQDCTQpTXsLolCTo5Igo9PPuBtPfYytF+gKL\nGcNyel5ug2yP4+QYO9vWPYPh3WL9fk9Q3nKI/42byXugQBxmk89upnnZtUJg8TVE\nKm53eVi0ss0cdpEhp4sjYolVFud4wPc481UNgTYthnwmijGl34CXPuH4PDqaj08q\n2ItB0DqbfwKBgQCNGAQGnHnlDf0VqGhER+solQj0jKRvQIxu9+GxJ3LlMhs6f1iQ\n5QiXYaI/o978E2E/Op034QKFiy4IUP/E1sypItoBVIWWPFjI5Ln4gPKFRnQsLCMj\nWg9RvvLMZvHraJ453DTPeUpGGRD342238as/FdoovbjEBbW5CQuPR4kdywKBgQCM\nkhwkUOyGQ5eofp4bs4w+6uWiOib2i3gHlu4WBn4HSkHioCdHeRcFGqAtanPRne5Y\nPXdzsh+LU+uC9p8Vf16VWQ/S+BY7+IZm+KPPABWzNaC7NPSu+n3pbcKZsuZoMIMr\nyrAAAzllGmT7pQNiVB6+TZpCc6CabZADGYM2bCXalQKBgQCxbHxjTk0VrU2wj8Lt\nPjUx5md+kgDibZDmE78Ri6WPb8GwwPhpf6mDHnvxaJFcEiZhsGufSlkGu1H+6V3b\nsK4F711rz0GcZo8EEeB9vHMPGNwAfFsH8YY8295IaSwCqHnJgtsUqsZri05hRT1r\n0G8IzN1wnzUdtLMri46Of89gPA==\n-----END PRIVATE KEY-----\n'
+      private_key: "-----BEGIN PRIVATE KEY-----\
+                    MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCk8Abq2EnYROAw\
+                    gg908S4c67+gsFDbh+tW1qF6auWIKm1tDlx/0WiEw5xWVIR9JeyDVqQyLNTE81mM\
+                    UayV14nC0MLSSfJp9CGEvL/9293L/Q6K4gGDhMv4Wh4SUaEq8o83zU5nleFj/U/E\
+                    Rj0kUot5tH8Nmb90bKA9JG7DsEgS2ZXrAdqNEpl1oKdfbnmSMtZQhtJbpBCLy3MR\
+                    PAEAb/GvvR2FNoTrRIA98IhJL4lvi+ND9AJpiLDOfvefFmwHEiRMCDTdyzhbT9/L\
+                    Kz4Y1OZkC7tTHM5NadvGbIIeDlMsugyz1eNt2zCReFe2YNcsBUbWEMgw5xkVIXM3\
+                    b/0HaTT5AgMBAAECggEAGtWcYn/+/6sxCGNYrW+Bz53BZxzYgucJsG6qBfc3UeCJ\
+                    Phl8jiUdSqBiop8MkSnm4XVqsGkf0s0+z/gHyrcvCB2b3MfAI2HfRC/LUrt/Se1p\
+                    fMoJcgLchpLu2o8iWBDvoSYLcAnwCisP28CLuQme/JWTqDxP7Fqx9VCknrzi9QHj\
+                    jOSRc5yA1wqWPyffKFLVmiKop5KPWletHyGI+TIqxEJqwkys6rArUAGOqQwxGBnf\
+                    G+SKkyvubJaBIopxbNVeBzrM7ilDQgPelJCu4ZMGeZjpIVQyqpd7DNbNFGe5cz7t\
+                    V28p05MrK+19UEpt4IUupxaO6LlolfHza+DzujJHMwKBgQDZUAFvhwDF9b/BdqKZ\
+                    1pF9SnL1B6P/efqSBIpPJTkkCacYOBcm9xlJ/vaFGwXjv+Xt0WBUgadlJoICaaiw\
+                    ufw1lyFr9C1tfYxo+050PZnkfL0k/wPjtNw+cFoSgS8j0X3h0yV8VvVOKntHqaO3\
+                    0x0LloeQJOCD3kuLlspUmI1LhwKBgQDCTQpTXsLolCTo5Igo9PPuBtPfYytF+gKL\
+                    GcNyel5ug2yP4+QYO9vWPYPh3WL9fk9Q3nKI/42byXugQBxmk89upnnZtUJg8TVE\
+                    Km53eVi0ss0cdpEhp4sjYolVFud4wPc481UNgTYthnwmijGl34CXPuH4PDqaj08q\
+                    2ItB0DqbfwKBgQCNGAQGnHnlDf0VqGhER+solQj0jKRvQIxu9+GxJ3LlMhs6f1iQ\
+                    5QiXYaI/o978E2E/Op034QKFiy4IUP/E1sypItoBVIWWPFjI5Ln4gPKFRnQsLCMj\
+                    Wg9RvvLMZvHraJ453DTPeUpGGRD342238as/FdoovbjEBbW5CQuPR4kdywKBgQCM\
+                    khwkUOyGQ5eofp4bs4w+6uWiOib2i3gHlu4WBn4HSkHioCdHeRcFGqAtanPRne5Y\
+                    PXdzsh+LU+uC9p8Vf16VWQ/S+BY7+IZm+KPPABWzNaC7NPSu+n3pbcKZsuZoMIMr\
+                    yrAAAzllGmT7pQNiVB6+TZpCc6CabZADGYM2bCXalQKBgQCxbHxjTk0VrU2wj8Lt\
+                    PjUx5md+kgDibZDmE78Ri6WPb8GwwPhpf6mDHnvxaJFcEiZhsGufSlkGu1H+6V3b\
+                    sK4F711rz0GcZo8EEeB9vHMPGNwAfFsH8YY8295IaSwCqHnJgtsUqsZri05hRT1r\
+                    0G8IzN1wnzUdtLMri46Of89gPA==\
+                    -----END PRIVATE KEY-----"
     }
 
     doc.useServiceAccountAuth(creds_json, step);
@@ -138,35 +165,35 @@ function respond() {
       "\"I can't take all this ass eating and meat beating in one night\" - David Potters","\"Not a real dick. Not really gay.\" - Shaunya Harden","\"I was just thinking if this person has a mutant 12 incher and he's about to impale the child medieval-style some exceptions might need to be made\" - Sara Cowan",
       "\"Remember, you get curved 100% of the times you don't try. But golden rule is to not get mad about getting curved. Just shrug it off and keep talking to her. It might sound weird but do it. She might find time later on. And if she don't you still have a friend that might help you out later on. You could have two wing girls. Shit who knows. She might be testing how you handle rejection. Some people play like that.\" - Jamal Rogers"
     ];
-      botInfo = "Hi, I'm SquadBot version 1.4! \n" +
+      botInfo = "Hi, I'm SquadBot version 2.3! \n" +
                 "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
                 "Use /weather [now][today][this week] to get the weather for those times. \n" +
                 "Use /math [problem] to solve math problems with WolframAlpha. \n" +
                 "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
-                "Use \'@mealplan\' to tag anyone with a meal plan and \'@engineers\' for engineers. \n" +
+                "Use \'@mealplan\' to tag anyone with a meal plan and \'@GSU\' for anyone in the Statesboro area. \n" +
                 "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
                 "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
       // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
-      weatherRegex = /\bweather\b/i;
-      wifiRegex = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
-      mathRegex = /^\/\b(math|calc|wolf)\b/i;
-
+      botRegex_oneword = /\s\b/;
       botRegex_damn = /damn\b/gi;
       botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
-      botRegex_oneword = /\s\b/;
       botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
       botRegex_wtf = /\b(wtf|wth|what the (hell|fuck))\b/i;
       botRegex_thanks = /\b(thanks|(thank you)|thx)\b/i;
       botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
-      botRegex_giphy = /^([\/]giphy)/i;
-      botRegex_face = /^[\/]face$/i;
-      botRegex_bing = /^([\/]image)/i;
       botRegex_bye = /\b(good night)|(bye)|(goodbye)|(goodnight)\b/i;
       botRegex_morning = /\b(good morning)\b/i;
       botRegex_joke = /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i;
       botRegex_kick = /#kicksquadbot/i;
-      botRegex_quote = /^([\/]quote)/i;
-      botRegex_8ball = /^([\/]8ball)/i;
+
+      comRegex_quote = /^([\/]quote)/i;
+      comRegex_8ball = /^([\/]8ball)/i;
+      comRegex_giphy = /^([\/]giphy)/i;
+      comRegex_face = /^[\/]face$/i;
+      comRegex_bing = /^([\/]image)/i;
+      comRegex_weather = /\bweather\b/i;
+      comRegex_wifi = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
+      comRegex_math = /^\/\b(math|calc|wolf)\b/i;
 
       tagRegex_all = /@(all|squad\b|anyone|everyone|everybody)/i;
       tagRegex_bot = /@Squadbot.*?/i;
@@ -237,7 +264,7 @@ function respond() {
     this.res.end();
     // Commands
   }
-  if(request.text && botRegex_face.test(request.text)) {
+  if(request.text && comRegex_face.test(request.text)) {
     this.res.writeHead(200);
     likeMessage(request.id);
     postMessage(cool());
@@ -392,13 +419,13 @@ function respond() {
   }
     // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
-    if(request.text && botRegex_giphy.test(request.text)) {
+    if(comRegex_giphy.test(request.text)) {
       this.res.writeHead(200);
       likeMessage(request.id);
       searchGiphy(request.text.substring(7));
     }
-    if (mathRegex.test(request.text)) {
-      getMath(request.text.substring(5));
+    if (comRegex_math.test(request.text)) {
+      // getMath(request.text.substring(5));
       likeMessage(request.id);
       postMessage("That's not working right now, sorry.");
     //   Wolfram.query(request.text.substring(6), function(err, result) {
@@ -429,7 +456,7 @@ function respond() {
     //     }
     // });
     }
-    if (weatherRegex.test(request.text)) {
+    if (comRegex_weather.test(request.text)) {
       Regexnow = /\b(now|current)\b/i; Regextoday = /\b(today|day)\b/i;
       Regexweek = /\b(this week)|(for the week)|(week)\b/i;
       // Retrieve weather information from Statesboro
@@ -482,7 +509,7 @@ function respond() {
       });
       this.res.end();
 
-    } if (botRegex_quote.test(request.text)) {
+    } if (comRegex_quote.test(request.text)) {
       this.res.writeHead(200);
       likeMessage(request.id);
 
@@ -510,7 +537,7 @@ function respond() {
 
       }
       this.res.end();
-    } if (botRegex_8ball.test(request.text)){
+    } if (comRegex_8ball.test(request.text)){
       this.res.writeHead(200);
       likeMessage(request.id);
       if(botRegex_oneword.test(request.text)){
@@ -616,20 +643,9 @@ function respond() {
       randomNumber = Math.floor(Math.random()*response.length);
       postMessage(response[randomNumber]);
       this.res.end();
-    } else if (wifiRegex.test(request.text)) {
+    } else if (comRegex_wifi.test(request.text)) {
       this.res.writeHead(200);
-      hudson1415Regex = /^(?=.*\bHudson\b)(?=.*\b1415\b).*$/im;
-      hudson1831Regex = /^(?=.*\bHudson\b)(?=.*\b1831\b).*$/im;
-      rm111roomRegex = /^(?=.*\b(111|911)\b)(?=.*\bSouth\b).*$/;
-      if (hudson1831Regex.test(request.text)) {
-        postMessage("The code for The Hudson 1831 is: \n 939b79bb13efa6ebedd9")
-      } else if (hudson1415Regex.test(request.text)) {
-        postMessage("The code for the Hudson 1415 is: \n E483996D5FEA")
-      } else if (rm111roomRegex.test(request.text)) {
-        postMessage("The code for 911 South is: \n Unknown. You'll have to be there.");
-      } else {
-        postMessage("I don't know the wifi to that place...");
-      }
+      postMessage("I don't know any relevent wifi codes yet");
       likeMessage(request.id);
       this.res.end();
     } else if (!askme) {
@@ -640,13 +656,13 @@ function respond() {
       if (cleverQuestion) {
         cleverBot.ask(cleverQuestion, function (err, response) {
           if (response == "Error, the reference \"\" does not exist") {
-		newresponse = ["I have nothing to say to that...",
-		"I've lost my voice at the moment, try again later.",
-		"I can't talk right now.",
-		"My AI module has failed.", "I'm mute for the time being..."];
-		randomNumber = Math.floor(Math.random()*newresponse.length);
-		newresponse = newresponse[randomNumber];
-            postMessage("");
+        		newresponse = ["I have nothing to say to that...",
+        		"I've lost my voice at the moment, try again later.",
+        		"I can't talk right now.",
+        		"My AI module has failed.", "I'm mute for the time being..."];
+        		randomNumber = Math.floor(Math.random()*newresponse.length);
+        		newresponse = newresponse[randomNumber];
+            postMessage(newresponse);
           } else {
             likeMessage(request.id);
             postMessage(response);
@@ -805,6 +821,11 @@ function likeMessage(messageID) {
     if (!err) {
     } else {console.log('LIKING FAILED: ERROR ' + JSON.stringify(err));}
   });
+};
+
+function restart(){
+  console.log("Restarting...");
+  process.exit(0);
 };
 
 function getInfo(groupID) {
