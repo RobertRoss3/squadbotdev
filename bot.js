@@ -68,14 +68,16 @@ async.series([
     });
   },
   function getGroupMembers(step){
-    Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': 1,'max-col': Group.length,'return-empty': true},
+    Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': 1,'max-col': groupcount,'return-empty': true},
     function(err, cells){
       subGroup = new Array(groupcount);
-      for (i=0;i<Member.length;i++){
-        for (j=0;j<Group.length;j++){
-          subGroup[j] = (cells[(Group.length*i)+j].value);
+      for (j=0;j<groupcount;j++){
+        subGroup[j] = new Array(membercount)
+        for (i=0;i<membercount;i++){
+          subGroup[j][i] = cells[(groupcount*i)+j].value;
         }
       }
+
       console.log(subGroup);
       // groupselect = 5;
       // console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
