@@ -282,7 +282,8 @@ function respond() {
         if(Group_regex[i].test(request.text)){
           response = Group_response[i];
           randomNumber = Math.floor(Math.random()*response.length);
-          response = response[randomNumber];
+          response = response[randomNumber]
+          response = response.replace(/\"/ig,'');
         }
       }
       // if(tagRegex_hudson.test(request.text)){
