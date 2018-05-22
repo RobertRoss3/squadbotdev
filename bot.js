@@ -48,7 +48,7 @@ async.series([
         Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
         tempResponse = cells[i+groupcount*2].value; tempResponse = tempResponse.replace(/\"\,/g,'\"_');
         Group_response[i] = tempResponse.split('_');
-        Group[i] = [Group_name,Group_regex,Group_response];
+        Group[i] = [Group_name[i],Group_regex[i],Group_response[i]];
       }
       // console.log("Groups: "+Group_name);
       step();
@@ -64,7 +64,7 @@ async.series([
         if(i%2==0){
           Member_id[i] = cells[i].value;
           Member_name[i] = cells[i+1].value;
-          Member[i] = [Member_id, Member_name];
+          Member[i] = [Member_id[i], Member_name[i]];
         }
       }
       console.log("Members: "+Member);
