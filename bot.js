@@ -48,7 +48,7 @@ async.series([
         Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
         tempResponse = cells[i+groupcount*2].value; tempResponse = tempResponse.replace(/\"\,/g,'\"_');
         Group_response[i] = tempResponse.split('_');
-        Group[i] = [Group_name[i],Group_regex[i],Group_response[i], newArray()];
+        Group[i] = [Group_name[i],Group_regex[i],Group_response[i], new Array()];
       }
       step();
     });
