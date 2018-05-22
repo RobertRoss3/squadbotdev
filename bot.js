@@ -68,11 +68,11 @@ async.series([
     });
   },
   function getGroupMembers(step){
-    for (i=0;i<groupcount-1;i++){
+    for (i=0;i<groupcount;i++){
       Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': i,'max-col': i,'return-empty': true},
       function(err, cells){
-        for (var cell in cells){
-          Group[i][3].push(cells[cell].value);
+        for (j=0;j<cells.length;j++){
+          Group[i][3].push(cells[j].value);
         }
         step();
       });
