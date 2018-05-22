@@ -35,7 +35,7 @@ async.series([
       } else {console.log("Error: Spreadsheet returned undefined.")}
     });
   },
-  function workingWithCells(step) {
+  function getGroupInfo(step) {
     Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
     function(err, cells) {
       groupcount = cells.length/3;
@@ -50,10 +50,24 @@ async.series([
         Group_response[i] = tempResponse.split('_');
         Group[i] = [Group_name,Group_regex,Group_response];
       }
-      console.log("Groups: "+Group_name);
+      // console.log("Groups: "+Group_name);
       step();
     });
-  }
+  },
+  function getMemberInfo(step) {
+    Members_info.getCells({'min-row': 1,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
+    function(err, cells) {
+      membercount = cells.length/2;
+      console.log("Counted "+membercount+" members...");
+      Member = []; Member_name = []; Member_id = [];
+      for (i = 0; i < membercount; i++){
+        Member_id[i] = cells[i].value;
+        Member_name[i] = cells[i+membercount].value;
+      }
+      console.log("Members: "+Member_name);
+      step();
+    });
+  },
 ],
 function(err){
     if( err ) {console.log('Error: '+err);}
@@ -278,63 +292,16 @@ function respond() {
           console.log("NUMBER OF MEMBERS: " + members.length);
         } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
       });
+
+      // When a group is tagged, generate a random response
       for(i=0;i<groupcount;i++){
         if(Group_regex[i].test(request.text)){
           response = Group_response[i];
           randomNumber = Math.floor(Math.random()*response.length);
           response = response[randomNumber]
-          response = response.replace(/\"/ig,'');
-        }
+          response = response.replace(/\"/ig,'');}
       }
-      // if(tagRegex_hudson.test(request.text)){
-      //   response = ["Hudson boys, ",
-      //               "Peeps who live at the Hudson, ",
-      //               "Hudson residents, ",
-      //               "Hey Hudson, "];
-      //   randomNumber = Math.floor(Math.random()*response.length);
-      //   response = response[randomNumber]
-      // } else if (tagRegex_oneeleven.test(request.text)) {
-      //   response = '111 crew, ';
-      // } else if (tagRegex_mealplan.test(request.text)) {
-      //   response = ["Food people, ",
-      //               "Anyone with a meal plan, ",
-      //               "Landy squad, ", "Lakeside crew, ",
-      //               "🍔: "];
-      //   randomNumber = Math.floor(Math.random()*response.length);
-      //   response = response[randomNumber];
-      // } else if (tagRegex_girls.test(request.text)) {
-      //   response = ["Ladies, ",
-      //               "Womens, ",
-      //               "Those who identify as female, ",
-      //               "AYO LADIES: ", "👩: "];
-      //   randomNumber = Math.floor(Math.random()*response.length);
-      //   response = response[randomNumber];
-      // } else if (tagRegex_guys.test(request.text)) {
-      //   response = ["Men, ",
-      //               "Dudes, ",
-      //               "Guys, ", "Listen fellas, ",
-      //               "Good day gents, ", "👨"];
-      //   randomNumber = Math.floor(Math.random()*response.length);
-      //   response = response[randomNumber];
-      // } else if (tagRegex_engineers.test(request.text)) {
-      //   response = 'All engineers, ';
-      // } else if (tagRegex_GSU.test(request.text)) {
-      //   response = ["Everyone in Statesboro, ",
-      //               "Hey everybody at GSU, ",
-      //               "LISTEN UP GSU, ",
-      //               "Statesboro, ",
-      //               "Those in the GSU area, ", "EAGLES: "];
-      //   randomNumber = Math.floor(Math.random()*response.length);
-      //   response = response[randomNumber];
-      // } else {
-      //   response = ["Everyone, ",
-      //               "Hey everybody, ",
-      //               "LISTEN UP, ",
-      //               "Calling all humans, ",
-      //               "ATTENTION: "];
-      //   randomNumber = Math.floor(Math.random()*response.length);
-      //   response = response[randomNumber];
-      // }
+
       reslength = response.length;
       response += request.name;
       if ((botRegex_oneword.test(request.text))) {
