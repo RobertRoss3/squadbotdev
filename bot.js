@@ -64,9 +64,10 @@ async.series([
         if(i%2==0){
           Member_id[i] = cells[i].value;
           Member_name[i] = cells[i+1].value;
+          Member[i] = [Member_id, Member_name];
         }
       }
-      console.log("Members: "+Member_name);
+      console.log("Members: "+Member);
       step();
     });
   },
