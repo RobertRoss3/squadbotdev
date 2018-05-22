@@ -50,7 +50,6 @@ async.series([
         Group_response[i] = tempResponse.split('_');
         Group[i] = [Group_name[i],Group_regex[i],Group_response[i], Group_members];
       }
-      console.log("Groups: "+Group);
       step();
     });
   },
@@ -69,17 +68,17 @@ async.series([
     });
   },
   function getGroupMembers(step){
-    Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': 1,'max-col': Group.length,'return-empty': true},
-    function(err, cells){
-      for (i=0;i<Member.length;i++){
-        for (j=0;j<Group.length;j++){
-          Group[j][3].push(cells[(Group.length*i)+j].value);
+    for (i=0;i<Group.length;i++){
+      Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': i,'max-col': i,'return-empty': true},
+      function(err, cells){
+        for (var cell in cells){
+          Group[i][3].push(cells[cell].value);
         }
-      }
-      groupselect = 5;
-      console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
-      step();
-    });
+        step();
+      });
+
+      console.log("Group "+(i+1)+" members: "+Group[i][3]);
+    }
   },
 ], function(err){
     if( err ) {
