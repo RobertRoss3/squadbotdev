@@ -60,7 +60,7 @@ async.series([
       membercount = cells.length/2;
       console.log("Counted "+membercount+" members...");
       Member = []; Member_name = []; Member_id = [];
-      for (i = 0; i < membercount; i++){
+      for (i = 0; i < membercount*2; i++){
         if(i%2==0){
           Member_id[i] = cells[i].value;
           Member_name[i] = cells[i+1].value;
