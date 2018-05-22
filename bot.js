@@ -140,6 +140,8 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
     members = ret.members;
     console.log("Members: "+members);
     console.log("Members[0]: "+members[0]);
+    console.log("Members[0][0]: "+members[0][0]);
+    console.log("Members[0][1]: "+members[0][1]);
   } else {console.log("ERROR: FAILED GETTING GROUP INFO" + err);}
 });
 
