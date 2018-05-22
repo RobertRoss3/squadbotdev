@@ -156,103 +156,102 @@ last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
 function respond() {
-  var request = JSON.parse(this.req.chunks[0]),
-  console.log(userName + " (" + request.user_id + ") POSTED: " + this.req.chunks[0]);
-  last_userName = request.name; last_userIDNum = request.user_id;
-  last_response = request.text;
-      quotes = [
-      "\"Matt P: Dalvin take the pot you won the hand. \nDalvin: Nah it ain't nothing but about 1500.\" - Dalvin Andrews", "\"I just need a couple more shots.\" - Matt Potter", "\"I really just wanna get knocked up by ryan reynolds rn. \nKnocked *OUT \nFuck!\" - Austin Boyd", "\"Anyway.. im gonn go to bed before i make poor life decisions and end up like my children\" - Austin Boyd", "\"Im finna knock the light outcho eyes, rock you to sleep, as you suck on my nipple milk. I swear. You defiant ass little boys.\" - Austin Boyd",
-      "\"Headed to Lakeside\" - Elias Delvasto", "\"This man John is fucking dead, you gotta use a Ouija board to talk to him now.\" - Robert Ross", "\"You’re damn right I know what jail is like, and if I have to go back, I’ll do it!\" - John Stagg",
-      "\"Either consent or get raped.\" - John Stagg", "\"I fucking hate Indians. Let’s bomb the fuck out of them, all 1 billion of them.\" - John Stagg",
-      "\"IMA HIT ON ALL THE DUDES\" - Nathan Munns", "\"I actually lost my virginity to a hooker.\" - Marco Navarro", "\"Damn Carley is getting a boob job? I wish i could get a dick job.\" -Marco Novarro", "\"I wanna see Kyle fuck a stripper at my bachelor party.\" - Kalan McNeese",
-      "\"I will hit all you cheating fools with chairs including you Kalan, and Elias you’ll get an entire sofa.\" - Sara Cowan", "\"Matt Potter: Robert, you’re going to smash and break everything on this table. \nRobert: I know what I’m going to smash tonight *stares and smiles at Betsie*\" - Robert Ross",
-      "\"I'm gonna spoon Betsie hard as shit tonight.\" - Matt Potter", "\"If your ass smells as good as you do, I'd eat it.\" - Marco Navarro",
-      "\"Man if my medical bill was 4 billion dollars, they better be able to regenerate me with only my eyeball left.\" - David Potters", "\"I wish I knew how to read.\" - Connor O’Neill",
-      "\"It needs to be an explicit, ‘fuck me hard daddy’ or else it’s rape.\" - Matt Potter", "\"I’m tired of david’s ugly ass pictures always looking like a whole dumbass 24/7 but what can I expect, he drinks hot dog water.\" - Kalan McNeese",
-      "\"Tonight wdchkotgjkbrec great\" - Brittany Boyd", "\"PSA: John is a serial ass eater so y'all better keep your belts tight around this man.\" - Amy Manning",
-      "\"Fuck money bruh, who needs that shit anyway?\" - John Stagg","\"OH MAH GOD\" - David Potters","\"Kylo Ren please don’t take my cheeks\" - David Potters",
-      "\"Is it wrong for a man to get a boner when he is getting hit in the face?\" - Caleb O’Neill","\"Brock Turner can still get hired to be a gynecologist\" - Robert Ross","\"Robert fuck you, always talking shit about my hair\" - John Stagg","\"I once bought a $1200 dog for a girl to have us break up a month later\" - Nathan Munns",
-      "\"I shit myself in class today while calling my professor over, he came over and his face shriveled up but he had to act like nothing smelled as he spoke to me\" - Dalvin Andrews","\"Byrd, no one literally fucking cares idk why you always tell us every single time you genius piece of ass you\" - Kalan McNeese","\"Last I knew, he was in my ass\" - Austin Boyd",
-      "\"We fucked\" - Nathan Munns","\"Saturday, I’m literally passing out in one of the squares in Savannah\" - John Stagg","\"It’s fine, okay. Don’t even worry about it\" - Robert Ross regarding any situation that could cause irreparable damage","\"Well goodnight everyone I feel like my ears and brain have been molested tonight but it’s all fine and dandy because it’s nothing a life of alcohol abuse and sleep can’t fix so I will see you guys tomorrow.\" - Caleb O’Neill",
-      "\"You know what you should say… why did the bartender ask if he needed a mop? Cause he’s a fucking dumbass that doesn’t know that’s a skeleton\" - Kyle Ford","\"I need a boyfriend.\" - SquadBot","\"It’s just an egg, John, he’s gonna crack it. It’s not like he’s gonna plant it or something.\" - Matt Potter","\"I would rather be a raper than to be raped.\" - Dalvin Andrews",
-      "\"Slip it in her drink, and in the blink of an eye, I can make a white girl look chink.\" - Tyler the Creator","\"This man straight up retarded\" - David Potters","\"Two asses don't make a vagina\" - Connor O'Neill","\"The only reason I knew where I was last night was because I checked my bank statement this morning\" - John Stagg",
-      "\"I have the worst presentation time this semester: the week after spring break. I might still be hungover\" - Marco Navarro","\"A nigga can’t even die in his own room anymore\" - Robert Ross","\"If you look past the shady dealings and gunshots, this is luxury living\" - Caleb O’Neill",
-      "\"I got out of jail that night and next morning got a 97 on my presentation\" - John Stagg","\"That’s why I take so many naps, I got nothing to be awake for.\" - John Stagg",
-      "\"Sounds like what y'all were talking about was a clique. The only clique you need to know about is Brainiac, Scarecrow and sister Black Canary, because what you dealing with here, is the brotherhood. It's non-stop from this point on, in injustice, I take what I want, and after I take David, I want the gold sucka, Kalan, I'm coming for you nigga!\"- Dalvin Andrews",
-      "\"Caleb you literally look like a challenged tomato\" - Kalan McNeese","\"You're not even a whole sperm. You shared a nut.\" - Kalan McNeese","\"I'm trying to decide on whether I should say fuck off or thank you because that information is kinda useful I guess but also completely fucking not useful at the same damn time\" - Caleb O'Neill",
-      "\"I want a girl that knows I only last two minutes but she's so emotionally attached that she really be cumming\" - Kalan McNeese","\"I've lived on the edge enough to know to not\" -Austin Boyd","\"Oh\" - Caleb O’Neill and David Potters","\"You literally suck at everything you have ever done\" - David",
-      "\"YOU SUCK AT SUCKING DICK\" - no one knows the founder so don’t even try to claim","\"It is not gay to suck your own dick\" - Dalvin Andrews","\"Did you put your fingers in her asshole?\" - David Potters","\"John: We need some trash bags \n Matt P.: Go get it then \n John: Man why I got to fucking do it?\" - John Stagg","\"I know who’s good at sucking dick….\" - Nathan Munns",
-      "\"Steph Curry, Chef Curry, Cayte Curry, Curry Indian food it don't matter to me. Cavs in 5\"  - Kalan McNeese","\"You make $7.25 an hour and work three hours a month\" - Marco Navarro","\"I want to have a reason to kill someone every day, whether in self defense or they were just in my way\" - Robert Ross",
-      "\"Dalvin: Wait a minute....this Steve guy has 0 manly features 🤔 is he even a bro? \n Sara: That's just because my profile pic isn't a pic of my massive dick\" - Sara Cowan","\"Why can’t we have 4th of July in the winter?\" - Caleb O'Neill","\"I got these new whammy shells that can put a hole in an elephant’s ass\" - Dalvin Andrews \n \"I’m pretty sure an elephant already has a hole in its ass so that’s not saying much\" - Caleb O’Neill",
-      "\"But next spring break i'm actually getting fucking totally irreparably excruciatingly and efficiently fukkt upp. when i'm done i won't remember the previous or next five weeks\" - Robert Ross",
-      "\"SHIT, she saw me me looking!...One of my greatest fears is being roasted by a group of fine black women\" - David Potters","\"If I was an altar boy, I'd become famous by telling everyone I was raped by the Pope\"- Caleb O'Neill","\"Parents coming to visit their kids, not knowing how many times they've been dicked down here\" - Marco Navarro",
-      "\"They went down like wet cement but they were the best damn pancakes you'll ever taste\" - Caleb O’Neill","\"Marco: Man I'm about to take a mean shit\nDalvin: How mean? \nMarco: Have you heard what happened to the Jews?\" - Marco Navarro","\"I kinda like French dude\" - David Potters","\"These hands bisexual\" - Jay Smith",
-      "\"SON OF A BITCH ROBERT I'M DRIVING GET OFF MY DICK\" - Kalan McNeese","\"We need to hurry this up cuz my buzz is getting gone.\" - Marco Navarro","\"I wish I could do that, just say no to chicken.\" - Matthew Potter","\"This nigga mad because he's making minimum wage and he's forty.\" - Kalan McNeese",
-      "\"Passed out is just incapacitated. Incapacitated is when your dick cums ten times. It’s a useless tool on your body.\" - David Potters","\"38 GIGS OF PORN!? That's enough to last me two weeks!\" - David Potters","\"Relax, you’re the only side hoe in my life.\" - Kalan McNeese",
-      "\"I wanna work with Amway now.\" - David Potters","\"If I fuckin’ look up Attack on Titan and I see one fuckin’ subtitle and they’re speaking in their slit-eyed language, I’m going to bomb them so hard, they’ll never come back.\" - David Potters","\"I mean I literally took a bath in a dirty puddle outside and ate a squirrel to survive, but your new phone is awesome!\" - Robert Ross",
-      "\"I love the ambiance of Olive Garden, but I’m not gonna go there if I can’t eat the food.\" - Robert Ross","\"You could just have her hand on your phone and literally beat your phone on your dick.\" - David Potters","\"I didn't dick her down but I had sex with her mouth\" - Dalvin Andrews ","\"I really wouldn’t care if Inman died today or lived forever\" - Dalvin Andrews",
-      "\"No wonder she works at a funeral home, I die everytime I see her!\" - Matt Potter","\"I wish I had a grown-ass face. I got a kid ass face and a kid ass body. I'm just a kid ass nigga.\" - Kalan McNeese","\"THEY AIN'T GETTIN MY FOOD, BITCH!\" - Robert Ross","\"When life gives you lemons you make sweet tea\" - David Potters",
-      "\"Don't blame Inman for shitting on the floor, he doesn't know what's going on anymore, his parents split up\"- Marco Navarro","\"Fuck me like the bad boy I am\"- David Potters","\"If we die, we die doing hood rat shit\"- Matt Potter","\"I'd eat your ass before I'd suck your toes\"- Dalvin Andrews","\"I move for no bitch\" - Kalan McNeese .",
-      "\"Y'all told me it was windy, motherfuckers!\" - Caleb O’Neill ","\"David, why are you shining a light in a fire?\" - Matt Potter ","\"Having a positive outlook makes you a happy person\" - Kalan Mcneese ","\"WOO! BLACK BITCHES!\" - David Potters","\"Who vaped on my gator?\" - Kalan McNeese",
-      "\"Never say no in the bedroom\" -Dalvin Andrews ","\"We don't love these hoes\" - Nathan Munns ","\"IT ENDS TONIGHT!\" - Kalan McNeese","\"Damn\" - Jamal Rogers ","\"Well there's only one thing to do unfriend him and never talk to him again\" - Caleb O’Neill ","\"I'm gonna put my dick in her nose\" - David Potters ","\"Everyone needs three portions of ass a day\" - David Potters ","\"Lemme go beat one real quick\" - David Potters ","\"Fuck with the bull, get the horns… and I'm horny.\" - Robert Ross ","\"Quit fuckin’ my truck!\" - Kalan McNeese ","\"Rise and shine Futher Muckers it is a great day to be alive\" - Caleb O’Neill ","\"If she’s fat enough, I heard the back of the kneecaps feels pretty good.\" - Dalvin Andrews ","\"I literally have a PhD in blowing\" - David Potters ","\"Dear GOD, NO\" -David Potters ",
-      "\"I just fucked that test in every hole imaginable\" - Connor O'Neill ","\"Caleb, do you even drive?\" - Connor O'Neill","\"We could be talking about sedimentary rocks and he'll just bring up ‘do you even drive’\" - Caleb O'Neill","\"Fuck Kalan, he's got me thinking that saying gay shit is cool\" - David Potters","\"Nobody beats me harder than I beat myself\" - Matt Brewton","\"Wassup nyuggggaaaaaaa\" - David Potters","\"Whenever we go to the library I'm the only person that does work, yall bitches just take selfies\" - Nick Patel ","\"Why didn't she text me backkkkk...\" - David Potters and Kalan McNeese ","\"Thank you come again lookin ass\" -Robert Ross","\"Cookie lookin ass\" - Robert Ross","\"I love when men are empowered and curve these hating hoes. This. This is maleism\" - Kalan McNeese","\"Shut up Kalan.\" - Shaunya Harden",
-      "\"I can't take all this ass eating and meat beating in one night\" - David Potters","\"Not a real dick. Not really gay.\" - Shaunya Harden","\"I was just thinking if this person has a mutant 12 incher and he's about to impale the child medieval-style some exceptions might need to be made\" - Sara Cowan",
-      "\"Remember, you get curved 100% of the times you don't try. But golden rule is to not get mad about getting curved. Just shrug it off and keep talking to her. It might sound weird but do it. She might find time later on. And if she don't you still have a friend that might help you out later on. You could have two wing girls. Shit who knows. She might be testing how you handle rejection. Some people play like that.\" - Jamal Rogers"
+  var request = JSON.parse(this.req.chunks[0]);
+
+  quotes = [
+  "\"Matt P: Dalvin take the pot you won the hand. \nDalvin: Nah it ain't nothing but about 1500.\" - Dalvin Andrews", "\"I just need a couple more shots.\" - Matt Potter", "\"I really just wanna get knocked up by ryan reynolds rn. \nKnocked *OUT \nFuck!\" - Austin Boyd", "\"Anyway.. im gonn go to bed before i make poor life decisions and end up like my children\" - Austin Boyd", "\"Im finna knock the light outcho eyes, rock you to sleep, as you suck on my nipple milk. I swear. You defiant ass little boys.\" - Austin Boyd",
+  "\"Headed to Lakeside\" - Elias Delvasto", "\"This man John is fucking dead, you gotta use a Ouija board to talk to him now.\" - Robert Ross", "\"You’re damn right I know what jail is like, and if I have to go back, I’ll do it!\" - John Stagg",
+  "\"Either consent or get raped.\" - John Stagg", "\"I fucking hate Indians. Let’s bomb the fuck out of them, all 1 billion of them.\" - John Stagg",
+  "\"IMA HIT ON ALL THE DUDES\" - Nathan Munns", "\"I actually lost my virginity to a hooker.\" - Marco Navarro", "\"Damn Carley is getting a boob job? I wish i could get a dick job.\" -Marco Novarro", "\"I wanna see Kyle fuck a stripper at my bachelor party.\" - Kalan McNeese",
+  "\"I will hit all you cheating fools with chairs including you Kalan, and Elias you’ll get an entire sofa.\" - Sara Cowan", "\"Matt Potter: Robert, you’re going to smash and break everything on this table. \nRobert: I know what I’m going to smash tonight *stares and smiles at Betsie*\" - Robert Ross",
+  "\"I'm gonna spoon Betsie hard as shit tonight.\" - Matt Potter", "\"If your ass smells as good as you do, I'd eat it.\" - Marco Navarro",
+  "\"Man if my medical bill was 4 billion dollars, they better be able to regenerate me with only my eyeball left.\" - David Potters", "\"I wish I knew how to read.\" - Connor O’Neill",
+  "\"It needs to be an explicit, ‘fuck me hard daddy’ or else it’s rape.\" - Matt Potter", "\"I’m tired of david’s ugly ass pictures always looking like a whole dumbass 24/7 but what can I expect, he drinks hot dog water.\" - Kalan McNeese",
+  "\"Tonight wdchkotgjkbrec great\" - Brittany Boyd", "\"PSA: John is a serial ass eater so y'all better keep your belts tight around this man.\" - Amy Manning",
+  "\"Fuck money bruh, who needs that shit anyway?\" - John Stagg","\"OH MAH GOD\" - David Potters","\"Kylo Ren please don’t take my cheeks\" - David Potters",
+  "\"Is it wrong for a man to get a boner when he is getting hit in the face?\" - Caleb O’Neill","\"Brock Turner can still get hired to be a gynecologist\" - Robert Ross","\"Robert fuck you, always talking shit about my hair\" - John Stagg","\"I once bought a $1200 dog for a girl to have us break up a month later\" - Nathan Munns",
+  "\"I shit myself in class today while calling my professor over, he came over and his face shriveled up but he had to act like nothing smelled as he spoke to me\" - Dalvin Andrews","\"Byrd, no one literally fucking cares idk why you always tell us every single time you genius piece of ass you\" - Kalan McNeese","\"Last I knew, he was in my ass\" - Austin Boyd",
+  "\"We fucked\" - Nathan Munns","\"Saturday, I’m literally passing out in one of the squares in Savannah\" - John Stagg","\"It’s fine, okay. Don’t even worry about it\" - Robert Ross regarding any situation that could cause irreparable damage","\"Well goodnight everyone I feel like my ears and brain have been molested tonight but it’s all fine and dandy because it’s nothing a life of alcohol abuse and sleep can’t fix so I will see you guys tomorrow.\" - Caleb O’Neill",
+  "\"You know what you should say… why did the bartender ask if he needed a mop? Cause he’s a fucking dumbass that doesn’t know that’s a skeleton\" - Kyle Ford","\"I need a boyfriend.\" - SquadBot","\"It’s just an egg, John, he’s gonna crack it. It’s not like he’s gonna plant it or something.\" - Matt Potter","\"I would rather be a raper than to be raped.\" - Dalvin Andrews",
+  "\"Slip it in her drink, and in the blink of an eye, I can make a white girl look chink.\" - Tyler the Creator","\"This man straight up retarded\" - David Potters","\"Two asses don't make a vagina\" - Connor O'Neill","\"The only reason I knew where I was last night was because I checked my bank statement this morning\" - John Stagg",
+  "\"I have the worst presentation time this semester: the week after spring break. I might still be hungover\" - Marco Navarro","\"A nigga can’t even die in his own room anymore\" - Robert Ross","\"If you look past the shady dealings and gunshots, this is luxury living\" - Caleb O’Neill",
+  "\"I got out of jail that night and next morning got a 97 on my presentation\" - John Stagg","\"That’s why I take so many naps, I got nothing to be awake for.\" - John Stagg",
+  "\"Sounds like what y'all were talking about was a clique. The only clique you need to know about is Brainiac, Scarecrow and sister Black Canary, because what you dealing with here, is the brotherhood. It's non-stop from this point on, in injustice, I take what I want, and after I take David, I want the gold sucka, Kalan, I'm coming for you nigga!\"- Dalvin Andrews",
+  "\"Caleb you literally look like a challenged tomato\" - Kalan McNeese","\"You're not even a whole sperm. You shared a nut.\" - Kalan McNeese","\"I'm trying to decide on whether I should say fuck off or thank you because that information is kinda useful I guess but also completely fucking not useful at the same damn time\" - Caleb O'Neill",
+  "\"I want a girl that knows I only last two minutes but she's so emotionally attached that she really be cumming\" - Kalan McNeese","\"I've lived on the edge enough to know to not\" -Austin Boyd","\"Oh\" - Caleb O’Neill and David Potters","\"You literally suck at everything you have ever done\" - David",
+  "\"YOU SUCK AT SUCKING DICK\" - no one knows the founder so don’t even try to claim","\"It is not gay to suck your own dick\" - Dalvin Andrews","\"Did you put your fingers in her asshole?\" - David Potters","\"John: We need some trash bags \n Matt P.: Go get it then \n John: Man why I got to fucking do it?\" - John Stagg","\"I know who’s good at sucking dick….\" - Nathan Munns",
+  "\"Steph Curry, Chef Curry, Cayte Curry, Curry Indian food it don't matter to me. Cavs in 5\"  - Kalan McNeese","\"You make $7.25 an hour and work three hours a month\" - Marco Navarro","\"I want to have a reason to kill someone every day, whether in self defense or they were just in my way\" - Robert Ross",
+  "\"Dalvin: Wait a minute....this Steve guy has 0 manly features 🤔 is he even a bro? \n Sara: That's just because my profile pic isn't a pic of my massive dick\" - Sara Cowan","\"Why can’t we have 4th of July in the winter?\" - Caleb O'Neill","\"I got these new whammy shells that can put a hole in an elephant’s ass\" - Dalvin Andrews \n \"I’m pretty sure an elephant already has a hole in its ass so that’s not saying much\" - Caleb O’Neill",
+  "\"But next spring break i'm actually getting fucking totally irreparably excruciatingly and efficiently fukkt upp. when i'm done i won't remember the previous or next five weeks\" - Robert Ross",
+  "\"SHIT, she saw me me looking!...One of my greatest fears is being roasted by a group of fine black women\" - David Potters","\"If I was an altar boy, I'd become famous by telling everyone I was raped by the Pope\"- Caleb O'Neill","\"Parents coming to visit their kids, not knowing how many times they've been dicked down here\" - Marco Navarro",
+  "\"They went down like wet cement but they were the best damn pancakes you'll ever taste\" - Caleb O’Neill","\"Marco: Man I'm about to take a mean shit\nDalvin: How mean? \nMarco: Have you heard what happened to the Jews?\" - Marco Navarro","\"I kinda like French dude\" - David Potters","\"These hands bisexual\" - Jay Smith",
+  "\"SON OF A BITCH ROBERT I'M DRIVING GET OFF MY DICK\" - Kalan McNeese","\"We need to hurry this up cuz my buzz is getting gone.\" - Marco Navarro","\"I wish I could do that, just say no to chicken.\" - Matthew Potter","\"This nigga mad because he's making minimum wage and he's forty.\" - Kalan McNeese",
+  "\"Passed out is just incapacitated. Incapacitated is when your dick cums ten times. It’s a useless tool on your body.\" - David Potters","\"38 GIGS OF PORN!? That's enough to last me two weeks!\" - David Potters","\"Relax, you’re the only side hoe in my life.\" - Kalan McNeese",
+  "\"I wanna work with Amway now.\" - David Potters","\"If I fuckin’ look up Attack on Titan and I see one fuckin’ subtitle and they’re speaking in their slit-eyed language, I’m going to bomb them so hard, they’ll never come back.\" - David Potters","\"I mean I literally took a bath in a dirty puddle outside and ate a squirrel to survive, but your new phone is awesome!\" - Robert Ross",
+  "\"I love the ambiance of Olive Garden, but I’m not gonna go there if I can’t eat the food.\" - Robert Ross","\"You could just have her hand on your phone and literally beat your phone on your dick.\" - David Potters","\"I didn't dick her down but I had sex with her mouth\" - Dalvin Andrews ","\"I really wouldn’t care if Inman died today or lived forever\" - Dalvin Andrews",
+  "\"No wonder she works at a funeral home, I die everytime I see her!\" - Matt Potter","\"I wish I had a grown-ass face. I got a kid ass face and a kid ass body. I'm just a kid ass nigga.\" - Kalan McNeese","\"THEY AIN'T GETTIN MY FOOD, BITCH!\" - Robert Ross","\"When life gives you lemons you make sweet tea\" - David Potters",
+  "\"Don't blame Inman for shitting on the floor, he doesn't know what's going on anymore, his parents split up\"- Marco Navarro","\"Fuck me like the bad boy I am\"- David Potters","\"If we die, we die doing hood rat shit\"- Matt Potter","\"I'd eat your ass before I'd suck your toes\"- Dalvin Andrews","\"I move for no bitch\" - Kalan McNeese .",
+  "\"Y'all told me it was windy, motherfuckers!\" - Caleb O’Neill ","\"David, why are you shining a light in a fire?\" - Matt Potter ","\"Having a positive outlook makes you a happy person\" - Kalan Mcneese ","\"WOO! BLACK BITCHES!\" - David Potters","\"Who vaped on my gator?\" - Kalan McNeese",
+  "\"Never say no in the bedroom\" -Dalvin Andrews ","\"We don't love these hoes\" - Nathan Munns ","\"IT ENDS TONIGHT!\" - Kalan McNeese","\"Damn\" - Jamal Rogers ","\"Well there's only one thing to do unfriend him and never talk to him again\" - Caleb O’Neill ","\"I'm gonna put my dick in her nose\" - David Potters ","\"Everyone needs three portions of ass a day\" - David Potters ","\"Lemme go beat one real quick\" - David Potters ","\"Fuck with the bull, get the horns… and I'm horny.\" - Robert Ross ","\"Quit fuckin’ my truck!\" - Kalan McNeese ","\"Rise and shine Futher Muckers it is a great day to be alive\" - Caleb O’Neill ","\"If she’s fat enough, I heard the back of the kneecaps feels pretty good.\" - Dalvin Andrews ","\"I literally have a PhD in blowing\" - David Potters ","\"Dear GOD, NO\" -David Potters ",
+  "\"I just fucked that test in every hole imaginable\" - Connor O'Neill ","\"Caleb, do you even drive?\" - Connor O'Neill","\"We could be talking about sedimentary rocks and he'll just bring up ‘do you even drive’\" - Caleb O'Neill","\"Fuck Kalan, he's got me thinking that saying gay shit is cool\" - David Potters","\"Nobody beats me harder than I beat myself\" - Matt Brewton","\"Wassup nyuggggaaaaaaa\" - David Potters","\"Whenever we go to the library I'm the only person that does work, yall bitches just take selfies\" - Nick Patel ","\"Why didn't she text me backkkkk...\" - David Potters and Kalan McNeese ","\"Thank you come again lookin ass\" -Robert Ross","\"Cookie lookin ass\" - Robert Ross","\"I love when men are empowered and curve these hating hoes. This. This is maleism\" - Kalan McNeese","\"Shut up Kalan.\" - Shaunya Harden",
+  "\"I can't take all this ass eating and meat beating in one night\" - David Potters","\"Not a real dick. Not really gay.\" - Shaunya Harden","\"I was just thinking if this person has a mutant 12 incher and he's about to impale the child medieval-style some exceptions might need to be made\" - Sara Cowan",
+  "\"Remember, you get curved 100% of the times you don't try. But golden rule is to not get mad about getting curved. Just shrug it off and keep talking to her. It might sound weird but do it. She might find time later on. And if she don't you still have a friend that might help you out later on. You could have two wing girls. Shit who knows. She might be testing how you handle rejection. Some people play like that.\" - Jamal Rogers"
     ];
-      botInfo = "Hi, I'm SquadBot version 2.3! \n" +
-                "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
-                "Use /weather [now][today][this week] to get the weather for those times. \n" +
-                "Use /math [problem] to solve math problems with WolframAlpha. \n" +
-                "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
-                "Use \'@mealplan\' to tag anyone with a meal plan and \'@GSU\' for anyone in the Statesboro area. \n" +
-                "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
-                "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
-      // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
-      botRegex_oneword = /\s\b/;
-      botRegex_damn = /damn\b/gi;
-      botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
-      botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
-      botRegex_wtf = /\b(wtf|wth|what the (hell|fuck))\b/i;
-      botRegex_thanks = /\b(thanks|(thank you)|thx)\b/i;
-      botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
-      botRegex_bye = /\b(good night)|(bye)|(goodbye)|(goodnight)\b/i;
-      botRegex_morning = /\b(good morning)\b/i;
-      botRegex_joke = /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i;
-      botRegex_kick = /#kicksquadbot/i;
+  botInfo = "Hi, I'm SquadBot version 2.3! \n" +
+            "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
+            "Use /weather [now][today][this week] to get the weather for those times. \n" +
+            "Use /math [problem] to solve math problems with WolframAlpha. \n" +
+            "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
+            "Use \'@mealplan\' to tag anyone with a meal plan and \'@GSU\' for anyone in the Statesboro area. \n" +
+            "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
+            "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
+  // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
+  botRegex_oneword = /\s\b/;
+  botRegex_damn = /damn\b/gi;
+  botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
+  botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
+  botRegex_wtf = /\b(wtf|wth|what the (hell|fuck))\b/i;
+  botRegex_thanks = /\b(thanks|(thank you)|thx)\b/i;
+  botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
+  botRegex_bye = /\b(good night)|(bye)|(goodbye)|(goodnight)\b/i;
+  botRegex_morning = /\b(good morning)\b/i;
+  botRegex_joke = /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i;
+  botRegex_kick = /#kicksquadbot/i;
 
-      comRegex_quote = /^([\/]quote)/i;
-      comRegex_8ball = /^([\/]8ball)/i;
-      comRegex_giphy = /^([\/]giphy)/i;
-      comRegex_face = /^[\/]face$/i;
-      comRegex_bing = /^([\/]image)/i;
-      comRegex_weather = /\bweather\b/i;
-      comRegex_wifi = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
-      comRegex_math = /^\/\b(math|calc|wolf)\b/i;
+  comRegex_quote = /^([\/]quote)/i;
+  comRegex_8ball = /^([\/]8ball)/i;
+  comRegex_giphy = /^([\/]giphy)/i;
+  comRegex_face = /^[\/]face$/i;
+  comRegex_bing = /^([\/]image)/i;
+  comRegex_weather = /\bweather\b/i;
+  comRegex_wifi = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
+  comRegex_math = /^\/\b(math|calc|wolf)\b/i;
 
-      tagRegex_all = /@(all|squad\b|anyone|everyone|everybody)/i;
-      tagRegex_bot = /@Squadbot.*?/i;
-      tagRegex_mealplan = /@(food|meal plan|mealplan)/i;
-      tagRegex_engineers = /@engineers/i;
-      tagRegex_hudson = /@(forum|hudson)/i;
-      tagRegex_oneeleven = /@(111|911)/i;
-      tagRegex_GSU = /@(GSU|southern)/i;
-      tagRegex_girls = /@(girls|ladies|women)/i;
-      tagRegex_guys = /@(guys|gents|men|boys|fellas)/i;
+  tagRegex_all = /@(all|squad\b|anyone|everyone|everybody)/i;
+  tagRegex_bot = /@Squadbot.*?/i;
+  tagRegex_mealplan = /@(food|meal plan|mealplan)/i;
+  tagRegex_engineers = /@engineers/i;
+  tagRegex_hudson = /@(forum|hudson)/i;
+  tagRegex_oneeleven = /@(111|911)/i;
+  tagRegex_GSU = /@(GSU|southern)/i;
+  tagRegex_girls = /@(girls|ladies|women)/i;
+  tagRegex_guys = /@(guys|gents|men|boys|fellas)/i;
 
-      // ALL MEMBERS IN THE GROUP
-      Connor	=	'30824774'; Elias	= '24488525'; White_Matt	=	'18341900';
-      Caleb	=	  '31575032'; Dalvin	= '29824624'; David	= '18252184';
-      Kalan	=	  '30151684'; Nathan	= '12558120'; Robert	= '28758543';
-      Black_Matt	= '29879154'; Brittany	=	  '42281557'; Sara	= '29187291';
-      Nick	=	  '29823868'; Jay	=	  '41361709'; Marco	=	  '38221747';
-      Chad	= '24474608'; Tori	= '18922923'; Cayte	=	'43573131';
-      Austin = '51259439'; John = '25140874'; Kyle = '53552393' ;
-      Lauren = '8351131'; Amy = '28852419'; Phina = '56225693'; Dakota = '00000000';
-      Alexis = '00000000'; Meagan = '00000000'; Kelly = '00000000';
+  // ALL MEMBERS IN THE GROUP
+  Connor	=	'30824774'; Elias	= '24488525'; White_Matt	=	'18341900';
+  Caleb	=	  '31575032'; Dalvin	= '29824624'; David	= '18252184';
+  Kalan	=	  '30151684'; Nathan	= '12558120'; Robert	= '28758543';
+  Black_Matt	= '29879154'; Brittany	=	  '42281557'; Sara	= '29187291';
+  Nick	=	  '29823868'; Jay	=	  '41361709'; Marco	=	  '38221747';
+  Chad	= '24474608'; Tori	= '18922923'; Cayte	=	'43573131';
+  Austin = '51259439'; John = '25140874'; Kyle = '53552393' ;
+  Lauren = '8351131'; Amy = '28852419'; Phina = '56225693'; Dakota = '00000000';
+  Alexis = '00000000'; Meagan = '00000000'; Kelly = '00000000';
 
-      // INFO ABOUT THE USER THAT TRIGGERED THE BOT
-      userName = request.name; userIDNum = request.user_id;
-      askme = false;
+  // INFO ABOUT THE USER THAT TRIGGERED THE BOT
+  userName = request.name; userIDNum = request.user_id;
+  console.log(userName + " (" + userIDNum + ") POSTED: " + this.req.chunks[0]);
+  askme = false;
 
   if(request.text && !botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
@@ -654,7 +653,8 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
-
+  last_userName = request.name; last_userIDNum = request.user_id;
+  last_response = request.text;
 }
 
 console.log("Response okay...")
