@@ -48,7 +48,6 @@ async.series([
         Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
         tempResponse = cells[i+groupcount*2].value; tempResponse = tempResponse.replace(/\"\,/g,'\"_');
         Group_response[i] = tempResponse.split('_');
-        console.log("First response of Group "+(i+1)+": "+Group_response[i][0]);
         Group[i] = [Group_name,Group_regex,Group_response];
       }
       console.log("Groups: "+Group_name);
@@ -280,57 +279,61 @@ function respond() {
         } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
       });
       for(i=0;i<groupcount;i++){
-
+        if(Group_regex[i].test(request.text)){
+          response = Group_response[i];
+          randomNumber = Math.floor(Math.random()*response.length);
+          response = response[randomNumber];
+        }
       }
-      if(tagRegex_hudson.test(request.text)){
-        response = ["Hudson boys, ",
-                    "Peeps who live at the Hudson, ",
-                    "Hudson residents, ",
-                    "Hey Hudson, "];
-        randomNumber = Math.floor(Math.random()*response.length);
-        response = response[randomNumber]
-      } else if (tagRegex_oneeleven.test(request.text)) {
-        response = '111 crew, ';
-      } else if (tagRegex_mealplan.test(request.text)) {
-        response = ["Food people, ",
-                    "Anyone with a meal plan, ",
-                    "Landy squad, ", "Lakeside crew, ",
-                    "🍔: "];
-        randomNumber = Math.floor(Math.random()*response.length);
-        response = response[randomNumber];
-      } else if (tagRegex_girls.test(request.text)) {
-        response = ["Ladies, ",
-                    "Womens, ",
-                    "Those who identify as female, ",
-                    "AYO LADIES: ", "👩: "];
-        randomNumber = Math.floor(Math.random()*response.length);
-        response = response[randomNumber];
-      } else if (tagRegex_guys.test(request.text)) {
-        response = ["Men, ",
-                    "Dudes, ",
-                    "Guys, ", "Listen fellas, ",
-                    "Good day gents, ", "👨"];
-        randomNumber = Math.floor(Math.random()*response.length);
-        response = response[randomNumber];
-      } else if (tagRegex_engineers.test(request.text)) {
-        response = 'All engineers, ';
-      } else if (tagRegex_GSU.test(request.text)) {
-        response = ["Everyone in Statesboro, ",
-                    "Hey everybody at GSU, ",
-                    "LISTEN UP GSU, ",
-                    "Statesboro, ",
-                    "Those in the GSU area, ", "EAGLES: "];
-        randomNumber = Math.floor(Math.random()*response.length);
-        response = response[randomNumber];
-      } else {
-        response = ["Everyone, ",
-                    "Hey everybody, ",
-                    "LISTEN UP, ",
-                    "Calling all humans, ",
-                    "ATTENTION: "];
-        randomNumber = Math.floor(Math.random()*response.length);
-        response = response[randomNumber];
-      }
+      // if(tagRegex_hudson.test(request.text)){
+      //   response = ["Hudson boys, ",
+      //               "Peeps who live at the Hudson, ",
+      //               "Hudson residents, ",
+      //               "Hey Hudson, "];
+      //   randomNumber = Math.floor(Math.random()*response.length);
+      //   response = response[randomNumber]
+      // } else if (tagRegex_oneeleven.test(request.text)) {
+      //   response = '111 crew, ';
+      // } else if (tagRegex_mealplan.test(request.text)) {
+      //   response = ["Food people, ",
+      //               "Anyone with a meal plan, ",
+      //               "Landy squad, ", "Lakeside crew, ",
+      //               "🍔: "];
+      //   randomNumber = Math.floor(Math.random()*response.length);
+      //   response = response[randomNumber];
+      // } else if (tagRegex_girls.test(request.text)) {
+      //   response = ["Ladies, ",
+      //               "Womens, ",
+      //               "Those who identify as female, ",
+      //               "AYO LADIES: ", "👩: "];
+      //   randomNumber = Math.floor(Math.random()*response.length);
+      //   response = response[randomNumber];
+      // } else if (tagRegex_guys.test(request.text)) {
+      //   response = ["Men, ",
+      //               "Dudes, ",
+      //               "Guys, ", "Listen fellas, ",
+      //               "Good day gents, ", "👨"];
+      //   randomNumber = Math.floor(Math.random()*response.length);
+      //   response = response[randomNumber];
+      // } else if (tagRegex_engineers.test(request.text)) {
+      //   response = 'All engineers, ';
+      // } else if (tagRegex_GSU.test(request.text)) {
+      //   response = ["Everyone in Statesboro, ",
+      //               "Hey everybody at GSU, ",
+      //               "LISTEN UP GSU, ",
+      //               "Statesboro, ",
+      //               "Those in the GSU area, ", "EAGLES: "];
+      //   randomNumber = Math.floor(Math.random()*response.length);
+      //   response = response[randomNumber];
+      // } else {
+      //   response = ["Everyone, ",
+      //               "Hey everybody, ",
+      //               "LISTEN UP, ",
+      //               "Calling all humans, ",
+      //               "ATTENTION: "];
+      //   randomNumber = Math.floor(Math.random()*response.length);
+      //   response = response[randomNumber];
+      // }
       reslength = response.length;
       response += request.name;
       if ((botRegex_oneword.test(request.text))) {
