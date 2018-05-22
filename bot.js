@@ -356,8 +356,8 @@ function respond() {
           if(Group_regex[0].test(request.text) && Group[0][3].indexOf(AllIDs[i]) == -1){
             grouptagtest = true;
           } else {
-            for(i=1;i<groupcount;i++){
-              if(Group_regex[i].test(request.text) && Group[i][3].indexOf(AllIDs[i]) > -1){
+            for(j=1;j<groupcount;j++){
+              if(Group_regex[j].test(request.text) && Group[j][3].indexOf(AllIDs[i]) > -1){
                 grouptagtest = true;
               }
             }
