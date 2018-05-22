@@ -65,7 +65,6 @@ async.series([
           Member_name[i] = cells[(i*2)+1].value;
           Member[i] = [Member_id[i], Member_name[i]];
       }
-      console.log("Members: "+Member);
       step();
     });
   },
