@@ -43,10 +43,12 @@ async.series([
       Group = []; Group_name = []; Group_regex = [];
       for (i = 0; i < groupcount; i++){
         Group_name[i] = cells[i].value;
-        Group_regex[i] = cells[i+groupcount].value;
+        tempRegEx = cells[i+groupcount].value;
+        tempRegEx = tempRegEx.replace(/\,/ig,'|').replace(/\s/ig,'');
+        Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
+        Group[i] = [Group_name,Group_regex];
       }
       console.log("Groups: "+Group_name);
-      console.log("Tags: "+Group_regex);
       step();
     });
   }
@@ -261,17 +263,22 @@ function respond() {
     likeMessage(request.id);
     this.res.end();
   }
+  tagtest = false;
+  for (i=0;i<groupcount;i++){
+    if(Group_regex[i].test(request.text)){tagtest=true;}
+  }
   if(request.text
     && request.user_id != '43525551'
     && request.sender_type != "bot"
-    && (tagRegex_all.test(request.text)
-      || tagRegex_hudson.test(request.text)
-      || tagRegex_oneeleven.test(request.text)
-      || tagRegex_mealplan.test(request.text)
-      || tagRegex_engineers.test(request.text)
-      || tagRegex_GSU.test(request.text)
-      || tagRegex_girls.test(request.text)
-      || tagRegex_guys.test(request.text))
+    && tagtest
+    // && (tagRegex_all.test(request.text)
+    //   || tagRegex_hudson.test(request.text)
+    //   || tagRegex_oneeleven.test(request.text)
+    //   || tagRegex_mealplan.test(request.text)
+    //   || tagRegex_engineers.test(request.text)
+    //   || tagRegex_GSU.test(request.text)
+    //   || tagRegex_girls.test(request.text)
+    //   || tagRegex_guys.test(request.text))
   ) {
     this.res.writeHead(200);
     likeMessage(request.id);
