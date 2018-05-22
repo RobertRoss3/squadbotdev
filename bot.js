@@ -46,6 +46,7 @@ async.series([
         Group_regex[i] = cells[i+groupcount].value;
       }
       console.log("Groups: "+Group_name);
+      console.log("Tags: "+Group_regex);
       step();
     });
   }
