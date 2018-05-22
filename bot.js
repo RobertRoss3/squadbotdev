@@ -24,7 +24,7 @@ async.series([
       private_key: process.env.GOOGLE_PRIVATE_KEY
     }
     doc.useServiceAccountAuth(creds_json, step);
-  }
+  },
   function getInfoAndWorksheets(step) {
     doc.getInfo(function(err, info) {
       if (info != null){
@@ -34,7 +34,7 @@ async.series([
         step();
       } else {console.log("Error: Spreadsheet returned undefined.")}
     });
-  }
+  },
   function getGroupInfo(step) {
     Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
     function(err, cells) {
@@ -53,7 +53,7 @@ async.series([
       console.log("Groups: "+Group);
       step();
     });
-  }
+  },
   function getMemberInfo(step) {
     Members_info.getCells({'min-row': 2,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
     function(err, cells) {
@@ -67,7 +67,7 @@ async.series([
       }
       step();
     });
-  }
+  },
   function getGroupMembers(step){
     Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': 1,'max-col': Group.length,'return-empty': true},
     function(err, cells){
@@ -80,7 +80,7 @@ async.series([
       console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
       step();
     });
-  }
+  },
 ], function(err){
     if( err ) {
       console.log('Error: '+err);
