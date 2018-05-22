@@ -55,7 +55,7 @@ async.series([
     });
   },
   function getMemberInfo(step) {
-    Members_info.getCells({'min-row': 1,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
+    Members_info.getCells({'min-row': 2,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
     function(err, cells) {
       membercount = cells.length/2;
       console.log("Counted "+membercount+" members...");
