@@ -67,8 +67,6 @@ async.series([
           Member[i] = [Member_id[i], Member_name[i]];
         }
       }
-      console.log("Members: "+Member);
-      console.log("Member 6: ID:" + Member[6][0]+" Name: "+Member[6][1]);
       step();
     });
   },
