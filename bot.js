@@ -68,18 +68,19 @@ async.series([
     });
   },
   function getGroupMembers(step){
-    for (i=0;i<groupcount;i++){
-      Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': i,'max-col': i,'return-empty': true},
-      function(err, cells){
-        console.log("Counted "+cells.length+" cells...")
-        for (j=0;j<cells.length;j++){
-          Group[i][3].push(cells[j].value);
+    Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': 1,'max-col': Group.length,'return-empty': true},
+    function(err, cells){
+      subGroup = new Array(groupcount);
+      for (i=0;i<Member.length;i++){
+        for (j=0;j<Group.length;j++){
+          subGroup[j].push(cells[(Group.length*i)+j].value);
         }
-        step();
-      });
-
-      console.log("Group "+(i+1)+" info: "+Group[i]);
-    }
+      }
+      console.log("Subgroup: "+subGroup);
+      // groupselect = 5;
+      // console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
+      step();
+    });
   },
 ], function(err){
     if( err ) {
