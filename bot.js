@@ -38,12 +38,14 @@ async.series([
   function workingWithCells(step) {
     Groups_info.getCells({'min-row': 1,'max-row': 2,'min-col': 1,'max-col': 25,'return-empty': false},
     function(err, cells) {
-      console.log("Counted "+cells.length+" groups...");
+      groupcount = cells.length/2;
+      console.log("Counted "+groupcount+" groups...");
       Group = []; Group_name = []; Group_regex = [];
-      for (i = 0; i < cells.length; i++){
+      for (i = 0; i < groupcount; i++){
         Group_name[i] = cells[i].value;
-        Group_regex[i] = 0;
+        Group_regex[i] = cells[i+groupcount].value;
       }
+      console.log("Groups: "+Group_name);
       step();
     });
   }
