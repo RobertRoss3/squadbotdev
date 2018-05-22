@@ -13,7 +13,7 @@ var Guid = require('guid');
 var GoogleSpreadsheet = require('google-spreadsheet');
 var async = require('async');
 
-// spreadsheet key is the long id in the sheets URL
+//  GETTING DATA FROM GOOGLE SPREADSHEET
 var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
 var sheet;
 
@@ -36,16 +36,14 @@ async.series([
     });
   },
   function workingWithCells(step) {
-    Groups_info.getCells({
-      'min-row': 1,
-      'max-row': 1,
-      'min-col': 1,
-      'max-col': 25,
-      'return-empty': false
-    }, function(err, cells) {
-      console.log("Counted "+cells.length+" cells...");
-      // var cell = cells;
-      // console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
+    Groups_info.getCells({'min-row': 1,'max-row': 2,'min-col': 1,'max-col': 25,'return-empty': false},
+    function(err, cells) {
+      console.log("Counted "+cells.length+" groups...");
+      Group = []; Group_name = []; Group_regex = [];
+      for (i = 0; i < cells.length; i++){
+        Group_name[i] = cells[i].value;
+        Group_regex[i] = 0;
+      }
       step();
     });
   }
@@ -55,7 +53,6 @@ function(err){
 });
 
 console.log("Starting up...");
-                                // Connect to database
 
 //     API KEYS FOR ALL APIS USED
 var botID = process.env.BOT_ID;
@@ -397,9 +394,7 @@ function respond() {
           postMessage(response,'tag',[usersLoci,usersID]);
           refresh = newtime;
         }
-
       }
-
     }
   }
     // ENTERED A COMMAND?
