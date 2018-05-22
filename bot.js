@@ -74,14 +74,13 @@ async.series([
       for (j=0;j<groupcount;j++){
         subGroup[j] = new Array()
         for (i=0;i<membercount;i++){
-          if (cells[(groupcount*i)+j].value != ''){
-            subGroup[j].push(cells[(groupcount*i)+j].value);
-          }
+          if (cells[(groupcount*i)+j].value != ''){subGroup[j].push(cells[(groupcount*i)+j].value);}
         }
+        Group[j][3] = subGroup[j];
       }
       console.log(subGroup);
-      // groupselect = 5;
-      // console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
+      groupselect = 5;
+      console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
       step();
     });
   },
