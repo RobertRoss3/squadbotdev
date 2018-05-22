@@ -799,7 +799,7 @@ function postMessage(botResponse,type,args) {
   };
   API.Messages.create(accessToken,groupID,options, function(err,res){
     if (!err) {
-    } else {console.log('POSTING FAILED: ERROR ' + err);}
+    } else {console.log('POSTING FAILED: ERROR ' + JSON.stringify(err));}
   });
 };
 
