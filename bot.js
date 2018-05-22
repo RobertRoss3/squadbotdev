@@ -71,6 +71,7 @@ async.series([
     for (i=0;i<groupcount;i++){
       Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': i,'max-col': i,'return-empty': true},
       function(err, cells){
+        console.log("Counted "+cells.length+" cells...")
         for (j=0;j<cells.length;j++){
           Group[i][3].push(cells[j].value);
         }
