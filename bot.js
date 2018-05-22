@@ -343,15 +343,29 @@ function respond() {
       usersLoci = [];
       for (i=0; i < members.length; i++){
         if(request.user_id != '43525551') {
-          if((tagRegex_oneeleven.test(request.text) && OneEleven.indexOf(members[i].user_id) > -1)
-            || (tagRegex_hudson.test(request.text) && Hudson.indexOf(members[i].user_id) > -1)
-            || (tagRegex_mealplan.test(request.text) && mealPlan.indexOf(members[i].user_id) > -1)
-            || (tagRegex_engineers.test(request.text) && Engineers.indexOf(members[i].user_id) > -1)
-            || (tagRegex_GSU.test(request.text) && AtGSU.indexOf(members[i].user_id) > -1)
-            || (tagRegex_guys.test(request.text) && Guys.indexOf(members[i].user_id) > -1)
-            || (tagRegex_girls.test(request.text) && Girls.indexOf(members[i].user_id) > -1)
-            || (tagRegex_all.test(request.text) && ExcludeFromAll.indexOf(members[i].user_id) == -1))
-            {
+          grouptagtest = false;
+          if(Group_regex[0].test(request.text) && Group[0][3].indexOf(members[i].user_id) == -1){
+            grouptagtest = true;
+          } else {
+            for(i=1;i<groupcount;i++){
+              if(Group_regex[i].test(request.text) && Group[i][3].indexOf(members[i].user_id) > -1){
+                grouptagtest = true;
+              }
+            }
+          }
+          // if((tagRegex_oneeleven.test(request.text) && OneEleven.indexOf(members[i].user_id) > -1)
+          //   || (tagRegex_hudson.test(request.text) && Hudson.indexOf(members[i].user_id) > -1)
+          //   || (tagRegex_mealplan.test(request.text) && mealPlan.indexOf(members[i].user_id) > -1)
+          //   || (tagRegex_engineers.test(request.text) && Engineers.indexOf(members[i].user_id) > -1)
+          //   || (tagRegex_GSU.test(request.text) && AtGSU.indexOf(members[i].user_id) > -1)
+          //   || (tagRegex_guys.test(request.text) && Guys.indexOf(members[i].user_id) > -1)
+          //   || (tagRegex_girls.test(request.text) && Girls.indexOf(members[i].user_id) > -1)
+          //   || (tagRegex_all.test(request.text) && ExcludeFromAll.indexOf(members[i].user_id) == -1))
+          //   {
+          //   usersID[i] = members[i].user_id;
+          //   usersLoci[i] = [0,reslength-2];
+          // }
+          if(grouptagtest){
             usersID[i] = members[i].user_id;
             usersLoci[i] = [0,reslength-2];
           }
