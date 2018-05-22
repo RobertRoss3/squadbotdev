@@ -89,7 +89,6 @@ async.series([
         }
         console.log("Members of "+Group[j][0]+": "+Group[j][3]);
       }
-
       step();
     });
   },
@@ -98,7 +97,6 @@ async.series([
       console.log('Error: '+err);
     }
 });
-
 
 console.log("Starting up...");
 
@@ -159,6 +157,9 @@ last_response = " ";
 
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
+  console.log(userName + " (" + request.user_id + ") POSTED: " + this.req.chunks[0]);
+  last_userName = request.name; last_userIDNum = request.user_id;
+  last_response = request.text;
       quotes = [
       "\"Matt P: Dalvin take the pot you won the hand. \nDalvin: Nah it ain't nothing but about 1500.\" - Dalvin Andrews", "\"I just need a couple more shots.\" - Matt Potter", "\"I really just wanna get knocked up by ryan reynolds rn. \nKnocked *OUT \nFuck!\" - Austin Boyd", "\"Anyway.. im gonn go to bed before i make poor life decisions and end up like my children\" - Austin Boyd", "\"Im finna knock the light outcho eyes, rock you to sleep, as you suck on my nipple milk. I swear. You defiant ass little boys.\" - Austin Boyd",
       "\"Headed to Lakeside\" - Elias Delvasto", "\"This man John is fucking dead, you gotta use a Ouija board to talk to him now.\" - Robert Ross", "\"You’re damn right I know what jail is like, and if I have to go back, I’ll do it!\" - John Stagg",
@@ -653,9 +654,7 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
-  console.log(userName + " (" + request.user_id + ") POSTED: " + this.req.chunks[0]);
-  last_userName = request.name; last_userIDNum = request.user_id;
-  last_response = request.text;
+
 }
 
 console.log("Response okay...")
@@ -727,10 +726,8 @@ function encodeQuery(query) {
 
 // Changes XML to JSON
 function xmlToJson(xml) {
-
 	// Create the return object
 	var obj = {};
-
 	if (xml.nodeType == 1) { // element
 		// do attributes
 		if (xml.attributes.length > 0) {
