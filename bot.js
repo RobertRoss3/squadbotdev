@@ -83,11 +83,12 @@ async.series([
         }
         Group[j][3] = subGroup[j];
         for(k=0;k<Group[j][3].length;k++){
-          if(Member_name.indexOf(Group[j][3][k])>-1){
+          // if(Member_name.indexOf(Group[j][3][k])>-1){
+          if(Member_name.includes(Group[j][3][k])){
             Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
           }
         }
-        console.log("Members of "+Group[j][0]+": "+Group[j][3]);
+        // console.log("Members of "+Group[j][0]+": "+Group[j][3]);
       }
       step();
     });
@@ -138,7 +139,6 @@ console.log("Loading GroupMe API...")
 API.Groups.show(accessToken, groupID, function(err,ret) {
   if (!err) {console.log("GroupMe API loaded...");
     members = ret.members;
-    console.log("Members: "+JSON.stringify(members));
   } else {console.log("ERROR: FAILED GETTING GROUP INFO" + err);}
 });
 
@@ -348,7 +348,7 @@ function respond() {
             grouptagtest = true;
           } else {
             for(i=1;i<groupcount;i++){
-              if(Group_regex[i].test(request.text) && Group[i][3].indexOf(members[i].user_id) > -1){
+              if(Group_regex[i].test(request.text) && Group[i][3].includes(members[i].user_id)){
                 grouptagtest = true;
               }
             }
@@ -482,8 +482,9 @@ function respond() {
         if (!err) {
           console.log("GOT GROUP MEMBERS!");
           members = ret.members;
-          console.log("MEMBERS: " + members.name);
-          console.log("IDS: " + members.id);
+          console.log("MEMBERS: "+JSON.stringify(members));
+          console.log("NAMES: " + members.name);
+          console.log("IDS: " + members.user_id);
         } else {console.log("ERROR: FAILED GETTING GROUP INFO" + err);}
       });
       this.res.end();
