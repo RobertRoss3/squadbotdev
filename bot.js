@@ -63,7 +63,8 @@ async.series([
       for (i = 0; i < membercount*2; i++){
         if(i%2==0){
           Member_id[i] = cells[i].value;
-          Member_name[i] = cells[i+1].value;
+          tempName = cells[i+1].value;
+          Member_name[i] = tempName.replace(/\,/ig,'');
           Member[i] = [Member_id[i], Member_name[i]];
         }
       }
