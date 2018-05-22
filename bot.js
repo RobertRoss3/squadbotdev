@@ -22,7 +22,7 @@ var creds_json = {
   client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
   private_key: process.env.GOOGLE_PRIVATE_KEY
 }
-doc.useServiceAccountAuth(creds_json, step);
+doc.useServiceAccountAuth(creds_json);
 
 //  GET INFO AND WORKSHEETS
 doc.getInfo(function(err, info) {
@@ -30,7 +30,6 @@ doc.getInfo(function(err, info) {
     console.log('Loaded document: '+info.title+'... ');
     Members_info = info.worksheets[0]; Groups_info = info.worksheets[1];
     console.log('Sheet 1: \''+Members_info.title+'\' (ID: '+Members_info.id+'), Sheet 2: \''+Groups_info.title+'\' (ID: '+Groups_info.id+')...');
-    step();
   } else {console.log("Error: Spreadsheet returned undefined.")}
 });
 
@@ -50,7 +49,6 @@ function(err, cells) {
     Group[i] = [Group_name[i],Group_regex[i],Group_response[i], Group_members];
   }
   console.log("Groups: "+Group.length);
-  step();
 });
 
 //  GET MEMBER INFO
@@ -64,7 +62,6 @@ function(err, cells) {
       Member_name[i] = cells[(i*2)+1].value;
       Member[i] = [Member_id[i], Member_name[i]];
   }
-  step();
 });
 
 //  GET GROUP MEMBERS
@@ -77,7 +74,6 @@ function(err, cells){
   }
   groupselect = 5;
   console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
-  step();
 });
 
 console.log("Starting up...");
