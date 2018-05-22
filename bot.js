@@ -60,13 +60,24 @@ async.series([
       membercount = cells.length/2;
       console.log("Counted "+membercount+" members...");
       Member = []; Member_name = []; Member_id = [];
-      for (i = 0; i < membercount*2; i++){
-        if(i%2==0){
-          Member_id[i] = cells[i].value;
-          Member_name[i] = cells[i+1].value;
+      for (i = 0; i < membercount; i++){
+          Member_id[i] = cells[(i*2)].value;
+          Member_name[i] = cells[(i*2)+1].value;
           Member[i] = [Member_id[i], Member_name[i]];
+      }
+      console.log("Members: "+Member);
+      step();
+    });
+  },
+  function getGroupMembers(step){
+    Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': 1,'max-col': Group.length,'return-empty': true},
+    function(err, cells){
+      for (i=0;i<Member.length;i++){
+        for (j=0;j<Group.length;j++){
+          Group[j][3].push(cells[(Group.length*i)+j].value);
         }
       }
+      console.log("Members of atgsu: "+Group[5][3]);
       step();
     });
   },
