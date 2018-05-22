@@ -72,10 +72,10 @@ async.series([
     function(err, cells){
       subGroup = new Array(groupcount);
       for (j=0;j<groupcount;j++){
-        subGroup[j] = new Array(membercount)
+        subGroup[j] = new Array()
         for (i=0;i<membercount;i++){
           if (cells[(groupcount*i)+j].value != ''){
-            subGroup[j][i] = cells[(groupcount*i)+j].value;
+            subGroup[j].push(cells[(groupcount*i)+j].value);
           }
         }
       }
