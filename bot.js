@@ -30,21 +30,27 @@ async.series([
       if (info != null){
         console.log('Loaded document: '+info.title+'... ');
         Members_info = info.worksheets[0]; Groups_info = info.worksheets[1];
-        console.log('Sheet 1: '+Members_info.title+' ID: '+Members_info.id+', Sheet 2: '+Groups_info.title+' ID: '+Groups_info.id+'...');
+        console.log('Sheet 1: \''+Members_info.title+'\' (ID: '+Members_info.id+'), Sheet 2: \''+Groups_info.title+'\' (ID: '+Groups_info.id+')...');
         step();
-      } else {
-        console.log("Error: Spreadsheet returned undefined.")
-      }
-
+      } else {console.log("Error: Spreadsheet returned undefined.")}
     });
-
-    doc.getCells
+  },
+  function workingWithCells(step) {
+    Members_info.getCells({
+      'min-row': 1,
+      'max-row': 1,
+      'min-col': 1,
+      'max-col': 25,
+      'return-empty': false
+    }, function(err, cells) {
+      var cell = cells[0];
+      console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
+      step();
+    });
   }
 ],
 function(err){
-    if( err ) {
-      console.log('Error: '+err);
-    }
+    if( err ) {console.log('Error: '+err);}
 });
 
 console.log("Starting up...");
