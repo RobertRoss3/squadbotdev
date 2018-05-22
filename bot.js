@@ -382,6 +382,8 @@ function respond() {
       }
       usersLoci = usersLoci.filter(function(n){ return n != undefined });
       usersID = usersID.filter(function(n){ return n != undefined });
+      console.log("usersLoci: "+usersLoci);
+      console.log("usersID:"+usersID);
       misfire = /\b(Squad (mother|father|ginger))\b/i;
       if (misfire.test(request.text)){
         //temp fix for tagging names with "squad" in it
