@@ -74,10 +74,11 @@ async.series([
       for (j=0;j<groupcount;j++){
         subGroup[j] = new Array(membercount)
         for (i=0;i<membercount;i++){
-          subGroup[j][i] = cells[(groupcount*i)+j].value;
+          if (cells[(groupcount*i)+j].value != ''){
+            subGroup[j][i] = cells[(groupcount*i)+j].value;
+          }
         }
       }
-
       console.log(subGroup);
       // groupselect = 5;
       // console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
