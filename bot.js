@@ -40,7 +40,7 @@ async.series([
     function(err, cells) {
       groupcount = cells.length/3;
       console.log("Counted "+groupcount+" groups...");
-      Group = []; Group_name = []; Group_regex = []; Group_response = []; Group_members = [];
+      Group = []; Group_name = []; Group_regex = []; Group_response = [];
       for (i = 0; i < groupcount; i++){
         Group_name[i] = cells[i].value;
         tempRegEx = cells[i+groupcount].value;
@@ -48,7 +48,7 @@ async.series([
         Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
         tempResponse = cells[i+groupcount*2].value; tempResponse = tempResponse.replace(/\"\,/g,'\"_');
         Group_response[i] = tempResponse.split('_');
-        Group[i] = [Group_name[i],Group_regex[i],Group_response[i], Group_members];
+        Group[i] = [Group_name[i],Group_regex[i],Group_response[i], newArray()];
       }
       step();
     });
