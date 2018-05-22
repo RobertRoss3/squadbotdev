@@ -47,8 +47,8 @@ async.series([
         tempRegEx = tempRegEx.replace(/\,/ig,'|').replace(/\s/ig,'');
         Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
         tempResponse = cells[i+groupcount*2].value;
-        Group_response[i] = [tempResponse];
-        console.log("First response of Group "+i+": "+Group_response[i][0]);
+        Group_response[i] = new Array(tempResponse);
+        console.log("First response of Group "+(i+1)+": "+Group_response[i][0]);
         Group[i] = [Group_name,Group_regex,Group_response];
       }
       console.log("Groups: "+Group_name);
