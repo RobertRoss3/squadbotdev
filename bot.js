@@ -36,17 +36,20 @@ async.series([
     });
   },
   function workingWithCells(step) {
-    Groups_info.getCells({'min-row': 1,'max-row': 2,'min-col': 1,'max-col': 25,'return-empty': false},
+    Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
     function(err, cells) {
-      groupcount = cells.length/2;
+      groupcount = cells.length/3;
       console.log("Counted "+groupcount+" groups...");
-      Group = []; Group_name = []; Group_regex = [];
+      Group = []; Group_name = []; Group_regex = []; Group_response = [];
       for (i = 0; i < groupcount; i++){
         Group_name[i] = cells[i].value;
         tempRegEx = cells[i+groupcount].value;
         tempRegEx = tempRegEx.replace(/\,/ig,'|').replace(/\s/ig,'');
         Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
-        Group[i] = [Group_name,Group_regex];
+        tempResponse = cells[i+groupcount*2].value;
+        Group_response[i] = [tempResponse];
+        console.log("First response of Group "+i+": "+Group_response[i][0]);
+        Group[i] = [Group_name,Group_regex,Group_response];
       }
       console.log("Groups: "+Group_name);
       step();
@@ -209,26 +212,7 @@ function respond() {
       // INFO ABOUT THE USER THAT TRIGGERED THE BOT
       userName = request.name; userIDNum = request.user_id;
       askme = false;
-      // GET CURRENT TIME
-      time = new Date();
-      timeofDay = time.getHours(); timeofDay = timeofDay - 4;
-      // BOT GREETING
-      if (timeofDay < 0) {timeofDay = 23 + timeofDay;} if (timeofDay > 23) {timeofDay = 23 - timeofDay;} if ((timeofDay > 4) && (timeofDay < 12)) {
-        sayDay = "morning";
-      } else if ((timeofDay>11)&&(timeofDay<18)) {
-        sayDay = "afternoon";
-      } else if ((timeofDay>17)&&(timeofDay<22)) {
-        sayDay = "evening";
-      } else {
-        sayDay = "night";
-      }
-      // Greetings = [
-      //   ["Good " + sayDay + ", @" + userName + ".",[[(7+sayDay.length),(1+sayDay.length+userName.length)],[userIDNum]]],
-      //   ["Hey, @" + userName + "!",[[5,(1 + userName.length)],[userIDNum]]],
-      //   ["What's up, @" + userName + "?",[[11,(1+userName.length)],[userIDNum]]],
-      //   ["Hi there, @" + userName + ".",[[10,(1+userName.length)],[userIDNum]]],
-      //   ["Well hello @" + userName + "! I hope you're enjoying this fine " + sayDay + ".",[[11,(userName.length+1)],[userIDNum]]]
-      // ];
+
   if(request.text && !botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (botRegex_damn.test(request.text)) {
@@ -270,19 +254,7 @@ function respond() {
   for (i=0;i<groupcount;i++){
     if(Group_regex[i].test(request.text)){tagtest=true;}
   }
-  if(request.text
-    && request.user_id != '43525551'
-    && request.sender_type != "bot"
-    && tagtest
-    // && (tagRegex_all.test(request.text)
-    //   || tagRegex_hudson.test(request.text)
-    //   || tagRegex_oneeleven.test(request.text)
-    //   || tagRegex_mealplan.test(request.text)
-    //   || tagRegex_engineers.test(request.text)
-    //   || tagRegex_GSU.test(request.text)
-    //   || tagRegex_girls.test(request.text)
-    //   || tagRegex_guys.test(request.text))
-  ) {
+  if(request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagtest) {
     this.res.writeHead(200);
     likeMessage(request.id);
 
@@ -307,6 +279,9 @@ function respond() {
           console.log("NUMBER OF MEMBERS: " + members.length);
         } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
       });
+      for(i=0;i<groupcount;i++){
+
+      }
       if(tagRegex_hudson.test(request.text)){
         response = ["Hudson boys, ",
                     "Peeps who live at the Hudson, ",
