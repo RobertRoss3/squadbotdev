@@ -139,8 +139,7 @@ console.log("Loading GroupMe API...")
 API.Groups.show(accessToken, groupID, function(err,ret) {
   if (!err) {console.log("GroupMe API loaded...");
     members = ret.members;
-    // console.log("MEMBERS: "+members.length);
-    console.log("MEMBERS: "+JSON.stringify(members));
+    console.log("MEMBERS: "+members.length);
     AllNames = new Array(members.length);
     AllIDs = new Array(members.length);
     for(i=0;i<members.length;i++){
@@ -351,14 +350,14 @@ function respond() {
       }
       usersID = [];
       usersLoci = [];
-      for (i=0; i < members.length; i++){
+      for (i=0; i < AllIDs.length; i++){
         if(request.user_id != '43525551') {
           grouptagtest = false;
-          if(Group_regex[0].test(request.text) && Group[0][3].indexOf(members[i].user_id) == -1){
+          if(Group_regex[0].test(request.text) && Group[0][3].indexOf(AllIDs[i]) == -1){
             grouptagtest = true;
           } else {
             for(i=1;i<groupcount;i++){
-              if(Group_regex[i].test(request.text) && Group[i][3].includes(members[i].user_id)){
+              if(Group_regex[i].test(request.text) && Group[i][3].includes(AllIDs[i])){
                 grouptagtest = true;
               }
             }
@@ -376,7 +375,7 @@ function respond() {
           //   usersLoci[i] = [0,reslength-2];
           // }
           if(grouptagtest){
-            usersID[i] = members[i].user_id;
+            usersID[i] = AllIDs[i];
             usersLoci[i] = [0,reslength-2];
           }
         }
@@ -492,9 +491,10 @@ function respond() {
         if (!err) {
           console.log("GOT GROUP MEMBERS!");
           members = ret.members;
+          // console.log("MEMBERS: "+members.length);
           console.log("MEMBERS: "+JSON.stringify(members));
-          console.log("NAMES: " + members.name);
-          console.log("IDS: " + members.user_id);
+          console.log("NAMES: " + AllNames);
+          console.log("IDS: " + AllIDs);
         } else {console.log("ERROR: FAILED GETTING GROUP INFO" + err);}
       });
       this.res.end();
