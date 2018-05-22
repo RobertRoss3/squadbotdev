@@ -358,7 +358,7 @@ function respond() {
       if ((botRegex_oneword.test(request.text))) {
         response += ' says: ' + request.text;
       }
-      else if (userIDNum == last_userIDNum) {
+      else if (userIDNum == last_userIDNum && last_userIDNum != null) {
         response += ' says: ' + last_response;
       }
       else {
