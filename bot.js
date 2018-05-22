@@ -357,7 +357,7 @@ function respond() {
             grouptagtest = true;
           } else {
             for(i=1;i<groupcount;i++){
-              if(Group_regex[i].test(request.text) && Group[i][3].includes(AllIDs[i])){
+              if(Group_regex[i].test(request.text) && Group[i][3].indexOf(AllIDs[i]) > -1){
                 grouptagtest = true;
               }
             }
