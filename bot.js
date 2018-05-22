@@ -297,6 +297,13 @@ function respond() {
   if(request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagtest) {
     this.res.writeHead(200);
     likeMessage(request.id);
+    API.Groups.show(accessToken, groupID, function(err,ret) {
+      if (!err) {
+        console.log("GOT GROUP MEMBERS!");
+        members = ret.members;
+        console.log("NUMBER OF MEMBERS: " + members.length);
+      } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
+    });
 
     mealPlan = [David, Kalan, Elias, Austin, John, Kyle];
     Engineers = [Connor, Dalvin, Nathan, Robert];
@@ -312,14 +319,6 @@ function respond() {
     //   postMessage("*crickets*");
     // }
     else {
-      API.Groups.show(accessToken, groupID, function(err,ret) {
-        if (!err) {
-          console.log("GOT GROUP MEMBERS!");
-          members = ret.members;
-          console.log("NUMBER OF MEMBERS: " + members.length);
-        } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
-      });
-
       // When a group is tagged, generate a random response
       for(i=0;i<groupcount;i++){
         if(Group_regex[i].test(request.text)){
