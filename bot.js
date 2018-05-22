@@ -77,7 +77,7 @@ async.series([
         step();
       });
 
-      console.log("Group "+(i+1)+" members: "+Group[i][3]);
+      console.log("Group "+(i+1)+" info: "+Group[i]);
     }
   },
 ], function(err){
