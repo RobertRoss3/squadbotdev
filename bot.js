@@ -111,6 +111,9 @@ function delay(time) {
   }
 }
 
+last_userName = ' '; last_userIDNum = '00000000';
+last_response = " ";
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]),
       quotes = [
@@ -358,7 +361,7 @@ function respond() {
       if ((botRegex_oneword.test(request.text))) {
         response += ' says: ' + request.text;
       }
-      else if (userIDNum == last_userIDNum && last_userIDNum != null) {
+      else if (userIDNum == last_userIDNum) {
         response += ' says: ' + last_response;
       }
       else {
