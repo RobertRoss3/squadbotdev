@@ -36,14 +36,14 @@ async.series([
     });
   },
   function workingWithCells(step) {
-    Members_info.getCells({
+    Groups_info.getCells({
       'min-row': 1,
       'max-row': 1,
       'min-col': 1,
       'max-col': 25,
       'return-empty': false
     }, function(err, cells) {
-      var cell = cells[0];
+      var cell = cells;
       console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
       step();
     });
