@@ -43,7 +43,7 @@ async.series([
       'max-col': 25,
       'return-empty': false
     }, function(err, cells) {
-      console.log("Counted "+cells.length" cells...");
+      console.log("Counted "+cells.length+" cells...");
       // var cell = cells;
       // console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
       step();
