@@ -77,10 +77,9 @@ async.series([
           if (cells[(groupcount*i)+j].value != ''){subGroup[j].push(cells[(groupcount*i)+j].value);}
         }
         Group[j][3] = subGroup[j];
+        console.log("Members of "+Group[j][0]+": "+Group[j][3]);
       }
-      console.log(subGroup);
-      groupselect = 5;
-      console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
+
       step();
     });
   },
