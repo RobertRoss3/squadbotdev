@@ -18,6 +18,7 @@ var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
 var sheet;
 
 async.series([
+  //  AUTHENTICATES THE GOOGLE ACCOUNT
   function setAuth(step) {
     var creds_json = {
       client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
@@ -25,6 +26,7 @@ async.series([
     }
     doc.useServiceAccountAuth(creds_json, step);
   },
+  //  GETS INFORMATION ABOUT THE DOCUMENT AND WORKSHEET
   function getInfoAndWorksheets(step) {
     doc.getInfo(function(err, info) {
       if (info != null){
@@ -35,6 +37,7 @@ async.series([
       } else {console.log("Error: Spreadsheet returned undefined.")}
     });
   },
+  // GETS INFORMATION ABOUT THE GROUPS
   function getGroupInfo(step) {
     Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
     function(err, cells) {
@@ -53,6 +56,7 @@ async.series([
       step();
     });
   },
+  //  GETS INFORMATION ABOUT THE MEMBERS
   function getMemberInfo(step) {
     Members_info.getCells({'min-row': 2,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
     function(err, cells) {
@@ -67,6 +71,7 @@ async.series([
       step();
     });
   },
+  //  GETS INFORMATION ABOUT THE MEMBERS IN A GROUP
   function getGroupMembers(step){
     Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': 1,'max-col': groupcount,'return-empty': true},
     function(err, cells){
@@ -77,6 +82,11 @@ async.series([
           if (cells[(groupcount*i)+j].value != ''){subGroup[j].push(cells[(groupcount*i)+j].value);}
         }
         Group[j][3] = subGroup[j];
+        for(k=0;k<Group[j][3].length;k++){
+          if(Member_name.indexOf(Group[j][3][k])>-1){
+            Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
+          }
+        }
         console.log("Members of "+Group[j][0]+": "+Group[j][3]);
       }
 
