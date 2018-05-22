@@ -140,9 +140,9 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
   if (!err) {console.log("GroupMe API loaded...");
     members = ret.members;
     console.log("MEMBERS: "+members.length);
-    for(i=0;i<members.length;i++){
-      console.log("Member ["+i+"]: "+members[i]);
-    }
+    console.log("MEMBERS: "+JSON.stringify(members));
+    console.log("NAMES: " + members.name);
+    console.log("IDS: " + members.user_id);
   } else {console.log("ERROR: FAILED GETTING GROUP INFO" + err);}
 });
 
