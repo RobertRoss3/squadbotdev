@@ -43,8 +43,9 @@ async.series([
       'max-col': 25,
       'return-empty': false
     }, function(err, cells) {
-      var cell = cells;
-      console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
+      console.log("Counted "+cells.length" cells...");
+      // var cell = cells;
+      // console.log('Cell R'+cell.row+'C'+cell.col+' = '+cell.value);
       step();
     });
   }
