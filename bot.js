@@ -29,14 +29,16 @@ async.series([
     doc.getInfo(function(err, info) {
       if (info != null){
         console.log('Loaded document: '+info.title+'... ');
-        sheet = info.worksheets[0];
-        console.log('Sheet 1: '+sheet.title+' '+sheet.rowCount+'x'+sheet.colCount);
+        Members_info = info.worksheets[0]; Groups_info = info.worksheets[1];
+        console.log('Sheet 1: '+Members_info.title+' ID: '+Members_info.id+', Sheet 2: '+Groups_info.title+' ID: '+Groups_info.id+'...');
         step();
       } else {
         console.log("Error: Spreadsheet returned undefined.")
       }
 
     });
+
+    doc.getCells
   }
 ],
 function(err){
