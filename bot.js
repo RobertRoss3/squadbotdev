@@ -17,73 +17,69 @@ var async = require('async');
 var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
 var sheet;
 
-async.series([
-  function setAuth(step) {
-    var creds_json = {
-      client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
-      private_key: process.env.GOOGLE_PRIVATE_KEY
+function setAuth(step) {
+  var creds_json = {
+    client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
+    private_key: process.env.GOOGLE_PRIVATE_KEY
+  }
+  doc.useServiceAccountAuth(creds_json, step);
+}
+function getInfoAndWorksheets(step) {
+  doc.getInfo(function(err, info) {
+    if (info != null){
+      console.log('Loaded document: '+info.title+'... ');
+      Members_info = info.worksheets[0]; Groups_info = info.worksheets[1];
+      console.log('Sheet 1: \''+Members_info.title+'\' (ID: '+Members_info.id+'), Sheet 2: \''+Groups_info.title+'\' (ID: '+Groups_info.id+')...');
+      step();
+    } else {console.log("Error: Spreadsheet returned undefined.")}
+  });
+}
+function getGroupInfo(step) {
+  Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
+  function(err, cells) {
+    groupcount = cells.length/3;
+    console.log("Counted "+groupcount+" groups...");
+    Group = []; Group_name = []; Group_regex = []; Group_response = []; Group_members = [];
+    for (i = 0; i < groupcount; i++){
+      Group_name[i] = cells[i].value;
+      tempRegEx = cells[i+groupcount].value;
+      tempRegEx = tempRegEx.replace(/\,/ig,'|').replace(/\s/ig,'');
+      Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
+      tempResponse = cells[i+groupcount*2].value; tempResponse = tempResponse.replace(/\"\,/g,'\"_');
+      Group_response[i] = tempResponse.split('_');
+      Group[i] = [Group_name[i],Group_regex[i],Group_response[i], Group_members];
     }
-    doc.useServiceAccountAuth(creds_json, step);
-  },
-  function getInfoAndWorksheets(step) {
-    doc.getInfo(function(err, info) {
-      if (info != null){
-        console.log('Loaded document: '+info.title+'... ');
-        Members_info = info.worksheets[0]; Groups_info = info.worksheets[1];
-        console.log('Sheet 1: \''+Members_info.title+'\' (ID: '+Members_info.id+'), Sheet 2: \''+Groups_info.title+'\' (ID: '+Groups_info.id+')...');
-        step();
-      } else {console.log("Error: Spreadsheet returned undefined.")}
-    });
-  },
-  function getGroupInfo(step) {
-    Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
-    function(err, cells) {
-      groupcount = cells.length/3;
-      console.log("Counted "+groupcount+" groups...");
-      Group = []; Group_name = []; Group_regex = []; Group_response = []; Group_members = [];
-      for (i = 0; i < groupcount; i++){
-        Group_name[i] = cells[i].value;
-        tempRegEx = cells[i+groupcount].value;
-        tempRegEx = tempRegEx.replace(/\,/ig,'|').replace(/\s/ig,'');
-        Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
-        tempResponse = cells[i+groupcount*2].value; tempResponse = tempResponse.replace(/\"\,/g,'\"_');
-        Group_response[i] = tempResponse.split('_');
-        Group[i] = [Group_name[i],Group_regex[i],Group_response[i], Group_members];
+    console.log("Groups: "+Group.length);
+    step();
+  });
+}
+function getMemberInfo(step) {
+  Members_info.getCells({'min-row': 2,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
+  function(err, cells) {
+    membercount = cells.length/2;
+    console.log("Counted "+membercount+" members...");
+    Member = []; Member_name = []; Member_id = [];
+    for (i = 0; i < membercount; i++){
+        Member_id[i] = cells[(i*2)].value;
+        Member_name[i] = cells[(i*2)+1].value;
+        Member[i] = [Member_id[i], Member_name[i]];
+    }
+    step();
+  });
+}
+function getGroupMembers(step){
+  Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': 1,'max-col': Group.length,'return-empty': true},
+  function(err, cells){
+    for (i=0;i<Member.length;i++){
+      for (j=0;j<Group.length;j++){
+        Group[j][3].push(cells[(Group.length*i)+j].value);
       }
-      // console.log("Groups: "+Group_name);
-      step();
-    });
-  },
-  function getMemberInfo(step) {
-    Members_info.getCells({'min-row': 2,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
-    function(err, cells) {
-      membercount = cells.length/2;
-      console.log("Counted "+membercount+" members...");
-      Member = []; Member_name = []; Member_id = [];
-      for (i = 0; i < membercount; i++){
-          Member_id[i] = cells[(i*2)].value;
-          Member_name[i] = cells[(i*2)+1].value;
-          Member[i] = [Member_id[i], Member_name[i]];
-      }
-      step();
-    });
-  },
-  function getGroupMembers(step){
-    Groups_info.getCells({'min-row': 4,'max-row': (4+Member.length),'min-col': 1,'max-col': Group.length,'return-empty': true},
-    function(err, cells){
-      for (i=0;i<Member.length;i++){
-        for (j=0;j<Group.length;j++){
-          Group[j][3].push(cells[(Group.length*i)+j].value);
-        }
-      }
-      console.log("Members of atgsu: "+Group[5][3]);
-      step();
-    });
-  },
-],
-function(err){
-    if( err ) {console.log('Error: '+err);}
-});
+    }
+    groupselect = 5;
+    console.log("Members of "+Group[groupselect][0]+": "+Group[groupselect][3]);
+    step();
+  });
+}
 
 console.log("Starting up...");
 
@@ -310,10 +306,9 @@ function respond() {
         if(Group_regex[i].test(request.text)){
           response = Group_response[i];
           randomNumber = Math.floor(Math.random()*response.length);
-          response = response[randomNumber]
+          response = response[randomNumber];
           response = response.replace(/\"/ig,'');}
       }
-
       reslength = response.length;
       response += request.name;
       if ((botRegex_oneword.test(request.text))) {
