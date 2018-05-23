@@ -346,7 +346,7 @@ function respond() {
       if(request.attachments[0] != null){
         console.log("Attachments: "+JSON.stringify(request.attachments[0]));
         console.log("Type: "+JSON.stringify(request.attachments[0].type));
-        if(request.attachments[0].type != 'mentions'){
+        if(request.attachments[0].type == 'mentions'){
           console.log("UserIDs: "+JSON.stringify(request.attachments[0].user_ids));
           likeMessage(request.id);
           response = "";
