@@ -343,10 +343,7 @@ function respond() {
       this.res.writeHead(200);
       attachments = request.attachments[0];
       if(attachments != null){
-        console.log("Attachments: "+JSON.stringify(attachments));
-        console.log("Type: "+JSON.stringify(attachments.type));
         if(attachments.type == 'mentions'){
-          console.log("UserIDs: "+JSON.stringify(attachments.user_ids));
           response = "";
           // UserIDs = attachments.user_ids;
           // likeMessage(request.id);
