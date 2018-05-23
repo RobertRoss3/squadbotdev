@@ -159,8 +159,6 @@ API.Groups.show(accessToken, groupID, function(err,ret) {
       AllNames[i] = members[i].nickname;
       AllIDs[i] = members[i].user_id;
     }
-    console.log("NAMES: " + AllNames);
-    console.log("IDS: " + AllIDs);
   } else {console.log("ERROR: FAILED GETTING GROUP INFO" + err);}
 });
 
@@ -435,7 +433,14 @@ function respond() {
     } if (comRegex_quote.test(request.text)) {
       this.res.writeHead(200);
       likeMessage(request.id);
-
+      Quotes_info.getCells({'min-row': 1,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
+      function(err, cells){
+        quotecount = cells.length;
+        console.log("Counted "+quotecount+" quotes...");
+        Quotes = [];
+        for (i = 0; i < quotecount; i++){
+            Quotes[i] = cells[i].value;
+        }
       if (!botRegex_oneword.test(request.text)) {                  //If it's just "/quote"
         randomNumber = Math.floor(Math.random()*Quotes.length);
         postMessage(Quotes[randomNumber]);
