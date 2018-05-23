@@ -395,7 +395,12 @@ function respond() {
       likeMessage(request.id);
       postMessage(botInfo);
       this.res.end();
-
+    } if (request.text == "/restart") {
+      this.res.writeHead(200);
+      likeMessage(request.id);
+      console.log("Restarting......")
+      process.exit(0);
+      this.res.end();
     } if (request.text == "/listmembers") {
       this.res.writeHead(200);
       likeMessage(request.id);
