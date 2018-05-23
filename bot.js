@@ -351,7 +351,7 @@ function respond() {
           console.log("UserIDs: "+JSON.stringify(attachments.user_ids));
           likeMessage(request.id);
           response = "";
-          for(var id in attachments.user_ids){
+          for(id=0;id<user_ids.length;id++){
             // if(Member_id.includes(attachments.user_ids[id])){
             //   thisName = Member_name[Member_id.indexOf(attachments.user_ids[id])];
             // } else {
@@ -367,6 +367,7 @@ function respond() {
             // }
             response += '\n';
           }
+          postMessage(response);
         } else {
           postMessage("You have to tag someone.");
         }
