@@ -344,22 +344,22 @@ function respond() {
     if(/^([\/](whois|who is))/i.test(request.text)) {
       this.res.writeHead(200);
       console.log("Attachments: "+JSON.stringify(request.attachments));
-      console.log("Type: "+JSON.stringify(request.attachments.type));
-      console.log("UserIDs: "+JSON.stringify(request.attachments.user_ids));
-      if(request.attachments.type != 'mentions'){
+      console.log("Type: "+JSON.stringify(request.attachments[1]));
+      console.log("UserIDs: "+JSON.stringify(request.attachments[2]));
+      if(request.attachments[1] != 'mentions'){
         postMessage("You have to tag someone.");
       } else {
         likeMessage(request.id);
         response = "";
-        for(var id in request.attachments.user_ids){
-          if(Member_id.includes(request.attachments.user_ids[id])){
-            thisName = Member_name[Member_id.indexOf(request.attachments[0].user_ids[id])];
+        for(var id in request.attachments[2]){
+          if(Member_id.includes(request.attachments[2][id])){
+            thisName = Member_name[Member_id.indexOf(request.attachments[2][id])];
           } else {
             thisName = "";
           }
-          stringstart = request.attachments.loci[id][0]+1; stringend = stringstart+request.attachments.loci[id][1]-1;
+          stringstart = request.attachments[0][id][0]+1; stringend = stringstart+request.attachments[0][id][1]-1;
           response += request.text.substring(stringstart,stringend);
-          response += " has the ID "+request.attachments.user_ids[id]+" and is ";
+          response += " has the ID "+request.attachments[2][id]+" and is ";
           if(thisName){
               response += "listed as \""+thisName+"\".";
           } else {
