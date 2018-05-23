@@ -343,20 +343,20 @@ function respond() {
     }
     if(/^([\/](whois|who is))/i.test(request.text)) {
       this.res.writeHead(200);
-      if(request.attachments[0].type != 'mentions'){
+      if(request.attachments.type != 'mentions'){
         postMessage("You have to tag someone.");
       } else {
         likeMessage(request.id);
         response = "";
-        for(var id in request.attachments[0].user_ids){
-          if(Member_id.includes(request.attachments[0].user_ids[id])){
+        for(var id in request.attachments.user_ids){
+          if(Member_id.includes(request.attachments.user_ids[id])){
             thisName = Member_name[Member_id.indexOf(request.attachments[0].user_ids[id])];
           } else {
             thisName = "";
           }
-          stringstart = request.attachments[0].loci[id][0]+1; stringend = stringstart+request.attachments[0].loci[id][1]-1;
+          stringstart = request.attachments.loci[id][0]+1; stringend = stringstart+request.attachments.loci[id][1]-1;
           response += request.text.substring(stringstart,stringend);
-          response += " has the ID "+request.attachments[0].user_ids[id]+" and is ";
+          response += " has the ID "+request.attachments.user_ids[id]+" and is ";
           if(thisName){
               response += "listed as \""+thisName+"\".";
           } else {
