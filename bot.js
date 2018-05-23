@@ -451,11 +451,11 @@ function respond() {
         if(newQuotes.length > 0) {
           console.log("Found " + newQuotes.length + " matching quotes for \"" + findQuote + "\"...");
           randomNumber2 = Math.floor(Math.random()*newQuotes.length);
-          postMessage(newQuotes[randomNumber2]);
+          postMessage(newQuotes[randomNumber2].replace('\\n','\n'));
         } else {
           console.log("Couldn't find any matching quotes...");      // If a quote wasn't found, procede as normal.
           randomNumber = Math.floor(Math.random()*quotes.length);
-          postMessage(quotes[randomNumber]);
+          postMessage(quotes[randomNumber].replace('\\n','\n'));
         }
 
       }
