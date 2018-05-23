@@ -343,22 +343,23 @@ function respond() {
     }
     if(/^([\/](whois|who is))/i.test(request.text)) {
       this.res.writeHead(200);
-      if(request.attachments[0] != null){
-        console.log("Attachments: "+JSON.stringify(request.attachments[0]));
-        console.log("Type: "+JSON.stringify(request.attachments[0].type));
-        if(request.attachments[0].type == 'mentions'){
-          console.log("UserIDs: "+JSON.stringify(request.attachments[0].user_ids));
+      attachments = request.attachments[0];
+      if(attachments != null){
+        console.log("Attachments: "+JSON.stringify(attachments));
+        console.log("Type: "+JSON.stringify(attachments.type));
+        if(attachments.type == 'mentions'){
+          console.log("UserIDs: "+JSON.stringify(attachments.user_ids));
           likeMessage(request.id);
           response = "";
-          for(var id in request.attachments[0].user_ids){
-            if(Member_id.includes(request.attachments[0].user_ids[id])){
-              thisName = Member_name[Member_id.indexOf(request.attachments[0].user_ids[id])];
+          for(var id in attachments.user_ids){
+            if(Member_id.includes(attachments.user_ids[id])){
+              thisName = Member_name[Member_id.indexOf(attachments.user_ids[id])];
             } else {
               thisName = "";
             }
-            stringstart = request.attachments[0].loci[id][0]+1; stringend = stringstart+request.attachments[0].loci[id][1]-1;
-            response += request.text.substring(stringstart,stringend);
-            response += " has the ID "+request.attachments[0].user_ids[id]+" and is ";
+            // stringstart = attachments.loci[id][0]+1; stringend = stringstart+attachments.loci[id][1]-1;
+            // response += request.text.substring(stringstart,stringend);
+            // response += " has the ID "+attachments.user_ids[id]+" and is ";
             if(thisName){
                 response += "listed as \""+thisName+"\".";
             } else {
