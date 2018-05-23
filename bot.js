@@ -343,7 +343,7 @@ function respond() {
     }
     if(/^([\/](whois|who is))/i.test(request.text)) {
       this.res.writeHead(200);
-      if(request.attachments != null){
+      if(request.attachments[0] != null){
         if(request.attachments[0].type != 'mentions'){
           console.log("Attachments: "+JSON.stringify(request.attachments[0]));
           console.log("Type: "+JSON.stringify(request.attachments[0].type));
