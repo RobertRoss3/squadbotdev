@@ -12,7 +12,7 @@ var ImageService = require('groupme').ImageService;
 var Guid = require('guid');
 var GoogleSpreadsheet = require('google-spreadsheet');
 var async = require('async');
-var NodeGeocoder = require('node-geocoder');
+// var NodeGeocoder = require('node-geocoder');
 
 //  GETTING DATA FROM GOOGLE SPREADSHEET
 var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
@@ -134,18 +134,18 @@ var cleverKey = process.env.CLEVER_KEY;
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
     Wolfram = new wolfClient(mathKey);
-var GeoCoder_options = {
-  provider: 'mapquest',
-  // Optional depending on the providers
-  httpAdapter: 'https', // Default
-  apiKey: process.env.GEOCODER_KEY, // for Mapquest, OpenCage, Google Premier
-  formatter: null         // 'gpx', 'string', ...
-};
-var geocoder = NodeGeocoder(GeoCoder_options);
-
-geocoder.geocode('Atlanta, GA', function(err, res) {
-  console.log(res);
-});
+// var GeoCoder_options = {
+//   provider: 'mapquest',
+//   // Optional depending on the providers
+//   httpAdapter: 'https', // Default
+//   apiKey: process.env.GEOCODER_KEY, // for Mapquest, OpenCage, Google Premier
+//   formatter: null         // 'gpx', 'string', ...
+// };
+// var geocoder = NodeGeocoder(GeoCoder_options);
+//
+// geocoder.geocode('Atlanta, GA', function(err, res) {
+//   console.log(res);
+// });
 
 console.log("Loading weather API...");
 var forecast = new Forecast({
@@ -159,7 +159,7 @@ var forecast = new Forecast({
   }
 });
 
-console.log("Loading geocoder API...")
+// console.log("Loading geocoder API...")
 
 console.log("Loading GroupMe API...")
 

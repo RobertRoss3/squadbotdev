@@ -1,6 +1,6 @@
 {
   "name": "Squadbot",
-  "version": "0.1.2",
+  "version": "0.2.3",
   "description": "A Cool Bot For Squad",
   "main": "index.js",
   "scripts": {
