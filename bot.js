@@ -556,7 +556,7 @@ function respond() {
       console.log("Contacting Cleverbot AI server...");
       if (cleverQuestion) {
         cleverBot.ask(cleverQuestion, function (err, response) {
-          if (response == "Error, the reference \"\" does not exist" || response = 'Site error') {
+          if (response == "Error, the reference \"\" does not exist" || response == 'Site error') {
         		newresponse = ["I have nothing to say to that...",
         		"I've lost my voice at the moment, try again later.",
         		"I can't talk right now.",
