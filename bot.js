@@ -189,26 +189,6 @@ function respond() {
             "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
   // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
   botRegex_oneword = /\s\b/;
-  botRegex_damn = /damn\b/gi;
-  botRegex_hi = /(\bhi|hello|hey|heyo|sup|wassup\b).*?/i;
-  botRegex_ass = /(\b(eat|eating|eats|ate) ass\b)(.*?)/i;
-  botRegex_wtf = /\b(wtf|wth|what the (hell|fuck))\b/i;
-  botRegex_thanks = /\b(thanks|(thank you)|thx)\b/i;
-  botRegex_insult = /(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i;
-  botRegex_bye = /\b(good night)|(bye)|(goodbye)|(goodnight)\b/i;
-  botRegex_morning = /\b(good morning)\b/i;
-  botRegex_joke = /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i;
-  botRegex_kick = /#kicksquadbot/i;
-
-  comRegex_quote = /^([\/]quote)/i;
-  comRegex_8ball = /^([\/]8ball)/i;
-  comRegex_giphy = /^([\/]giphy)/i;
-  comRegex_face = /^[\/]face$/i;
-  comRegex_bing = /^([\/]image)/i;
-  comRegex_weather = /\bweather\b/i;
-  comRegex_wifi = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
-  comRegex_math = /^\/\b(math|calc|wolf)\b/i;
-
   tagRegex_bot = /@Squadbot.*?/i;
 
   // INFO ABOUT THE USER THAT TRIGGERED THE BOT
@@ -218,7 +198,7 @@ function respond() {
 
   if(request.text && !botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
-    if (botRegex_damn.test(request.text)) {
+    if (/damn\b/gi.test(request.text)) {
       likeMessage(request.id);
       postMessage("- Kendrick Lamar");
     }
@@ -232,7 +212,7 @@ function respond() {
     }
     this.res.end();
   }
-  if(request.text && request.sender_type != "bot" && request.user_id != '43525551' && botRegex_wtf.test(request.text)) {
+  if(request.text && request.sender_type != "bot" && request.user_id != '43525551' && /\b(wtf|wth|what the (hell|fuck))\b/i.test(request.text)) {
     this.res.writeHead(200);
     randomNumber = Math.floor(Math.random()*5);
     if(randomNumber == 3) {
@@ -241,7 +221,7 @@ function respond() {
     this.res.end();
     // Commands
   }
-  if(request.text && comRegex_face.test(request.text)) {
+  if(request.text && /^[\/]face$/i.test(request.text)) {
     this.res.writeHead(200);
     likeMessage(request.id);
     postMessage(cool());
@@ -338,12 +318,13 @@ function respond() {
   }
     // ENTERED A COMMAND?
   if(request.text.charAt(0) == '/') {
-    if(comRegex_giphy.test(request.text)) {
+
+    if(/^([\/]giphy)/i.test(request.text)) {
       this.res.writeHead(200);
       likeMessage(request.id);
       searchGiphy(request.text.substring(7));
     }
-    if (comRegex_math.test(request.text)) {
+    if (/^\/\b(math|calc|wolf)\b/i.test(request.text)) {
       // getMath(request.text.substring(5));
       likeMessage(request.id);
       postMessage("That's not working right now, sorry.");
@@ -375,7 +356,7 @@ function respond() {
     //     }
     // });
     }
-    if (comRegex_weather.test(request.text)) {
+    if (/\bweather\b/i.test(request.text)) {
       Regexnow = /\b(now|current)\b/i; Regextoday = /\b(today|day)\b/i;
       Regexweek = /\b(this week)|(for the week)|(week)\b/i;
       // Retrieve weather information from Statesboro
@@ -430,10 +411,9 @@ function respond() {
       });
       this.res.end();
 
-    } if (comRegex_quote.test(request.text)) {
+    } if (/^([\/]quote)/i.test(request.text)) {
       this.res.writeHead(200);
       likeMessage(request.id);
-      getQuotes(step);
       if (!botRegex_oneword.test(request.text)) {                  //If it's just "/quote"
         randomNumber = Math.floor(Math.random()*Quotes.length);
         postMessage(Quotes[randomNumber]);
@@ -458,12 +438,12 @@ function respond() {
 
       }
       this.res.end();
-    } if (comRegex_8ball.test(request.text)){
+    } if (/^([\/]8ball)/i.test(request.text)){
       this.res.writeHead(200);
       likeMessage(request.id);
       if(botRegex_oneword.test(request.text)){
-	names = ["Sara", "Lauren", "Amy", "Elias", "your mom", "your neighbor", "your conscience"];
-	randomNumber3 = Math.floor(Math.random()*names.length);
+      	names = ["Sara", "Lauren", "Amy", "Elias", "your mom", "your neighbor", "your conscience"];
+      	randomNumber3 = Math.floor(Math.random()*names.length);
 
         response1 = ["My sources say ","Hmm... I'm gonna go with ", "Um... ", "Dude, ", "I think we both know the answer is ", "Let's just say ",
                       "How about ", "The spirits tell me ", "I feel like I should say ", "Well, " + userName + ", I'm gonna say ", "I'm legally required to say "];
@@ -475,7 +455,7 @@ function respond() {
                  "there's a good chance","a unanimous yes","ye probs","yeah nah nah yeah"
                  ];
 
-	randomNumber1 = Math.floor(Math.random()*response1.length);
+      	randomNumber1 = Math.floor(Math.random()*response1.length);
         randomNumber2 = Math.floor(Math.random()*response2.length);
 
         response = "🎱 " + response1[randomNumber1] + response2[randomNumber2]  + ".";
@@ -491,7 +471,7 @@ function respond() {
     this.res.end();
   }
 
-  if((request.sender_type != "bot" && request.user_id != '43525551' ) && request.text && botRegex_ass.test(request.text)) {
+  if((request.sender_type != "bot" && request.user_id != '43525551' ) && request.text && /(\b(eat|eating|eats|ate) ass\b)(.*?)/i.test(request.text)) {
     this.res.writeHead(200);
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?", userName + " NO",
@@ -500,11 +480,11 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
-  } if ((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_joke.test(request.text)) {
+  } if ((request.sender_type != "bot" && request.user_id != '43525551') && request.text && /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i.test(request.text)) {
     likeMessage(request.id);
     response = 'https://i.groupme.com/1215x2160.jpeg.95f793f6ae824fa782c88bd96dfd8b1b.large';
     postMessage(response);
-  } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_thanks.test(request.text)) {
+  } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && /\b(thanks|(thank you)|thx)\b/i.test(request.text)) {
     this.res.writeHead(200);
     randomNumber2 = randomNumber = Math.floor(Math.random()*10);
     if (randomNumber2 == 5) {
@@ -527,7 +507,7 @@ function respond() {
     }
     this.res.end();
   }
-  if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && botRegex_kick.test(request.text)) {
+  if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && /#kicksquadbot/i.test(request.text)) {
     this.res.writeHead(200);
     response = ["#kickyourself", "Whatever. I'm here forever...",
                 "I'd like to see you try.", "Initiating KILLALLHUMANS.exe...",
@@ -536,7 +516,7 @@ function respond() {
     postMessage(response[randomNumber]);
     this.res.end();
   } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && tagRegex_bot.test(request.text)) {
-      if(botRegex_hi.test(request.text) || botRegex_morning.test(request.text)) {
+      if(/(\bhi|hello|hey|heyo|sup|wassup\b).*?/i.test(request.text) || /\b(good morning)\b/i.test(request.text)) {
       this.res.writeHead(200);
       Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine " + sayDay + "?", "😜", "Yo."];
       randomNumber = Math.floor(Math.random()*Greetings.length);
@@ -544,27 +524,27 @@ function respond() {
       likeMessage(request.id);
       postMessage(Greetings[randomNumber]);
       this.res.end();
-    } else if (botRegex_thanks.test(request.text)) {
+    } else if (/\b(thanks|(thank you)|thx)\b/i.test(request.text)) {
       response = ["You're welcome! 😊", "Don't mention it!",
                   "No problem.", "Any time.","np","yw", "😘"];
       randomNumber = Math.floor(Math.random()*response.length);
       likeMessage(request.id);
       postMessage(response[randomNumber]);
-    } else if (botRegex_bye.test(request.text)) {
+    } else if (/\b(good night)|(bye)|(goodbye)|(goodnight)\b/i.test(request.text)) {
       response = ["Okay, bye!", "Laters.", "See ya!",
                   "In a while, crocodile.", "Good riddance.", "👋",
                   "Didn\'t wanna talk anyway...", "Peace.", "Peace out.", "✌"];
       randomNumber = Math.floor(Math.random()*response.length);
       likeMessage(request.id);
       postMessage(response[randomNumber]);
-    } else if(botRegex_insult.test(request.text)) {
+    } else if(/(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i.test(request.text)) {
       this.res.writeHead(200);
       response = ["Well fuck you too.", "Why you gotta be so mean?",
                   "Whatever", "Rude...", "Ok...and?", "Damn okay then...", "😒"];
       randomNumber = Math.floor(Math.random()*response.length);
       postMessage(response[randomNumber]);
       this.res.end();
-    } else if (comRegex_wifi.test(request.text)) {
+    } else if (/^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im.test(request.text)) {
       this.res.writeHead(200);
       postMessage("I don't know any relevent wifi codes yet");
       likeMessage(request.id);
@@ -576,7 +556,7 @@ function respond() {
       console.log("Contacting Cleverbot AI server...");
       if (cleverQuestion) {
         cleverBot.ask(cleverQuestion, function (err, response) {
-          if (response == "Error, the reference \"\" does not exist") {
+          if (response == "Error, the reference \"\" does not exist" || response = 'Site error') {
         		newresponse = ["I have nothing to say to that...",
         		"I've lost my voice at the moment, try again later.",
         		"I can't talk right now.",
