@@ -351,7 +351,7 @@ function respond() {
           console.log("UserIDs: "+JSON.stringify(attachments.user_ids));
           likeMessage(request.id);
           response = "";
-          for(id=0;id<user_ids.length;id++){
+          for(id=0;id<attachments.user_ids.length;id++){
             // if(Member_id.includes(attachments.user_ids[id])){
             //   thisName = Member_name[Member_id.indexOf(attachments.user_ids[id])];
             // } else {
