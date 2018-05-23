@@ -347,9 +347,9 @@ function respond() {
         console.log("Type: "+JSON.stringify(attachments.type));
         if(attachments.type == 'mentions'){
           console.log("UserIDs: "+JSON.stringify(attachments.user_ids));
-          UserIDs = attachments.user_ids;
-          likeMessage(request.id);
           response = "";
+          // UserIDs = attachments.user_ids;
+          // likeMessage(request.id);
           // for(id=0;id<UserIDs.length;id++){
           //   // if(Member_id.includes(attachments.user_ids[id])){
           //   //   thisName = Member_name[Member_id.indexOf(attachments.user_ids[id])];
