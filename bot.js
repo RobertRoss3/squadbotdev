@@ -346,27 +346,31 @@ function respond() {
       console.log("Attachments: "+JSON.stringify(request.attachments[0]));
       console.log("Type: "+JSON.stringify(request.attachments[0].type));
       console.log("UserIDs: "+JSON.stringify(request.attachments[0].user_ids));
-      if(request.attachments[0].type != 'mentions'){
-        postMessage("You have to tag someone.");
-      } else {
-        likeMessage(request.id);
-        response = "";
-        for(var id in request.attachments[0].user_ids){
-          if(Member_id.includes(request.attachments[0].user_ids[id])){
-            thisName = Member_name[Member_id.indexOf(request.attachments[0].user_ids[id])];
-          } else {
-            thisName = "";
+      if(request.attachments != []){
+        if(request.attachments[0].type != 'mentions'){
+          likeMessage(request.id);
+          response = "";
+          for(var id in request.attachments[0].user_ids){
+            if(Member_id.includes(request.attachments[0].user_ids[id])){
+              thisName = Member_name[Member_id.indexOf(request.attachments[0].user_ids[id])];
+            } else {
+              thisName = "";
+            }
+            stringstart = request.attachments[0].loci[id][0]+1; stringend = stringstart+request.attachments[0].loci[id][1]-1;
+            response += request.text.substring(stringstart,stringend);
+            response += " has the ID "+request.attachments[0].user_ids[id]+" and is ";
+            if(thisName){
+                response += "listed as \""+thisName+"\".";
+            } else {
+                response += "not listed."
+            }
+            response += '\n';
           }
-          stringstart = request.attachments[0].loci[id][0]+1; stringend = stringstart+request.attachments[0].loci[id][1]-1;
-          response += request.text.substring(stringstart,stringend);
-          response += " has the ID "+request.attachments[0].user_ids[id]+" and is ";
-          if(thisName){
-              response += "listed as \""+thisName+"\".";
-          } else {
-              response += "not listed."
-          }
-          response += '\n';
+        } else {
+          postMessage("You have to tag someone.");
         }
+      } else {
+        postMessage("You have to tag someone.");
       }
     }
     if (/^\/\b(math|calc|wolf)\b/i.test(request.text)) {
