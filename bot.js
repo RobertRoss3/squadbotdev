@@ -31,7 +31,7 @@ async.series([
     doc.getInfo(function(err, info) {
       if (info != null){
         console.log('Loaded document: '+info.title+'... ');
-        Members_info = info.worksheets[0]; Groups_info = info.worksheets[1];
+        Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
         console.log('Sheet 1: \''+Members_info.title+'\' (ID: '+Members_info.id+'), Sheet 2: \''+Groups_info.title+'\' (ID: '+Groups_info.id+')...');
         step();
       } else {console.log("Error: Spreadsheet returned undefined.")}
@@ -93,6 +93,19 @@ async.series([
       step();
     });
   },
+  function getQuotes(step){
+    Quotes_info.getCells({'min-row': 1,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
+    function(err, cells){
+      quotecount = cells.length;
+      console.log("Counted "+quotecount+" quotes...");
+      Quote = [];
+      for (i = 0; i < quotecount; i++){
+          Quote[i] = cells[i].value;
+      }
+      step();
+    });
+  },
+
 ], function(err){
     if( err ) {
       console.log('Error: '+err);
@@ -237,26 +250,7 @@ function respond() {
   comRegex_wifi = /^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im;
   comRegex_math = /^\/\b(math|calc|wolf)\b/i;
 
-  tagRegex_all = /@(all|squad\b|anyone|everyone|everybody)/i;
   tagRegex_bot = /@Squadbot.*?/i;
-  tagRegex_mealplan = /@(food|meal plan|mealplan)/i;
-  tagRegex_engineers = /@engineers/i;
-  tagRegex_hudson = /@(forum|hudson)/i;
-  tagRegex_oneeleven = /@(111|911)/i;
-  tagRegex_GSU = /@(GSU|southern)/i;
-  tagRegex_girls = /@(girls|ladies|women)/i;
-  tagRegex_guys = /@(guys|gents|men|boys|fellas)/i;
-
-  // ALL MEMBERS IN THE GROUP
-  Connor	=	'30824774'; Elias	= '24488525'; White_Matt	=	'18341900';
-  Caleb	=	  '31575032'; Dalvin	= '29824624'; David	= '18252184';
-  Kalan	=	  '30151684'; Nathan	= '12558120'; Robert	= '28758543';
-  Black_Matt	= '29879154'; Brittany	=	  '42281557'; Sara	= '29187291';
-  Nick	=	  '29823868'; Jay	=	  '41361709'; Marco	=	  '38221747';
-  Chad	= '24474608'; Tori	= '18922923'; Cayte	=	'43573131';
-  Austin = '51259439'; John = '25140874'; Kyle = '53552393' ;
-  Lauren = '8351131'; Amy = '28852419'; Phina = '56225693'; Dakota = '00000000';
-  Alexis = '00000000'; Meagan = '00000000'; Kelly = '00000000';
 
   // INFO ABOUT THE USER THAT TRIGGERED THE BOT
   userName = request.name; userIDNum = request.user_id;
@@ -315,14 +309,6 @@ function respond() {
       } else {console.log("FAILED GETTING GROUP INFO: ERROR " + err);}
     });
 
-    mealPlan = [David, Kalan, Elias, Austin, John, Kyle];
-    Engineers = [Connor, Dalvin, Nathan, Robert];
-    Hudson = [White_Matt, Dalvin, David, Kalan, Robert, Black_Matt, Marco, Kyle, John];
-    OneEleven = [Connor, Elias, Nathan, Caleb, Lauren];
-    AtGSU = [Dalvin, David, Kalan, Black_Matt, Marco, John];
-    Guys = [Kalan, Austin, White_Matt, Caleb, Nathan, Connor, Robert, Kyle, Dakota, Elias, Dalvin, Marco, John, David];
-    Girls = [Amy, Lauren, Sara, Phina, Brittany, Tori, Alexis, Meagan, Kelly];
-    ExcludeFromAll = [];
     if (request.user_id == '') {postMessage("???");}
     // If someone posts @all
     // else if (request.user_id == John) {
@@ -348,8 +334,7 @@ function respond() {
       else {
         response += ' wants your attention.';
       }
-      usersID = [];
-      usersLoci = [];
+      usersID = []; usersLoci = [];
       for (i=0; i < AllIDs.length; i++){
         if(request.user_id != '43525551') {
           grouptagtest = false;
@@ -358,22 +343,9 @@ function respond() {
           } else {
             for(j=1;j<groupcount;j++){
               if(Group_regex[j].test(request.text) && Group[j][3].indexOf(AllIDs[i]) > -1){
-                grouptagtest = true;
-              }
+                grouptagtest = true;}
             }
           }
-          // if((tagRegex_oneeleven.test(request.text) && OneEleven.indexOf(members[i].user_id) > -1)
-          //   || (tagRegex_hudson.test(request.text) && Hudson.indexOf(members[i].user_id) > -1)
-          //   || (tagRegex_mealplan.test(request.text) && mealPlan.indexOf(members[i].user_id) > -1)
-          //   || (tagRegex_engineers.test(request.text) && Engineers.indexOf(members[i].user_id) > -1)
-          //   || (tagRegex_GSU.test(request.text) && AtGSU.indexOf(members[i].user_id) > -1)
-          //   || (tagRegex_guys.test(request.text) && Guys.indexOf(members[i].user_id) > -1)
-          //   || (tagRegex_girls.test(request.text) && Girls.indexOf(members[i].user_id) > -1)
-          //   || (tagRegex_all.test(request.text) && ExcludeFromAll.indexOf(members[i].user_id) == -1))
-          //   {
-          //   usersID[i] = members[i].user_id;
-          //   usersLoci[i] = [0,reslength-2];
-          // }
           if(grouptagtest){
             usersID[i] = AllIDs[i];
             usersLoci[i] = [0,reslength-2];
@@ -382,8 +354,6 @@ function respond() {
       }
       usersLoci = usersLoci.filter(function(n){ return n != undefined });
       usersID = usersID.filter(function(n){ return n != undefined });
-      console.log("usersLoci: "+usersLoci);
-      console.log("usersID:"+usersID);
       misfire = /\b(Squad (mother|father|ginger))\b/i;
       if (misfire.test(request.text)){
         //temp fix for tagging names with "squad" in it
