@@ -343,6 +343,9 @@ function respond() {
     }
     if(/^([\/](whois|who is))/i.test(request.text)) {
       this.res.writeHead(200);
+      console.log("Attachments: "+JSON.stringify(request.attachments));
+      console.log("Type: "+JSON.stringify(request.attachments.type));
+      console.log("UserIDs: "+JSON.stringify(request.attachments.user_ids));
       if(request.attachments.type != 'mentions'){
         postMessage("You have to tag someone.");
       } else {
