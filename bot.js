@@ -12,6 +12,7 @@ var ImageService = require('groupme').ImageService;
 var Guid = require('guid');
 var GoogleSpreadsheet = require('google-spreadsheet');
 var async = require('async');
+var NodeGeocoder = require('node-geocoder');
 
 //  GETTING DATA FROM GOOGLE SPREADSHEET
 var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
@@ -130,12 +131,23 @@ var cleverKey = process.env.CLEVER_KEY;
     cleverBot.create(function (err, session) {
     });
     console.log("Cleverbot loading completed...")
-
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
     Wolfram = new wolfClient(mathKey);
+var GeoCoder_options = {
+  provider: 'mapquest',
+  // Optional depending on the providers
+  httpAdapter: 'https', // Default
+  apiKey: process.env.GEOCODER_KEY, // for Mapquest, OpenCage, Google Premier
+  formatter: null         // 'gpx', 'string', ...
+};
+var geocoder = NodeGeocoder(GeoCoder_options);
 
-console.log("Loading weather API...")
+geocoder.geocode('Atlanta, GA', function(err, res) {
+  console.log(res);
+});
+
+console.log("Loading weather API...");
 var forecast = new Forecast({
   service: 'darksky',
   key: weatherKey,
@@ -146,6 +158,8 @@ var forecast = new Forecast({
     seconds: 45
   }
 });
+
+console.log("Loading geocoder API...")
 
 console.log("Loading GroupMe API...")
 
@@ -524,9 +538,8 @@ function respond() {
   } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && tagRegex_bot.test(request.text)) {
       if(/(\bhi|hello|hey|heyo|sup|wassup\b).*?/i.test(request.text) || /\b(good morning)\b/i.test(request.text)) {
       this.res.writeHead(200);
-      Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine " + sayDay + "?", "😜", "Yo."];
+      Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine day?", "😜", "Yo."];
       randomNumber = Math.floor(Math.random()*Greetings.length);
-      // postMessage(Greetings[randomNumber][0],'tag', Greetings[randomNumber][1]);
       likeMessage(request.id);
       postMessage(Greetings[randomNumber]);
       this.res.end();
@@ -597,8 +610,8 @@ function getMath(equation) {
   var callback = function(response) {
     var str = '';
 
-    response.on('data', function(chunck){
-      str += chunck;
+    response.on('data', function(chunk){
+      str += chunk;
     });
 
     response.on('end', function() {
@@ -629,8 +642,8 @@ function searchGiphy(giphyToSearch) {
   var callback = function(response) {
     var str = '';
 
-    response.on('data', function(chunck){
-      str += chunck;
+    response.on('data', function(chunk){
+      str += chunk;
     });
 
     response.on('end', function() {
@@ -742,8 +755,8 @@ function getInfo(groupID) {
   var callback = function(response) {
     var str = '';
 
-    response.on('data', function(chunck){
-      str += chunck;
+    response.on('data', function(chunk){
+      str += chunk;
     });
 
     response.on('end', function() {
