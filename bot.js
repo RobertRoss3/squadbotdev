@@ -344,9 +344,9 @@ function respond() {
     if(/^([\/](whois|who is))/i.test(request.text)) {
       this.res.writeHead(200);
       if(request.attachments[0] != null){
+        console.log("Attachments: "+JSON.stringify(request.attachments[0]));
+        console.log("Type: "+JSON.stringify(request.attachments[0].type));
         if(request.attachments[0].type != 'mentions'){
-          console.log("Attachments: "+JSON.stringify(request.attachments[0]));
-          console.log("Type: "+JSON.stringify(request.attachments[0].type));
           console.log("UserIDs: "+JSON.stringify(request.attachments[0].user_ids));
           likeMessage(request.id);
           response = "";
