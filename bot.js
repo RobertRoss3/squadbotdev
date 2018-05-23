@@ -441,6 +441,7 @@ function respond() {
         for (i = 0; i < quotecount; i++){
             Quotes[i] = cells[i].value;
         }
+      });
       if (!botRegex_oneword.test(request.text)) {                  //If it's just "/quote"
         randomNumber = Math.floor(Math.random()*Quotes.length);
         postMessage(Quotes[randomNumber]);
