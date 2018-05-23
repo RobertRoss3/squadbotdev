@@ -196,6 +196,8 @@ function respond() {
   console.log(userName + " (" + userIDNum + ") POSTED: " + this.req.chunks[0]);
   askme = false;
 
+
+
   if(request.text && !botRegex_oneword.test(request.text)) {
     this.res.writeHead(200);
     if (/damn\b/gi.test(request.text)) {
@@ -327,34 +329,33 @@ function respond() {
     if (/^\/\b(math|calc|wolf)\b/i.test(request.text)) {
       // getMath(request.text.substring(5));
       likeMessage(request.id);
-      postMessage("That's not working right now, sorry.");
-    //   Wolfram.query(request.text.substring(6), function(err, result) {
-    //     if(err)
-    //         console.log(err);
-    //     else {
-    //       if (result.queryresult.pod) {
-    //         answer = result.queryresult.pod[1].subpod[0].plaintext[0];
-    //         if (!(answer)) {
-    //           answer = result.queryresult.pod[1].subpod[0].img[0].$.src;
-    //           // postMessage("Look at this...");
-    //           console.log(answer);
-    //           postMessage("The graph looks like this... \n" + answer);
-    //         } else {
-    //           console.log(answer);
-    //           response = ["I think it\'s...", "Hmm... is it",
-    //                       "My friend WolframAlpha says it\'s ",
-    //                       "My calculations say the answer is: ",
-    //                       "Ask your professor, my guess is ",
-    //                       "You can\'t do that yourself? lol It\'s ",
-    //                       "Oh, that\'s easy! It\'s "];
-    //           randomNumber = Math.floor(Math.random()*response.length);
-    //           postMessage(response[randomNumber]+ "\n" + answer);
-    //         }
-    //       } else {
-    //         answer = "I can't calculate that...";
-    //       }
-    //     }
-    // });
+      Wolfram.query(request.text.substring(6), function(err, result) {
+        if(err)
+            console.log(err);
+        else {
+          if (result.queryresult.pod) {
+            answer = result.queryresult.pod[1].subpod[0].plaintext[0];
+            if (!(answer)) {
+              answer = result.queryresult.pod[1].subpod[0].img[0].$.src;
+              // postMessage("Look at this...");
+              console.log(answer);
+              postMessage("The graph looks like this... \n" + answer);
+            } else {
+              console.log(answer);
+              response = ["I think it\'s...", "Hmm... is it",
+                          "My friend WolframAlpha says it\'s ",
+                          "My calculations say the answer is: ",
+                          "Ask your professor, my guess is ",
+                          "You can\'t do that yourself? lol It\'s ",
+                          "Oh, that\'s easy! It\'s "];
+              randomNumber = Math.floor(Math.random()*response.length);
+              postMessage(response[randomNumber]+ "\n" + answer);
+            }
+          } else {
+            answer = "I can't calculate that...";
+          }
+        }
+    });
     }
     if (/\bweather\b/i.test(request.text)) {
       Regexnow = /\b(now|current)\b/i; Regextoday = /\b(today|day)\b/i;
