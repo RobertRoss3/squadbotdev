@@ -31,6 +31,7 @@ async.series([
   function getInfoAndWorksheets(step) {
     doc.getInfo(function(err, info) {
       if (info != null){
+        //Loads document info and creates arrays that will be used for tagging and quoting
         console.log('Loaded document: '+info.title+'... ');
         Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
         console.log('Sheet 1: \''+Members_info.title+'\' (ID: '+Members_info.id+'), Sheet 2: \''+Groups_info.title+'\' (ID: '+Groups_info.id+')...');
@@ -95,8 +96,9 @@ async.series([
       step();
     });
   },
+  //  GETS QUOTES
   function getQuotes(step){
-    Quotes_info.getCells({'min-row': 1,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
+    Quotes_info.getCells({'min-row': 2,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
     function(err, cells){
       quotecount = cells.length;
       console.log("Counted "+quotecount+" quotes...");
@@ -342,7 +344,7 @@ function respond() {
     if(/^([\/](whois|who is))/i.test(request.text)) {
       this.res.writeHead(200);
       attachments = request.attachments[0];
-      if(attachments != null){
+      if(attachments){
         if(attachments.type == 'mentions'){
           response = "";
           UserIDs = attachments.user_ids;
