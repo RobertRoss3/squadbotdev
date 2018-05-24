@@ -16,6 +16,7 @@
     "googleapis": "^27.0.0",
     "groupme": "^0.5.7",
     "guid": "0.0.12",
+    "node-geocoder": "^3.22.0",
     "node-wolfram": "0.0.1",
     "object-assign": "^4.1.0",
     "pg": "^6.1.0",
