@@ -348,19 +348,19 @@ function respond() {
           UserIDs = attachments.user_ids;
           likeMessage(request.id);
           for(id=0;id<UserIDs.length;id++){
-            // if(Member_id.includes(attachments.user_ids[id])){
-            //   thisName = Member_name[Member_id.indexOf(attachments.user_ids[id])];
-            // } else {
-            //   thisName = "";
-            // }
-            // stringstart = attachments.loci[id][0]+1; stringend = stringstart+attachments.loci[id][1]-1;
-            // response += request.text.substring(stringstart,stringend);
-            // response += " has the ID "+attachments.user_ids[id]+" and is ";
-            // if(thisName){
-            //     response += "listed as \""+thisName+"\".";
-            // } else {
-            //     response += "not listed."
-            // }
+            if(Member_id.includes(attachments.user_ids[id])){
+              thisName = Member_name[Member_id.indexOf(attachments.user_ids[id])];
+            } else {
+              thisName = "";
+            }
+            stringstart = attachments.loci[id][0]+1; stringend = stringstart+attachments.loci[id][1]-1;
+            response += request.text.substring(stringstart,stringend);
+            response += " has the ID "+attachments.user_ids[id]+" and is ";
+            if(thisName){
+                response += "listed as \""+thisName+"\".";
+            } else {
+                response += "not listed."
+            }
             response += '\n';
           }
           postMessage(response);
