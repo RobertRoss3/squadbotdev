@@ -274,7 +274,7 @@ function respond() {
       randomNumber2 = Math.floor(Math.random()*topic.length);
       response += response2[randomNumber2];
       postMessage(response);
-      searchGiphy(topic);
+      searchGiphy(topic[randomNumber2]);
       refresh = newtime;
     }
   }
