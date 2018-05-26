@@ -250,6 +250,34 @@ function respond() {
     likeMessage(request.id);
     this.res.end();
   }
+  if(/^BULLSHIT ALERT/i.test(request.text)){
+    var newtime = new Date().getTime() / 1000;
+    if (newtime < refresh + 10) {
+      response = ["You\'re doing that too much...",
+                  "Cool it, cowboy. ",
+                  "Wait a minute please...",
+                  "Give me a sec.",
+                  "lol nah dude",
+                  "Not right now.",
+                  "😤"];
+      randomNumber = Math.floor(Math.random()*response.length);
+      response = response[randomNumber];
+      postMessage(response);
+    } else {
+      response1 = ["Woah... ","Uh, ","Aight so ","OOOOOOOOOOOKAY ","😑 ","😶 ","😲 ","😱 "];
+      randomNumber = Math.floor(Math.random()*response1.length);
+      response = response1[randomNumber];
+      response += "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+      response += "Looks like there's some bullshit up there! Here's a gif of ";
+      topic = ['cat','duck','trippy','puppy','baby'];
+      response2 = ['a cat!','a duck.','something trippy','puppies','a baby'];
+      randomNumber2 = Math.floor(Math.random()*topic.length);
+      response += response2[randomNumber2];
+      postMessage(response);
+      searchGiphy(topic);
+      refresh = newtime;
+    }
+  }
   tagtest = false;
   for (i=0;i<groupcount;i++){
     if(Group_regex[i].test(request.text)){tagtest=true;}
@@ -488,7 +516,6 @@ function respond() {
           randomNumber = Math.floor(Math.random()*Quotes.length);
           postMessage(quotes[randomNumber].replace(/\\n/g,'\n'));
         }
-
       }
       this.res.end();
     } if (/^([\/]8ball)/i.test(request.text)){
@@ -683,7 +710,10 @@ function searchGiphy(giphyToSearch) {
       if (!(str && JSON.parse(str))) {
         postMessage('Couldn\'t find a gif...');
       } else {
-        var id = JSON.parse(str).data[0].id;
+        gifs = JSON.parse(str).data;
+        console.log("Available gifs: " + gifs.length);
+        randomNumber = Math.floor(Math.random()*gifs.length);
+        var id = gifs[randomNumber].id;
         var giphyURL = 'http://i.giphy.com/' + id + '.gif';
         postMessage(giphyURL);
       }
