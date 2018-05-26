@@ -264,11 +264,11 @@ function respond() {
       response = response[randomNumber];
       postMessage(response);
     } else {
-      response1 = ["Woah... ","Uh, ","Aight so ","OOOOOOOOOOOKAY ","😑 ","😶 ","😲 ","😱 "];
+      response1 = ["Woah... ","Uh, ","Aight so ","OOOOOOOOOOOKAY ","😑 ","😶 ","😲 ","😱 ",'Nephew...'];
       randomNumber = Math.floor(Math.random()*response1.length);
       response = response1[randomNumber];
       response += "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
-      response += "Looks like there's some bullshit up there! Here's a gif of ";
+      response += "Looks like there's some fucked up shit up there! Here's a gif of ";
       topic = ['cat','duck','trippy','puppy','baby'];
       response2 = ['a cat!','a duck.','something trippy','puppies','a baby'];
       randomNumber2 = Math.floor(Math.random()*topic.length);
