@@ -23,10 +23,15 @@ var creds_json = {
   client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
   private_key: process.env.GOOGLE_PRIVATE_KEY
 }
-doc.useServiceAccountAuth(creds_json, function(err,step){if(err){console.log(err)}});
+doc.useServiceAccountAuth(creds_json, function(err,info){
+  if(err){
+    console.log(err);
+  } else {
+    console.log(info);
+  }
+});
 
 //  GETS INFORMATION ABOUT THE DOCUMENT AND WORKSHEET
-var Groups_info = []; var Members_info = []; var Quotes_info = [];
 doc.getInfo(function(err, info) {
   if (info != null){
     console.log('Loaded document: '+info.title+'... ');
