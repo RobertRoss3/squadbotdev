@@ -23,13 +23,7 @@ var creds_json = {
   private_key: process.env.GOOGLE_PRIVATE_KEY
 }
 
-doc.useServiceAccountAuth(creds_json, function(err,info){
-  if(err){
-    console.log(err);
-  } else {
-    console.log(info);
-  }
-});
+doc.useServiceAccountAuth(creds_json);
 
 //  GETS INFORMATION ABOUT THE DOCUMENT AND WORKSHEET
 doc.getInfo(function(err, info) {
