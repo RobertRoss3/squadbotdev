@@ -27,7 +27,7 @@ doc.useServiceAccountAuth(creds_json, function(err,info){
   if(err){
     console.log(err);
   } else {
-    console.log("Authenticated to Google spreadsheet...");
+    console.log(info);
   }
 });
 
@@ -81,9 +81,7 @@ doc.getInfo(function(err, info) {
         for(k=0;k<Group[j][3].length;k++){
           if(Member_name.includes(Group[j][3][k])){
             Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
-          }
-        }
-      }
+          }}}
     });
 
     //  GETS QUOTES
@@ -98,8 +96,6 @@ doc.getInfo(function(err, info) {
     })
   } else {console.log("Error: Spreadsheet returned undefined.")}
 });
-
-
 
 console.log("Starting up...");
 
