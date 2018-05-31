@@ -26,6 +26,7 @@ var creds_json = {
 doc.useServiceAccountAuth(creds_json, function(err,step){if(err){console.log(err)}});
 
 //  GETS INFORMATION ABOUT THE DOCUMENT AND WORKSHEET
+var Groups_info = []; var Members_info = []; var Quotes_info = [];
 doc.getInfo(function(err, info) {
   if (info != null){
     console.log('Loaded document: '+info.title+'... ');
