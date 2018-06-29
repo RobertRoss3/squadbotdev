@@ -642,10 +642,10 @@ function respond() {
         		"My AI module has failed.", "I'm mute for the time being..."];
         		randomNumber = Math.floor(Math.random()*newresponse.length);
         		newresponse = newresponse[randomNumber];
-            postMessage(newresponse);
           } else {
             likeMessage(request.id);
-            postMessage(response);
+            response = "@"+userName+" " + response;
+            postMessage(response, 'tag', [[0,userName.length],[userIDNum]]);
           }
         });
       }
