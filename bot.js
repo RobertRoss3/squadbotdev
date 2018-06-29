@@ -645,7 +645,7 @@ function respond() {
           } else {
             likeMessage(request.id);
             response = "@"+userName+" " + response;
-            postMessage(response,'tag',[[[0,userName.length]],[userIDNum]]);
+            postMessage(response,'tag',[[[0,userName.length+1]],[userIDNum]]);
           }
         });
       }
