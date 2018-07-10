@@ -646,6 +646,13 @@ function respond() {
         		newresponse = newresponse[randomNumber];
           } else {
             likeMessage(request.id);
+            if (userIDNum=="43525551"){
+              if (last_userIDNum == "43525551"){
+                userName = seclast_userName; userIDNum = seclast_userIDNum;
+              } else {
+                userName = last_userName; userIDNum = last_userIDNum;
+              }
+            }
             response = "@"+userName+" " + response;
             postMessage(response,'tag',[[[0,userName.length+1]],[userIDNum]]);
           }
@@ -657,6 +664,8 @@ function respond() {
     this.res.writeHead(200);
     this.res.end();
   }
+  seclast_userName = last_userName; seclast_userIDNum = last_userIDNum;
+  seclast_response = last_response;
   last_userName = request.name; last_userIDNum = request.user_id;
   last_response = request.text;
 }
