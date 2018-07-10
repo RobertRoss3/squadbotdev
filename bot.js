@@ -193,17 +193,18 @@ function delay(time) {
 last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
+botInfo = "Hi, I'm SquadBot version 2.4.2! \n" +
+          "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
+          "Use /weather [now][today][this week] to get the weather for those times. \n" +
+          "Use /math [problem] to solve math problems with WolframAlpha. \n" +
+          "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
+          "Use \'@mealplan\' to tag anyone with a meal plan and \'@GSU\' for anyone in the Statesboro area. \n" +
+          "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
+          "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]);
 
-  botInfo = "Hi, I'm SquadBot version 2.4.2! \n" +
-            "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
-            "Use /weather [now][today][this week] to get the weather for those times. \n" +
-            "Use /math [problem] to solve math problems with WolframAlpha. \n" +
-            "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
-            "Use \'@mealplan\' to tag anyone with a meal plan and \'@GSU\' for anyone in the Statesboro area. \n" +
-            "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
-            "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
   // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
   botRegex_oneword = /\s\b/;
   tagRegex_bot = /@Squadbot.*?/i;
@@ -274,6 +275,7 @@ function respond() {
       randomNumber2 = Math.floor(Math.random()*topic.length);
       response += response2[randomNumber2];
       postMessage(response);
+      delay(1500);
       searchGiphy(topic[randomNumber2]);
       refresh = newtime;
     }
@@ -631,7 +633,7 @@ function respond() {
     } else if (!askme) {
       this.res.writeHead(200);
       cleverQuestion = request.text;
-      cleverQuestion = cleverQuestion.replace(/@squadbot/i,'');
+      cleverQuestion = cleverQuestion.replace(/@squadbot(dev|)/i,'');
       console.log("Contacting Cleverbot AI server...");
       if (cleverQuestion) {
         cleverBot.ask(cleverQuestion, function (err, response) {
