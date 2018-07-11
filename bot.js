@@ -204,6 +204,10 @@ botRegex_oneword = /\s\b/;
 tagRegex_bot = /@Squadbot.*?/i;
 
 function respond() {
+  if (!Groups_info){
+    delay(2000);
+  }
+
   var request = JSON.parse(this.req.chunks[0]);
 
   // INFO ABOUT THE USER THAT TRIGGERED THE BOT
