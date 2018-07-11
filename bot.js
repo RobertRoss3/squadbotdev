@@ -34,7 +34,6 @@ async.series([
         //Loads document info and creates arrays that will be used for tagging and quoting
         console.log('Loaded document: '+info.title+'... ');
         Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
-        console.log('Sheet 1: \''+Members_info.title+'\' (ID: '+Members_info.id+'), Sheet 2: \''+Groups_info.title+'\' (ID: '+Groups_info.id+')...');
         step();
       } else {console.log("Error: Spreadsheet returned undefined.")}
     });
@@ -191,7 +190,7 @@ function delay(time) {
 last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
-botInfo = "Hi, I'm SquadBot version 2.4.2! \n" +
+botInfo = "Hi, I'm SquadBot version 2.4.4! \n" +
           "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
           "Use /weather [now][today][this week] to get the weather for those times. \n" +
           "Use /math [problem] to solve math problems with WolframAlpha. \n" +
@@ -200,12 +199,12 @@ botInfo = "Hi, I'm SquadBot version 2.4.2! \n" +
           "You can use \'@all\' to tag everyone. Please don\'t abuse this or you will be forbidden from using it. \n" +
           "You can see my source code and the rest of the documentation here: https://github.com/RobertRoss3/squadbot1";
 
+// ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
+botRegex_oneword = /\s\b/;
+tagRegex_bot = /@Squadbot.*?/i;
+
 function respond() {
   var request = JSON.parse(this.req.chunks[0]);
-
-  // ALL REGULAR EXPRESSIONS or TRIGGERS FOR THE BOT
-  botRegex_oneword = /\s\b/;
-  tagRegex_bot = /@Squadbot.*?/i;
 
   // INFO ABOUT THE USER THAT TRIGGERED THE BOT
   userName = request.name; userIDNum = request.user_id;
@@ -484,6 +483,7 @@ function respond() {
         if (!err) {
           console.log("GOT GROUP MEMBERS!");
           members = ret.members;
+          postMessage("Members are listed in the log!");
           // console.log("MEMBERS: "+members.length);
           console.log("MEMBERS: "+JSON.stringify(members));
           console.log("NAMES: " + AllNames);
@@ -632,8 +632,8 @@ function respond() {
       this.res.writeHead(200);
       cleverQuestion = request.text;
       cleverQuestion = cleverQuestion.replace(/@squadbot(dev|)/i,'');
-      console.log("Contacting Cleverbot AI server...");
       if (cleverQuestion) {
+        console.log("Contacting Cleverbot AI server with: \"" + cleverQuestion + "\"");
         cleverBot.ask(cleverQuestion, function (err, response) {
           if (response == "Error, the reference \"\" does not exist" || response == 'Site error') {
         		newresponse = ["I have nothing to say to that...",
