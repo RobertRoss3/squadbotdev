@@ -49,10 +49,10 @@ async.series([
       for (i = 0; i < groupcount; i++){
         Group_name[i] = cells[i].value;
         tempRegEx = cells[i+groupcount].value;
-        tempRegEx = tempRegEx.replace(/\,/ig,'|').replace(/\s/ig,'');
+        tempRegEx = tempRegEx.replace(/\;/ig,'|').replace(/\s/ig,'');
         Group_regex[i] = new RegExp('@('+tempRegEx+')', 'i');
-        tempResponse = cells[i+groupcount*2].value; tempResponse = tempResponse.replace(/\"\,/g,'\"_');
-        Group_response[i] = tempResponse.split('_');
+        tempResponse = cells[i+groupcount*2].value;
+        Group_response[i] = tempResponse.split(';');
         Group[i] = [Group_name[i],Group_regex[i],Group_response[i], new Array()];
       }
       step();
@@ -86,12 +86,10 @@ async.series([
         }
         Group[j][3] = subGroup[j];
         for(k=0;k<Group[j][3].length;k++){
-          // if(Member_name.indexOf(Group[j][3][k])>-1){
           if(Member_name.includes(Group[j][3][k])){
             Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
           }
         }
-        // console.log("Members of "+Group[j][0]+": "+Group[j][3]);
       }
       step();
     });
