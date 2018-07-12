@@ -205,7 +205,10 @@ tagRegex_bot = /@Squadbot.*?/i;
 
 function respond() {
   if (!Groups_info){
-    delay(2000);
+    delay(5000);
+    if (!groupcount){
+      delay(2000);
+    }
   }
 
   var request = JSON.parse(this.req.chunks[0]);
