@@ -808,14 +808,14 @@ function postMessage(botResponse,type,args) {
   };
   API.Messages.create(accessToken,groupID,options, function(err,res){
     if (!err) {
-    } else {console.log('POSTING FAILED: ERROR ' + err);}
+    } else {console.log('POSTING FAILED: ERROR ' + JSON.parse(err));}
   });
 };
 
 function likeMessage(messageID) {
   API.Likes.create(accessToken,groupID,messageID, function(err,res) {
     if (!err) {
-    } else {console.log('LIKING FAILED: ERROR ' + err);}
+    } else {console.log('LIKING FAILED: ERROR ' + JSON.parse(err));}
   });
 };
 
