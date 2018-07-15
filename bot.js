@@ -420,7 +420,9 @@ function respond() {
               answer = result.queryresult.pod[1].subpod[0].img[0].$.src;
               // postMessage("Look at this...");
               console.log(answer);
-              postMessage("The graph looks like this... \n" + answer);
+              postMessage("The graph looks like this...");
+              delay(500);
+              postMessage(answer);
             } else {
               console.log(answer);
               response = ["I think it\'s...", "Hmm... is it",
@@ -460,15 +462,15 @@ function respond() {
       if (Regexnow.test(request.text)) {
         postMessage("Current weather is " + weather.currently.summary.toLowerCase() +
                     " with a temperature of " + weather.currently.temperature + "°F.");
-      } else if (Regextoday.test(request.text)) {
+      } else if (Regexweek.test(request.text)) {
+        // console.log(weather.daily);
+        postMessage("Weather this week is " + weather.daily.summary);
+      } else {
         // console.log(weather.hourly);
         hourlySummary = weather.hourly.summary.toLowerCase();
         hourlySummary = hourlySummary.substring(0,hourlySummary.length-1);
         postMessage("Weather today is " + hourlySummary +
                     " with an average temperature of " + weather.hourly.data[0].temperature + "°F.");
-      } else {
-        // console.log(weather.daily);
-        postMessage("Weather this week is " + weather.daily.summary);
       }
       likeMessage(request.id);
     });
@@ -729,7 +731,7 @@ function searchGiphy(giphyToSearch) {
         gifs = JSON.parse(str).data;
         console.log("Available gifs: " + gifs.length);
         randomNumber = Math.floor(Math.random()*gifs.length);
-        if (gifs[randomNumber]){
+        if (gifs.length>0){
           var id = gifs[randomNumber].id;
           var giphyURL = 'http://i.giphy.com/' + id + '.gif';
           postMessage(giphyURL);
