@@ -729,9 +729,13 @@ function searchGiphy(giphyToSearch) {
         gifs = JSON.parse(str).data;
         console.log("Available gifs: " + gifs.length);
         randomNumber = Math.floor(Math.random()*gifs.length);
-        var id = gifs[randomNumber].id;
-        var giphyURL = 'http://i.giphy.com/' + id + '.gif';
-        postMessage(giphyURL);
+        if (gifs[randomNumber]){
+          var id = gifs[randomNumber].id;
+          var giphyURL = 'http://i.giphy.com/' + id + '.gif';
+          postMessage(giphyURL);
+        } else {
+          postMessage("Couldn\'t find a gif...");
+        }
       }
     });
   };
