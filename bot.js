@@ -235,7 +235,7 @@ function respond() {
     "Now that they're gone, let's talk mad shit."];
     }
 
-    if(Math.floor(Math.random()*2)==0){
+    if(true){
       randomNumber = Math.floor(Math.random()*response.length);
       delay(3000);
       postMessage(response[randomNumber]);
