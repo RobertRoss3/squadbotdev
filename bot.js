@@ -22,7 +22,7 @@ async.series([
   //  AUTHENTICATES THE GOOGLE ACCOUNT
   function setAuth(step) {
     var creds_json = {
-      client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
+      client_email: process.env.GOOGLE_CLIENT_EMAIL,
       private_key: process.env.GOOGLE_PRIVATE_KEY
     }
     doc.useServiceAccountAuth(creds_json, step);
@@ -134,18 +134,6 @@ var cleverKey = process.env.CLEVER_KEY;
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
     Wolfram = new wolfClient(mathKey);
-// var GeoCoder_options = {
-//   provider: 'mapquest',
-//   // Optional depending on the providers
-//   httpAdapter: 'https', // Default
-//   apiKey: process.env.GEOCODER_KEY, // for Mapquest, OpenCage, Google Premier
-//   formatter: null         // 'gpx', 'string', ...
-// };
-// var geocoder = NodeGeocoder(GeoCoder_options);
-//
-// geocoder.geocode('Atlanta, GA', function(err, res) {
-//   console.log(res);
-// });
 
 console.log("Loading weather API...");
 var forecast = new Forecast({
@@ -216,26 +204,30 @@ function respond() {
   // INFO ABOUT THE USER THAT TRIGGERED THE BOT
   userName = request.name; userIDNum = request.user_id;
   console.log(userName + " (" + userIDNum + ") POSTED: " + this.req.chunks[0]);
-  askme = false;
+  askme = false; systemresponse = false;
 
   if (userIDNum=='0'){ // System message from GroupMe
     if(/\badded\b/i.test(request.text)){
       response = ["Well hello there!", "ohai!", "Hola!", "Welcome to the club!", "Haven't I seen you here before?",
        "Anotha one"];
+       systemresponse = true;
     } else if(/\brejoined\b/i.test(request.text)){
       response = ["Well fancy seeing you here again.", "Hmm, back again I see...",
        "Look what the cat dragged in!", "Welcome back I guess...", "Hey there" + userName,
        "You're back!", "You're back! Hooray!", "Oh... you're back..."];
+       systemresponse = true;
     } else if(/\bleft\b/i.test(request.text)){
       response = ["https://media.giphy.com/media/3o72F8t9TDi2xVnxOE/giphy.gif", "https://media.giphy.com/media/O5NyCibf93upy/giphy.gif",
        "https://media.giphy.com/media/UQaRUOLveyjNC/giphy.gif", "Oh...", "Well see you later I guess...", "😶", "Holy moly.",
      "lmaoooooooo", "AND STAY OUT!", "Finally!"];
+     systemresponse = true;
     } else if(/\bremoved\b/i.test(request.text)){
       response = ["https://media.giphy.com/media/3o72F8t9TDi2xVnxOE/giphy.gif", "GOT DAMN", "😮","Hoooooo boy.", "DAMN", "AND STAY OUT!",
     "Now that they're gone, let's talk mad shit."];
+    systemresponse = true;
     }
 
-    if(true){
+    if(systemresponse){
       randomNumber = Math.floor(Math.random()*response.length);
       delay(3000);
       postMessage(response[randomNumber]);
@@ -619,6 +611,7 @@ function respond() {
     randomNumber = Math.floor(Math.random()*15);
     if (randomNumber == 5) {
       console.log("BANG!");
+      likeMessage(request.id);
     } else {
       console.log("*CHINK*...\'" + randomNumber + "\'");
     }
