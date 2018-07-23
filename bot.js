@@ -34,7 +34,7 @@ doc.getInfo(function(err, info) {
     console.log('Loaded document: '+info.title+'... ');
     documentLoaded = true;
     Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
-  } else {console.log("Error: Spreadsheet returned undefined."); documentLoaded = false;}
+  } else {console.log("Error: Spreadsheet returned: "+err); documentLoaded = false;}
 });
 
 if(documentLoaded){
