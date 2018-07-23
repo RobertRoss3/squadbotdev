@@ -25,6 +25,7 @@ var creds_json = {
 }
 doc.useServiceAccountAuth(creds_json, function(err,res){
   if(err){console.log('Error setting authentication: '+err);}
+  else{console.log('Authenticated successfully.')}
 });
 
 //  GETS INFORMATION ABOUT THE DOCUMENT AND WORKSHEET
