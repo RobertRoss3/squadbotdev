@@ -227,7 +227,7 @@ function respond() {
     } else if(/\brejoined\b/i.test(request.text)){
       response = ["Well fancy seeing you here again.", "Hmm, back again I see...",
        "Look what the cat dragged in!", "Welcome back I guess...", "Hey there" + userName,
-       "You're back!", "You're back! Hooray!", "Oh... you're back...", "gihpy hello"];
+       "You're back!", "You're back! Hooray!", "Oh... you're back...", "giphy hello"];
        systemresponse = true;
     } else if(/\bleft\b/i.test(request.text)){
       response = ["https://media.giphy.com/media/3o72F8t9TDi2xVnxOE/giphy.gif", "https://media.giphy.com/media/O5NyCibf93upy/giphy.gif",
@@ -244,8 +244,8 @@ function respond() {
       randomNumber = Math.floor(Math.random()*response.length);
       response = response[randomNumber];
       delay(3000);
-      if(/gihpy/i.test(response)){
-        response = response.replace(/gihpy/i, '');
+      if(/giphy/i.test(response)){
+        response = response.replace(/giphy/i, '');
         searchGiphy(response);
       } else {
         postMessage(response);
@@ -264,8 +264,8 @@ function respond() {
                   "Yes?", "I'm awake!", "How can I help?", "Huh?","You called?","giphy huh", "giphy question mark", "giphy what?"];
       randomNumber = Math.floor(Math.random()*response.length);
       askme = true; response = response[randomNumber];
-      if(/\bgihpy \b/i.test(response)){
-        response.replace(/\bgihpy \b/i, '');
+      if(/\bgiphy \b/i.test(response)){
+        response.replace(/\bgiphy \b/i, '');
         searchGiphy(response);
       } else {
       postMessage(response);}
@@ -654,8 +654,8 @@ function respond() {
       randomNumber = Math.floor(Math.random()*Greetings.length);
       response = response[randomNumber];
       likeMessage(request.id);
-      if(/gihpy/i.test(response)){
-        response = response.replace(/gihpy/i, '');
+      if(/giphy/i.test(response)){
+        response = response.replace(/giphy/i, '');
         searchGiphy(response);
       } else {
         postMessage(response);
@@ -675,8 +675,8 @@ function respond() {
       randomNumber = Math.floor(Math.random()*response.length);
       response = response[randomNumber];
       likeMessage(request.id);
-      if(/gihpy/i.test(response)){
-        response = response.replace(/gihpy/i, '');
+      if(/giphy/i.test(response)){
+        response = response.replace(/giphy/i, '');
         searchGiphy(response);
       } else {
         postMessage(response);
@@ -688,8 +688,8 @@ function respond() {
                   "giphy fuck you", "giphy rude","giphy girl bye"];
       randomNumber = Math.floor(Math.random()*response.length);
       response = response[randomNumber];
-      if(/gihpy/i.test(response)){
-        response = response.replace(/gihpy/i, '');
+      if(/giphy/i.test(response)){
+        response = response.replace(/giphy/i, '');
         searchGiphy(response);
       } else {
         postMessage(response);
