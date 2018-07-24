@@ -16,7 +16,7 @@ var async = require('async');
 
 //  GETTING DATA FROM GOOGLE SPREADSHEET
 var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
-var sheet; documentLoaded = false;
+var sheet; var documentLoaded = false;
 
 //  AUTHENTICATES THE GOOGLE ACCOUNT
 var creds_json = {
