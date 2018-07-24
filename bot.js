@@ -37,6 +37,8 @@ doc.getInfo(function(err, info) {
   } else {console.log("Error: Spreadsheet returned: "+err);}
 });
 
+console.log(documentLoaded);
+
 if(documentLoaded != false){
   console.log('Loaded document: '+info.title+'... ');
   // GETS INFORMATION ABOUT THE GROUPS
