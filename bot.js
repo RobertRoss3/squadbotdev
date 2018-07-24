@@ -64,25 +64,26 @@ doc.getInfo(function(err, info) {
           Member[i] = [Member_id[i], Member_name[i]];
       }
       Member_id.push('43525551'); Member_name.push('SquadBot'); Member.push(['43525551','Squadbot']);
-    });
-
-    //  GETS INFORMATION ABOUT THE MEMBERS IN A GROUP
-    Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': 1,'max-col': groupcount,'return-empty': true},
-    function(err, cells){
-      subGroup = new Array(groupcount);
-      for (j=0;j<groupcount;j++){
-        subGroup[j] = new Array()
-        for (i=0;i<membercount;i++){
-          if (cells[(groupcount*i)+j].value != ''){subGroup[j].push(cells[(groupcount*i)+j].value);}
-        }
-        Group[j][3] = subGroup[j];
-        for(k=0;k<Group[j][3].length;k++){
-          if(Member_name.includes(Group[j][3][k])){
-            Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
+      //  GETS INFORMATION ABOUT THE MEMBERS IN A GROUP
+      Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': 1,'max-col': groupcount,'return-empty': true},
+      function(err, cells){
+        subGroup = new Array(groupcount);
+        for (j=0;j<groupcount;j++){
+          subGroup[j] = new Array()
+          for (i=0;i<membercount;i++){
+            if (cells[(groupcount*i)+j].value != ''){subGroup[j].push(cells[(groupcount*i)+j].value);}
+          }
+          Group[j][3] = subGroup[j];
+          for(k=0;k<Group[j][3].length;k++){
+            if(Member_name.includes(Group[j][3][k])){
+              Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
+            }
           }
         }
-      }
+      });
     });
+
+
 
     //  GETS QUOTES
     Quotes_info.getCells({'min-row': 2,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
