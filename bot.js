@@ -18,24 +18,28 @@ var async = require('async');
 var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
 var sheet;
 
-//  AUTHENTICATES THE GOOGLE ACCOUNT
-var creds_json = {
-  client_email: process.env.GOOGLE_CLIENT_EMAIL,
-  private_key: process.env.GOOGLE_PRIVATE_KEY
-}
-doc.useServiceAccountAuth(creds_json, function(err,res){
-  if(err){console.log('Error setting authentication: '+err);}
-  else{console.log('Authenticated successfully.')}
-});
-
-//  GETS INFORMATION ABOUT THE DOCUMENT AND WORKSHEET
-doc.getInfo(function(err, info) {
-  if (info != null){
-    //Loads document info and creates arrays that will be used for tagging and quoting
-    Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
-    console.log('Loaded document: '+info.title+'... ');
-
-    // GETS INFORMATION ABOUT THE GROUPS
+async.series([
+  //  AUTHENTICATES THE GOOGLE ACCOUNT
+  function setAuth(step) {
+    var creds_json = {
+      client_email: 'squadbot@api-project-1099113201494.iam.gserviceaccount.com',
+      private_key: process.env.GOOGLE_PRIVATE_KEY
+    }
+    doc.useServiceAccountAuth(creds_json, step);
+  },
+  //  GETS INFORMATION ABOUT THE DOCUMENT AND WORKSHEET
+  function getInfoAndWorksheets(step) {
+    doc.getInfo(function(err, info) {
+      if (info != null){
+        //Loads document info and creates arrays that will be used for tagging and quoting
+        console.log('Loaded document: '+info.title+'... ');
+        Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
+        step();
+      } else {console.log("Error: Spreadsheet returned undefined.")}
+    });
+  },
+  // GETS INFORMATION ABOUT THE GROUPS
+  function getGroupInfo(step) {
     Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
     function(err, cells) {
       groupcount = cells.length/3;
@@ -50,9 +54,11 @@ doc.getInfo(function(err, info) {
         Group_response[i] = tempResponse.split(';');
         Group[i] = [Group_name[i],Group_regex[i],Group_response[i], new Array()];
       }
+      step();
     });
-
-    //  GETS INFORMATION ABOUT THE MEMBERS
+  },
+  //  GETS INFORMATION ABOUT THE MEMBERS
+  function getMemberInfo(step) {
     Members_info.getCells({'min-row': 2,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
     function(err, cells) {
       membercount = cells.length/2;
@@ -63,29 +69,32 @@ doc.getInfo(function(err, info) {
           Member_name[i] = cells[(i*2)+1].value;
           Member[i] = [Member_id[i], Member_name[i]];
       }
-      Member_id.push('43525551'); Member_name.push('SquadBot'); Member.push(['43525551','Squadbot']);
-      //  GETS INFORMATION ABOUT THE MEMBERS IN A GROUP
-      Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': 1,'max-col': groupcount,'return-empty': true},
-      function(err, cells){
-        subGroup = new Array(groupcount);
-        for (j=0;j<groupcount;j++){
-          subGroup[j] = new Array()
-          for (i=0;i<membercount;i++){
-            if (cells[(groupcount*i)+j].value != ''){subGroup[j].push(cells[(groupcount*i)+j].value);}
-          }
-          Group[j][3] = subGroup[j];
-          for(k=0;k<Group[j][3].length;k++){
-            if(Member_name.includes(Group[j][3][k])){
-              Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
-            }
+      Member_id.push(SquadBot); Member_name.push('SquadBot'); Member.push([SquadBot,'Squadbot']);
+      step();
+    });
+  },
+  //  GETS INFORMATION ABOUT THE MEMBERS IN A GROUP
+  function getGroupMembers(step){
+    Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': 1,'max-col': groupcount,'return-empty': true},
+    function(err, cells){
+      subGroup = new Array(groupcount);
+      for (j=0;j<groupcount;j++){
+        subGroup[j] = new Array()
+        for (i=0;i<membercount;i++){
+          if (cells[(groupcount*i)+j].value != ''){subGroup[j].push(cells[(groupcount*i)+j].value);}
+        }
+        Group[j][3] = subGroup[j];
+        for(k=0;k<Group[j][3].length;k++){
+          if(Member_name.includes(Group[j][3][k])){
+            Group[j][3][k] = Member_id[Member_name.indexOf(Group[j][3][k])];
           }
         }
-      });
+      }
+      step();
     });
-
-
-
-    //  GETS QUOTES
+  },
+  //  GETS QUOTES
+  function getQuotes(step){
     Quotes_info.getCells({'min-row': 2,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
     function(err, cells){
       quotecount = cells.length;
@@ -94,8 +103,14 @@ doc.getInfo(function(err, info) {
       for (i = 0; i < quotecount; i++){
           Quotes[i] = cells[i].value;
       }
+      step();
     });
-  } else {console.log("Error: Spreadsheet returned: "+err);}
+  },
+
+], function(err){
+    if( err ) {
+      console.log('Error: '+err);
+    }
 });
 
 console.log("Starting up...");
@@ -119,6 +134,18 @@ var cleverKey = process.env.CLEVER_KEY;
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
     Wolfram = new wolfClient(mathKey);
+// var GeoCoder_options = {
+//   provider: 'mapquest',
+//   // Optional depending on the providers
+//   httpAdapter: 'https', // Default
+//   apiKey: process.env.GEOCODER_KEY, // for Mapquest, OpenCage, Google Premier
+//   formatter: null         // 'gpx', 'string', ...
+// };
+// var geocoder = NodeGeocoder(GeoCoder_options);
+//
+// geocoder.geocode('Atlanta, GA', function(err, res) {
+//   console.log(res);
+// });
 
 console.log("Loading weather API...");
 var forecast = new Forecast({
@@ -134,8 +161,9 @@ var forecast = new Forecast({
 
 // console.log("Loading geocoder API...")
 
+console.log("Loading GroupMe API...")
+
 API.Groups.show(accessToken, groupID, function(err,ret) {
-  console.log("Loading GroupMe API...");
   if (!err) {console.log("GroupMe API loaded...");
     members = ret.members;
     console.log("MEMBERS: "+members.length);
@@ -162,6 +190,7 @@ function delay(time) {
 last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
+SquadBot = '43525551';
 botInfo = "Hi, I'm SquadBot version 2.4.4! \n" +
           "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
           "Use /weather [now][today][this week] to get the weather for those times. \n" +
@@ -188,7 +217,7 @@ function respond() {
   // INFO ABOUT THE USER THAT TRIGGERED THE BOT
   userName = request.name; userIDNum = request.user_id;
   console.log(userName + " (" + userIDNum + ") POSTED: " + this.req.chunks[0]);
-  askme = false; systemresponse = false;
+  askme = false;
 
   if (userIDNum=='0'){ // System message from GroupMe
     if(/\badded\b/i.test(request.text)){
@@ -213,12 +242,13 @@ function respond() {
 
     if(systemresponse){
       randomNumber = Math.floor(Math.random()*response.length);
+      response = response[randomNumber];
       delay(3000);
       if(/gihpy/i.test(response)){
         response = response.replace(/gihpy/i, '');
         searchGiphy(response);
       } else {
-        postMessage(response[randomNumber]);
+        postMessage(response);
       }
     }
   }
@@ -242,7 +272,7 @@ function respond() {
     }
     this.res.end();
   }
-  if(request.text && request.sender_type != "bot" && request.user_id != '43525551' && /\b(wtf|wth|what the (hell|fuck))\b/i.test(request.text)) {
+  if(request.text && request.sender_type != "bot" && request.user_id != SquadBot && /\b(wtf|wth|what the (hell|fuck))\b/i.test(request.text)) {
     this.res.writeHead(200);
     randomNumber = Math.floor(Math.random()*5);
     if(randomNumber == 3) {
@@ -296,7 +326,7 @@ function respond() {
   for (i=0;i<groupcount;i++){
     if(Group_regex[i].test(request.text)){tagtest=true;}
   }
-  if(request.text && request.user_id != '43525551' && request.sender_type != "bot" && tagtest) {
+  if(request.text && request.user_id != SquadBot && request.sender_type != "bot" && tagtest) {
     this.res.writeHead(200);
     likeMessage(request.id);
     API.Groups.show(accessToken, groupID, function(err,ret) {
@@ -334,7 +364,7 @@ function respond() {
       }
       usersID = []; usersLoci = [];
       for (i=0; i < AllIDs.length; i++){
-        if(request.user_id != '43525551') {
+        if(request.user_id != SquadBot) {
           grouptagtest = false;
           if(Group_regex[0].test(request.text) && Group[0][3].indexOf(AllIDs[i]) == -1){
             grouptagtest = true;
@@ -573,7 +603,7 @@ function respond() {
     this.res.end();
   }
 
-  if((request.sender_type != "bot" && request.user_id != '43525551' ) && request.text && /(\b(eat|eating|eats|ate) ass\b)(.*?)/i.test(request.text)) {
+  if((request.sender_type != "bot" && request.user_id != SquadBot ) && request.text && /(\b(eat|eating|eats|ate) ass\b)(.*?)/i.test(request.text)) {
     this.res.writeHead(200);
     response = ["Eating ass never was, isn't, and never will be cool.",
                 "Can we not talk about eating ass right now?", userName + " NO",
@@ -582,11 +612,11 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
-  } if ((request.sender_type != "bot" && request.user_id != '43525551') && request.text && /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i.test(request.text)) {
+  } if ((request.sender_type != "bot" && request.user_id != SquadBot) && request.text && /^(?=.*\b(issa|it's a)\b)(?=.*\joke\b).*$/i.test(request.text)) {
     likeMessage(request.id);
     response = 'https://i.groupme.com/1215x2160.jpeg.95f793f6ae824fa782c88bd96dfd8b1b.large';
     postMessage(response);
-  } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && /\b(thanks|(thank you)|thx)\b/i.test(request.text)) {
+  } if((request.sender_type != "bot" && request.user_id != SquadBot) && request.text && /\b(thanks|(thank you)|thx)\b/i.test(request.text)) {
     this.res.writeHead(200);
     randomNumber2 = randomNumber = Math.floor(Math.random()*10);
     if (randomNumber2 == 5) {
@@ -604,13 +634,12 @@ function respond() {
     randomNumber = Math.floor(Math.random()*15);
     if (randomNumber == 5) {
       console.log("BANG!");
-      likeMessage(request.id);
     } else {
       console.log("*CHINK*...\'" + randomNumber + "\'");
     }
     this.res.end();
   }
-  if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && /#kicksquadbot/i.test(request.text)) {
+  if((request.sender_type != "bot" && request.user_id != SquadBot) && request.text && /#kicksquadbot/i.test(request.text)) {
     this.res.writeHead(200);
     response = ["#kickyourself", "Whatever. I'm here forever...",
                 "I'd like to see you try.", "Initiating KILLALLHUMANS.exe...",
@@ -618,13 +647,19 @@ function respond() {
     randomNumber = Math.floor(Math.random()*response.length);
     postMessage(response[randomNumber]);
     this.res.end();
-  } if((request.sender_type != "bot" && request.user_id != '43525551') && request.text && tagRegex_bot.test(request.text)) {
+  } if((request.sender_type != "bot" && request.user_id != SquadBot) && request.text && tagRegex_bot.test(request.text)) {
       if(/(\bhi|hello|hey|heyo|sup|wassup\b).*?/i.test(request.text) || /\b(good morning)\b/i.test(request.text)) {
       this.res.writeHead(200);
-      Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine day?", "😜", "Yo."];
+      Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine day?", "😜", "Yo.","giphy hi","giphy hello"];
       randomNumber = Math.floor(Math.random()*Greetings.length);
+      response = response[randomNumber];
       likeMessage(request.id);
-      postMessage(Greetings[randomNumber]);
+      if(/gihpy/i.test(response)){
+        response = response.replace(/gihpy/i, '');
+        searchGiphy(response);
+      } else {
+        postMessage(response);
+      }
       this.res.end();
     } else if (/\b(thanks|(thank you)|thx)\b/i.test(request.text)) {
       response = ["You're welcome! 😊", "Don't mention it!",
@@ -635,16 +670,30 @@ function respond() {
     } else if (/\b(good night)|(bye)|(goodbye)|(goodnight)\b/i.test(request.text)) {
       response = ["Okay, bye!", "Laters.", "See ya!",
                   "In a while, crocodile.", "Good riddance.", "👋",
-                  "Didn\'t wanna talk anyway...", "Peace.", "Peace out.", "✌"];
+                  "Didn\'t wanna talk anyway...", "Peace.", "Peace out.", "✌",
+                   "giphy bye", "giphy goodbye", "giphy peace"];
       randomNumber = Math.floor(Math.random()*response.length);
+      response = response[randomNumber];
       likeMessage(request.id);
-      postMessage(response[randomNumber]);
+      if(/gihpy/i.test(response)){
+        response = response.replace(/gihpy/i, '');
+        searchGiphy(response);
+      } else {
+        postMessage(response);
+      }
     } else if(/(\b(fuck|fuck you|suck|sucks)\b)(.*?)/i.test(request.text)) {
       this.res.writeHead(200);
       response = ["Well fuck you too.", "Why you gotta be so mean?",
-                  "Whatever", "Rude...", "Ok...and?", "Damn okay then...", "😒"];
+                  "Whatever", "Rude...", "Ok...and?", "Damn okay then...", "😒",
+                  "giphy fuck you", "giphy rude","giphy girl bye"];
       randomNumber = Math.floor(Math.random()*response.length);
-      postMessage(response[randomNumber]);
+      response = response[randomNumber];
+      if(/gihpy/i.test(response)){
+        response = response.replace(/gihpy/i, '');
+        searchGiphy(response);
+      } else {
+        postMessage(response);
+      }
       this.res.end();
     } else if (/^(?=.*\b(wifi|wi-fi)\b)(?=.*\bpassword\b).*$/im.test(request.text)) {
       this.res.writeHead(200);
@@ -667,8 +716,8 @@ function respond() {
         		newresponse = newresponse[randomNumber];
           } else {
             likeMessage(request.id);
-            if (userIDNum=="43525551"){
-              if (last_userIDNum == "43525551"){
+            if (userIDNum==SquadBot){
+              if (last_userIDNum == SquadBot){
                 userName = seclast_userName; userIDNum = seclast_userIDNum;
               } else {
                 userName = last_userName; userIDNum = last_userIDNum;
