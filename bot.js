@@ -32,13 +32,13 @@ doc.useServiceAccountAuth(creds_json, function(err,res){
 doc.getInfo(function(err, info) {
   if (info != null){
     //Loads document info and creates arrays that will be used for tagging and quoting
-    console.log('Loaded document: '+info.title+'... ');
     documentLoaded = true;
     Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
   } else {console.log("Error: Spreadsheet returned: "+err); documentLoaded = false;}
 });
 
 if(documentLoaded){
+  console.log('Loaded document: '+info.title+'... ');
   // GETS INFORMATION ABOUT THE GROUPS
   Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
   function(err, cells) {
