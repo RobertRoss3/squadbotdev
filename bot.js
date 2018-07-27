@@ -895,15 +895,24 @@ function postMessage(botResponse,type,args) {
       }]}
     };
   } else if (type=='image'){
-    options = {
-    'message':{
-      'source_guid': guid,
-      'text': botResponse,
-      'attachments' : [{
-        'type' : 'image',
-        'url' : args
-      }]}
-    };
+    ImageService.post(
+    args,
+        function(err,ret) {
+          if (err) {
+            console.log("ERROR: COULD NOT POST IMAGE: " +err)
+          } else {
+            console.log("Image posted! URL: "+ret);
+            options = {
+            'message':{
+              'source_guid': guid,
+              'text': botResponse,
+              'attachments' : [{
+                'type' : 'image',
+                'url' : ret
+              }]}
+            };
+          }
+        });
   } else {
     options = {
       'message':{
