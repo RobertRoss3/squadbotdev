@@ -682,6 +682,33 @@ function respond() {
         postMessage(response);
       }
       this.res.end();
+    } else if(/\bban\b/i.test(request.text)) {
+      this.res.writeHead(200);
+      attachments = request.attachments[0];
+      response = "";
+      UserIDs = attachments.user_ids;
+      likeMessage(request.id);
+      if(UserIDs.length>1){
+        for(id=1;id<UserIDs.length;id++){
+          stringstart = attachments.loci[id][0]+1; stringend = stringstart+attachments.loci[id][1]-1;
+          response += request.text.substring(stringstart,stringend);
+          response += ", ";
+        }
+        response2 = ["YOU ARE BANNED! GTFO!!!!","if I see you again, I'm slapping the shit outta you",
+        "go away.", "I will FLING you into THE SUN", userName + " doesn't like you.", "yeah imma need you to get outta here",
+        "giphy go away", "giphy leave", "you don't gotta go home, but you gotta get the fuck up outta here"];
+        randomNumber = Math.floor(Math.random()*response2.length);
+        if(/giphy/i.test(response2[randomNumber])){
+          response = response2.replace(/giphy/i, '');
+          searchGiphy(response);
+        } else {
+          response += response2[randomNumber];
+          postMessage(response);
+        }
+      } else {
+        postMessage("You have tag them too, not just me.")
+      }
+      this.res.end();
     } else if (!askme) {
       this.res.writeHead(200);
       cleverQuestion = request.text;
