@@ -21,6 +21,7 @@ var async = require('async');
 /////////////////////////////////////////////////////////////////////////////////////
 var refresh = (new Date().getTime() / 1000) - 120;
 var SquadBot = '43525551';
+var giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
 
 // time arg is in milliseconds
 function delay(time) {var d1 = new Date();var d2 = new Date();while (d2.valueOf() < d1.valueOf() + time) {d2 = new Date();}}
@@ -806,7 +807,8 @@ function searchGiphy(giphyToSearch, method) {
     response.on('end', function() {
       if (!(str && JSON.parse(str))) {
         if(method=='text'){
-          return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+          // return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+          giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
         } else {
           postMessage('Couldn\'t find a gif...');
         }
@@ -816,15 +818,16 @@ function searchGiphy(giphyToSearch, method) {
         randomNumber = Math.floor(Math.random()*gifs.length);
         if (gifs.length>0){
           var id = gifs[randomNumber].id;
-          var giphyURL = 'http://i.giphy.com/' + id + '.gif';
+          giphyURL = 'http://i.giphy.com/' + id + '.gif';
           if(method=='text'){
-            return giphyURL;
+            // return giphyURL;
           } else {
             postMessage(giphyURL);
           }
         } else {
           if(method=='text'){
-            return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+            // return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+            giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
           } else {
             postMessage('Couldn\'t find a gif...');
           }
@@ -839,7 +842,7 @@ function searchGiphy(giphyToSearch, method) {
 console.log("Giphy okay...")
 
 function encodeQuery(query) {
-  return query.replace(/\s/g, '+');;
+  return query.replace(/\s/g, '+');
 }
 
 // Changes XML to JSON
