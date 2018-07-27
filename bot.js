@@ -311,9 +311,9 @@ function respond() {
       response2 = ['a cat!','a duck.','something trippy','puppies','a baby'];
       randomNumber2 = Math.floor(Math.random()*topic.length);
       response += response2[randomNumber2];
-      searchGiphy(topic[randomNumber2],'text');
-      console.log("Recieved Giphy URL: "+giphyURL);
-      postMessage(response,'image',giphyURL);
+      postMessage(response);
+      delay(3000);
+      searchGiphy(topic[randomNumber2])
       refresh = newtime;
     }
   }
