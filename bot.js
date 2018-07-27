@@ -310,7 +310,9 @@ function respond() {
       response2 = ['a cat!','a duck.','something trippy','puppies','a baby'];
       randomNumber2 = Math.floor(Math.random()*topic.length);
       response += response2[randomNumber2];
-      postMessage(response,'image',searchGiphy(topic[randomNumber2],'text'));
+      imageURL = searchGiphy(topic[randomNumber2],'text');
+      console.log("Recieved Giphy URL: "+imageURL);
+      postMessage(response,'image',imageURL);
       refresh = newtime;
     }
   }
@@ -804,7 +806,7 @@ function searchGiphy(giphyToSearch, method) {
     response.on('end', function() {
       if (!(str && JSON.parse(str))) {
         if(method=='text'){
-          return '';
+          return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
         } else {
           postMessage('Couldn\'t find a gif...');
         }
@@ -822,7 +824,7 @@ function searchGiphy(giphyToSearch, method) {
           }
         } else {
           if(method=='text'){
-            return '';
+            return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
           } else {
             postMessage('Couldn\'t find a gif...');
           }
