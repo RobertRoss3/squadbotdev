@@ -310,9 +310,7 @@ function respond() {
       response2 = ['a cat!','a duck.','something trippy','puppies','a baby'];
       randomNumber2 = Math.floor(Math.random()*topic.length);
       response += response2[randomNumber2];
-      postMessage(response);
-      delay(2000);
-      searchGiphy(topic[randomNumber2]);
+      postMessage(response,'image',searchGiphy(topic[randomNumber2],'text'));
       refresh = newtime;
     }
   }
@@ -763,7 +761,7 @@ function getMath(equation) {
 
 console.log("Wolfram okay...")
 
-function searchGiphy(giphyToSearch) {
+function searchGiphy(giphyToSearch, method) {
   var options = {
     host: 'api.giphy.com',
     path: '/v1/gifs/search?q=' + encodeQuery(giphyToSearch) + '&api_key=' + GiphyapiKey
@@ -778,7 +776,11 @@ function searchGiphy(giphyToSearch) {
 
     response.on('end', function() {
       if (!(str && JSON.parse(str))) {
-        postMessage('Couldn\'t find a gif...');
+        if(method=='text'){
+          return '';
+        } else {
+          postMessage('Couldn\'t find a gif...');
+        }
       } else {
         gifs = JSON.parse(str).data;
         console.log("Available gifs: " + gifs.length);
@@ -786,9 +788,17 @@ function searchGiphy(giphyToSearch) {
         if (gifs.length>0){
           var id = gifs[randomNumber].id;
           var giphyURL = 'http://i.giphy.com/' + id + '.gif';
-          postMessage(giphyURL);
+          if(method=='text'){
+            return giphyURL;
+          } else {
+            postMessage(giphyURL);
+          }
         } else {
-          postMessage("Couldn\'t find a gif...");
+          if(method=='text'){
+            return '';
+          } else {
+            postMessage('Couldn\'t find a gif...');
+          }
         }
       }
     });
@@ -855,6 +865,16 @@ function postMessage(botResponse,type,args) {
         'loci' : args[0],
         'type' : 'mentions',
         'user_ids' : args[1]
+      }]}
+    };
+  } else if (type=='image'){
+    options = {
+    'message':{
+      'source_guid': guid,
+      'text': botResponse,
+      'attachments' : [{
+        'type' : 'image',
+        'url' : args
       }]}
     };
   } else {
