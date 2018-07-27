@@ -895,6 +895,7 @@ function postMessage(botResponse,type,args) {
       }]}
     };
   } else if (type=='image'){
+    console.log("Converting image URL: "+args)
     ImageService.post(
     args,
         function(err,ret) {
