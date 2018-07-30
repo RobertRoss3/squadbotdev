@@ -977,8 +977,10 @@ var reqTimer = setTimeout(function wakeUp() {
    request("https://squadbot1.herokuapp.com/", function() {
       console.log("Keeping the application awake...");
    });
-   return reqTimer = setTimeout(wakeUp, 1200000);
-}, 1200000);
+   request("https://squadbotdev.herokuapp.com/", function() {
+   });
+   return reqTimer = setTimeout(wakeUp, 300000);
+}, 300000);
 /////////////////////////////////////////////////////////////////////////////////////
 
 console.log("Running application...")
