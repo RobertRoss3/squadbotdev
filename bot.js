@@ -972,6 +972,13 @@ function getInfo(groupID) {
 
   HTTP.request(options, callback).end();
 }
+
+var reqTimer = setTimeout(function wakeUp() {
+   request("https://squadbot1.herokuapp.com/", function() {
+      console.log("Keeping the application awake...");
+   });
+   return reqTimer = setTimeout(wakeUp, 1200000);
+}, 1200000);
 /////////////////////////////////////////////////////////////////////////////////////
 
 console.log("Running application...")
