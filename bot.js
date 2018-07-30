@@ -974,10 +974,10 @@ function getInfo(groupID) {
 }
 
 var reqTimer = setTimeout(function wakeUp() {
-   HTTP.request("https://squadbot1.herokuapp.com/", function() {
+   HTTPS.request("https://squadbot1.herokuapp.com/", function() {
       console.log("Keeping the application awake...");
    });
-   HTTP.request("https://squadbotdev.herokuapp.com/", function() {
+   HTTPS.request("https://squadbotdev.herokuapp.com/", function() {
    });
    return reqTimer = setTimeout(wakeUp, 300000);
 }, 300000);
