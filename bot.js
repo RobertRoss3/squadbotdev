@@ -31,7 +31,7 @@ last_response = " ";
 
 botInfo = "Hi, I'm SquadBot version 2.5.0! \n" +
           "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
-          "Use /weather [now][today][this week] to get the weather for those times. \n" +
+          "Use /weather [now|today|this week] to get the weather for those times. \n" +
           "Use /math [problem] to solve math problems with WolframAlpha. \n" +
           "I'll respond to certain key words and phrases and you can also @ me to chat. \n" +
           "Use \'@mealplan\' to tag anyone with a meal plan and \'@GSU\' for anyone in the Statesboro area. \n" +
@@ -974,10 +974,10 @@ function getInfo(groupID) {
 }
 
 var reqTimer = setTimeout(function wakeUp() {
-   request("https://squadbot1.herokuapp.com/", function() {
+   HTTP.request("https://squadbot1.herokuapp.com/", function() {
       console.log("Keeping the application awake...");
    });
-   request("https://squadbotdev.herokuapp.com/", function() {
+   HTTP.request("https://squadbotdev.herokuapp.com/", function() {
    });
    return reqTimer = setTimeout(wakeUp, 300000);
 }, 300000);
