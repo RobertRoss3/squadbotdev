@@ -810,13 +810,13 @@ function searchGiphy(giphyToSearch, method) {
           // return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
           giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
         } else {
-          postMessage('Couldn\'t find a gif...');
+          postMessage('http://i.giphy.com/l1J9EdzfOSgfyueLm.gif');
         }
       } else {
         gifs = JSON.parse(str).data;
         console.log("Available gifs: " + gifs.length);
         randomNumber = Math.floor(Math.random()*gifs.length);
-        if (gifs.length>0){
+        if (gifs && gifs.length>0){
           var id = gifs[randomNumber].id;
           giphyURL = 'http://i.giphy.com/' + id + '.gif';
           if(method=='text'){
@@ -829,7 +829,7 @@ function searchGiphy(giphyToSearch, method) {
             // return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
             giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
           } else {
-            postMessage('Couldn\'t find a gif...');
+            postMessage('http://i.giphy.com/l1J9EdzfOSgfyueLm.gif');
           }
         }
       }
