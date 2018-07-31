@@ -639,8 +639,8 @@ function respond() {
   } if((request.sender_type != "bot" && request.user_id != SquadBot) && request.text && tagRegex_bot.test(request.text)) {
       if(/(\bhi|hello|hey|heyo|sup|wassup\b).*?/i.test(request.text) || /\b(good morning)\b/i.test(request.text)) {
       this.res.writeHead(200);
-      Greetings = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine day?", "😜", "Yo.","giphy hi","giphy hello"];
-      randomNumber = Math.floor(Math.random()*Greetings.length);
+      response = ["Hello!", "What\'s up?", "Hey.", "Hi!", "How are you on this fine day?", "😜", "Yo.","giphy hi","giphy hello"];
+      randomNumber = Math.floor(Math.random()*response.length);
       response = response[randomNumber];
       likeMessage(request.id);
       if(/giphy/i.test(response)){
@@ -946,6 +946,7 @@ function restart(){
     randomNumber = Math.floor(Math.random()*response.length);
     response = response[randomNumber] += " Restarting...";
     postMessage(response);
+    delay(2000);
     process.exit(0);
   } else {
     response = ["Nah...","https://i.giphy.com/media/fnuSiwXMTV3zmYDf6k/giphy.gif","Um... No?",
