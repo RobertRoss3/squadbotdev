@@ -521,6 +521,7 @@ function respond() {
       likeMessage(request.id);
       postMessage(botInfo);
     } if (request.text == "/restart") {
+      likeMessage(request.id);
       restart();
     } if (request.text == "/listmembers") {
       likeMessage(request.id);
@@ -939,11 +940,10 @@ function likeMessage(messageID) {
 
 function restart(){
   if(userIDNum=="28758543"){
-    likeMessage(request.id);
     console.log("Restarting...");
     response = ["Guess I fucked up!","Was it something I said?","Aw man...",
     "Oh...", "Sorry about that.","😒","Aight then..."];
-    randomNumber = Math.floor(Math.random()*Greetings.length);
+    randomNumber = Math.floor(Math.random()*response.length);
     response = response[randomNumber] += " Restarting...";
     postMessage(response);
     process.exit(0);
@@ -951,7 +951,7 @@ function restart(){
     response = ["Nah...","https://i.giphy.com/media/fnuSiwXMTV3zmYDf6k/giphy.gif","Um... No?",
     "I'm not gonna do that.","Access denied: Unauthorized user","Error: Does not compute",
     "What?"];
-    randomNumber = Math.floor(Math.random()*Greetings.length);
+    randomNumber = Math.floor(Math.random()*response.length);
     response = response[randomNumber];
     postMessage(response);
   }
