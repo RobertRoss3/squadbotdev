@@ -521,9 +521,7 @@ function respond() {
       likeMessage(request.id);
       postMessage(botInfo);
     } if (request.text == "/restart") {
-      likeMessage(request.id);
-      console.log("Restarting......")
-      process.exit(0);
+      restart();
     } if (request.text == "/listmembers") {
       likeMessage(request.id);
       API.Groups.show(accessToken, groupID, function(err,ret) {
