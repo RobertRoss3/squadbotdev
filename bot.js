@@ -29,7 +29,7 @@ function delay(time) {var d1 = new Date();var d2 = new Date();while (d2.valueOf(
 last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
-botInfo = "Hi, I'm SquadBot version 2.5.0! \n" +
+botInfo = "Hi, I'm SquadBot version 2.5.3! \n" +
           "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
           "Use /weather [now|today|this week] to get the weather for those times. \n" +
           "Use /math [problem] to solve math problems with WolframAlpha. \n" +
@@ -940,8 +940,23 @@ function likeMessage(messageID) {
 };
 
 function restart(){
-  console.log("Restarting...");
-  process.exit(0);
+  if(userIDNum=="28758543"){
+    likeMessage(request.id);
+    console.log("Restarting...");
+    response = ["Guess I fucked up!","Was it something I said?","Aw man...",
+    "Oh...", "Sorry about that.","😒","Aight then..."];
+    randomNumber = Math.floor(Math.random()*Greetings.length);
+    response = response[randomNumber] += " Restarting...";
+    postMessage(response);
+    process.exit(0);
+  } else {
+    response = ["Nah...","https://i.giphy.com/media/fnuSiwXMTV3zmYDf6k/giphy.gif","Um... No?",
+    "I'm not gonna do that.","Access denied: Unauthorized user","Error: Does not compute",
+    "What?"];
+    randomNumber = Math.floor(Math.random()*Greetings.length);
+    response = response[randomNumber];
+    postMessage(response);
+  }
 };
 
 function getInfo(groupID) {
