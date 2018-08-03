@@ -20,7 +20,8 @@
     "node-wolfram": "0.0.1",
     "object-assign": "^4.1.0",
     "pg": "^6.1.0",
-    "xmldom": "^0.1.22"
+    "xmldom": "^0.1.22",
+    "youtube-search": "^1.1.1"
   },
   "engines": {
     "node": "8.4.x"
