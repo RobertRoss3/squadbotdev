@@ -222,7 +222,8 @@ function respond() {
 
   // Info about the user that triggered the bot
   userName = request.name; userIDNum = request.user_id;
-  console.dir(userName + " (" + userIDNum + ") posted: " + this.req.chunks[0]);
+  console.log(userName + " (" + userIDNum + ") posted: ");
+  console.dir(this.req.chunks[0]);
   askme = false;
 
   if (userIDNum=='0'){ // System message from GroupMe
