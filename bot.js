@@ -222,7 +222,7 @@ function respond() {
 
   // Info about the user that triggered the bot
   userName = request.name; userIDNum = request.user_id;
-  console.log(userName + " (" + userIDNum + ") posted: " + this.req.chunks[0]);
+  console.dir(userName + " (" + userIDNum + ") posted: " + this.req.chunks[0]);
   askme = false;
 
   if (userIDNum=='0'){ // System message from GroupMe
@@ -596,9 +596,21 @@ function respond() {
     else if(/^\/\b(youtube|yt|video)\b/i.test(request.text)){
       likeMessage(request.id);
       searchTerm = request.text; searchTerm = searchTerm.replace(/\/\b(youtube|yt|video)\b/i,'');
+      var resultNum = 0;
+      if (/\([0-9]+\)/i.test(searchTerm)){
+          textsearchTerm = searchTerm.replace(/\([0-9]+\)/i,'');
+          resultNum = searchTerm.replace(textsearchTerm,'');
+          resultNum = Number(resultNum.replace(/\(|\)/ig,''))-1;
+          if(resultNum>9){
+              resultNum = 9;
+          }
+          searchTerm = textsearchTerm;
+      }
+      console.log("Looking for video "+(resultNum+1)+"/10 of\""+searchTerm+"\"...");
       YTsearch(searchTerm, YTsearchopts, function(err, results) {
         if(err) return console.log("YOUTUBE SEARCH ERROR: " +err);
-         console.dir(results);
+         console.dir(results[resultNum]);
+         postMessage(results[resultNum].link);
       });
     }
     else {
