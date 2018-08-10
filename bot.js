@@ -30,7 +30,7 @@ function delay(time) {var d1 = new Date();var d2 = new Date();while (d2.valueOf(
 last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
-botInfo = "Hi, I'm SquadBot version 2.5.3! \n" +
+botInfo = "Hi, I'm SquadBot version 2.6.0! \n" +
           "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
           "Use /weather [now|today|this week] to get the weather for those times. \n" +
           "Use /math [problem] to solve math problems with WolframAlpha. \n" +
@@ -222,11 +222,11 @@ function respond() {
 
   // Info about the user that triggered the bot
   userName = request.name; userIDNum = request.user_id;
-  console.log(userName + " (" + userIDNum + ") posted: ");
-  console.dir(this.req.chunks[0]);
+  console.log(userName + " (" + userIDNum + ") posted: "+this.req.chunks[0]);
   askme = false;
 
   if (userIDNum=='0'){ // System message from GroupMe
+    systemresponse = false;
     if(/\badded\b/i.test(request.text)){
       response = ["Well hello there!", "ohai!", "Hola!", "Welcome to the club!", "Haven't I seen you here before?",
        "Anotha one","giphy welcome","giphy Hello"];
