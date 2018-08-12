@@ -731,7 +731,8 @@ function respond() {
         "giphy go away", "giphy leave", "you don't gotta go home, but you gotta get the fuck up outta here"];
         randomNumber = Math.floor(Math.random()*response2.length);
         if(/giphy/i.test(response2[randomNumber])){
-          response = response2.replace(/giphy/i, '');
+          response = response2[randomNumber]
+          response = response.replace(/giphy/i, '');
           searchGiphy(response);
         } else {
           response += response2[randomNumber];
