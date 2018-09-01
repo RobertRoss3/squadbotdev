@@ -167,6 +167,7 @@ var cleverKey = process.env.CLEVER_KEY;
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
     Wolfram = new wolfClient(mathKey);
+    console.log("Wolfram okay...")
 var YoutubeKey = process.env.YOUTUBE_API_KEY;
 var YTsearchopts = {
   maxResults: 10,
@@ -321,7 +322,7 @@ function respond() {
       response += response2[randomNumber2];
       postMessage(response);
       delay(3000);
-      searchGiphy(topic[randomNumber2])
+      searchGiphy(topic[randomNumber2]);
       refresh = newtime;
     }
   }
@@ -757,6 +758,7 @@ function respond() {
         		"My AI module has failed.", "I'm mute for the time being..."];
         		randomNumber = Math.floor(Math.random()*newresponse.length);
         		newresponse = newresponse[randomNumber];
+            postMessage(newresponse);
           } else {
             likeMessage(request.id);
             if (userIDNum==SquadBot){
@@ -819,8 +821,6 @@ function getMath(equation) {
   HTTP.request(options, callback).end();
 }
 
-console.log("Wolfram okay...")
-
 function searchGiphy(giphyToSearch, method) {
   var options = {
     host: 'api.giphy.com',
@@ -869,8 +869,6 @@ function searchGiphy(giphyToSearch, method) {
   HTTP.request(options, callback).end();
 }
 
-console.log("Giphy okay...")
-
 function encodeQuery(query) {
   return query.replace(/\s/g, '+');
 }
@@ -911,8 +909,6 @@ function xmlToJson(xml) {
 	}
 	return obj;
 };
-
-console.log("Extra stuff okay...")
 
 function postMessage(botResponse,type,args) {
   var botResponse, type, args, options, body, botReq, guid;
