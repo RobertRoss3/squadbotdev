@@ -158,14 +158,15 @@ var cleverUser = process.env.CLEVER_USER;
 var cleverKey = process.env.CLEVER_KEY;
 // Old way of creating Cleverbot instance
     // cleverBot = new cleverbot(cleverUser,cleverKey);
-    // randomNumber = randomNumber = Math.floor(Math.random()*999);
-    // session = 'Squadbot1'+randomNumber;
-    // console.log("Loading Cleverbot AI session: " + session + "...")
-    // cleverBot.setNick(session);
-    // cleverBot.create(function (err, session) {
-    // });
-    // console.log("Cleverbot loading completed...")
-    let bot = new Cleverbot(cleverUser, cleverKey)
+    let cleverBot = new cleverbot(cleverUser, cleverKey);
+    randomNumber = randomNumber = Math.floor(Math.random()*999);
+    session = 'Squadbot1'+randomNumber;
+    console.log("Loading Cleverbot AI session: " + session + "...")
+    cleverBot.setNick(session);
+    cleverBot.create(function (err, session) {
+    });
+    console.log("Cleverbot loading completed...")
+
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
     Wolfram = new wolfClient(mathKey);
