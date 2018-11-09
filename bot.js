@@ -156,14 +156,16 @@ var accessToken = process.env.ACCESS_TOKEN;
 var bingKey = process.env.BING_KEY;
 var cleverUser = process.env.CLEVER_USER;
 var cleverKey = process.env.CLEVER_KEY;
-    cleverBot = new cleverbot(cleverUser,cleverKey);
-    randomNumber = randomNumber = Math.floor(Math.random()*999);
-    session = 'Squadbot1'+randomNumber;
-    console.log("Loading Cleverbot AI session: " + session + "...")
-    cleverBot.setNick(session);
-    cleverBot.create(function (err, session) {
-    });
-    console.log("Cleverbot loading completed...")
+// Old way of creating Cleverbot instance
+    // cleverBot = new cleverbot(cleverUser,cleverKey);
+    // randomNumber = randomNumber = Math.floor(Math.random()*999);
+    // session = 'Squadbot1'+randomNumber;
+    // console.log("Loading Cleverbot AI session: " + session + "...")
+    // cleverBot.setNick(session);
+    // cleverBot.create(function (err, session) {
+    // });
+    // console.log("Cleverbot loading completed...")
+    let bot = new Cleverbot(cleverUser, cleverKey)
 var weatherKey = process.env.WEATHER_KEY;
 var mathKey = process.env.MATH_KEY;
     Wolfram = new wolfClient(mathKey);
@@ -750,7 +752,7 @@ function respond() {
       if (cleverQuestion) {
         console.log("Contacting Cleverbot AI server with: \"" + cleverQuestion + "\"");
         cleverBot.ask(cleverQuestion, function (err, response) {
-          if (response == "Error, the reference \"\" does not exist" || response == 'Site error') {
+          if (response == "Error, the reference \"\" does not exist" || response == 'Site error' || /(\b(Session not initialized)\b)(.*?)/i.test(response)) {
             console.log("ERROR: CLEVERBOT ERROR: " + response)
         		newresponse = ["I have nothing to say to that...",
         		"I've lost my voice at the moment, try again later.",
