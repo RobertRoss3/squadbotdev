@@ -30,7 +30,7 @@ function delay(time) {var d1 = new Date();var d2 = new Date();while (d2.valueOf(
 last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
-botInfo = "Hi, I'm SquadBot version 2.6.0! \n" +
+botInfo = "Hi, I'm SquadBot version 2.6.2! \n" +
           "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
           "Use /weather [now|today|this week] to get the weather for those times. \n" +
           "Use /math [problem] to solve math problems with WolframAlpha. \n" +
