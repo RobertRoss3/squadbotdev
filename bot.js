@@ -65,6 +65,7 @@ async.series([
         //Loads document info and creates arrays that will be used for tagging and quoting
         console.log('Loaded document: '+info.title+'... ');
         Members_info = info.worksheets[0]; Groups_info = info.worksheets[1]; Quotes_info = info.worksheets[2];
+        Facts_info = info.worksheets[3];
         step();
       } else {console.log("ERROR: SPREADSHEET RETURNED UNDEFINED.")}
     });
@@ -133,6 +134,19 @@ async.series([
       Quotes = [];
       for (i = 0; i < quotecount; i++){
           Quotes[i] = cells[i].value;
+      }
+      step();
+    });
+  },
+  //  Gets facts
+  function getFacts(step){
+    Facts_info.getCells({'min-row': 2,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
+    function(err, cells){
+      factcount = cells.length;
+      console.log("Counted "+factcount+" facts...");
+      Facts = [];
+      for (i = 0; i < factcount; i++){
+          Facts[i] = cells[i].value;
       }
       step();
     });
@@ -243,7 +257,7 @@ function respond() {
     } else if(/\bleft\b/i.test(request.text)){
       response = ["https://media.giphy.com/media/O5NyCibf93upy/giphy.gif",
        "https://media.giphy.com/media/UQaRUOLveyjNC/giphy.gif", "Oh...", "Well see you later I guess...", "😶", "Holy moly.",
-     "lmaoooooooo", "AND STAY OUT!", "Finally!", "giphy bye", "giphy omg"];
+     "lmaoooooooo", "AND STAY OUT!", "Finally!", "giphy bye", "giphy omg", "What to heck????"];
      systemresponse = true;
     } else if(/\bremoved\b/i.test(request.text)){
       response = ["https://media.giphy.com/media/3o72F8t9TDi2xVnxOE/giphy.gif", "GOT DAMN", "😮","Hoooooo boy.", "DAMN", "AND STAY OUT!",
@@ -294,6 +308,18 @@ function respond() {
     }
     this.res.end();
   }
+  if(request.text && request.sender_type != "bot" && request.user_id != SquadBot && /\b(fact|facts)\b/i.test(request.text)) {
+    this.res.writeHead(200);
+    likeMessage(request.id);
+    response = ["Fact? I know one! ","FACT: ","Here's a fact, ", "Fact time! ","Speaking of facts, did you know ",
+                "I know a thing or two about facts, like ", "Oh! Did you know that ", "Actually, ", "True, but "];
+    randomNumber1 = Math.floor(Math.random()*response);
+    randomNumber2 = Math.floor(Math.random()*factcount);
+    response = response[randomNumber1];
+    response += Facts[randomNumber2];
+    postMessage(response);
+    this.res.end();
+  }
   if(request.text == "tick"){
     this.res.writeHead(200);
     postMessage("tock");
@@ -314,7 +340,7 @@ function respond() {
       response = response[randomNumber];
       postMessage(response);
     } else {
-      response1 = ["Woah... ","Uh, ","Aight so ","OOOOOOOOOOOKAY ","😑 ","😶 ","😲 ","😱 ",'Nephew...'];
+      response1 = ["Woah... ","Uh, ","Aight so ","OOOOOOOOOOOKAY ","😑 ","😶 ","😲 ","😱 ",'Nephew...', "This ain't it, chief...", "Aight I got this"];
       randomNumber = Math.floor(Math.random()*response1.length);
       response = response1[randomNumber];
       response += "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
