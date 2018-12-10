@@ -313,7 +313,7 @@ function respond() {
     likeMessage(request.id);
     response = ["Fact? I know one! ","FACT: ","Here's a fact, ", "Fact time! ","Speaking of facts, did you know ",
                 "I know a thing or two about facts, like ", "Oh! Did you know that ", "Actually, ", "True, but "];
-    randomNumber1 = Math.floor(Math.random()*response);
+    randomNumber1 = Math.floor(Math.random()*response.length);
     randomNumber2 = Math.floor(Math.random()*factcount);
     response = response[randomNumber1];
     response += Facts[randomNumber2];
