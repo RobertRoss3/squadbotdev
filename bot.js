@@ -316,7 +316,7 @@ function respond() {
     randomNumber1 = Math.floor(Math.random()*response.length);
     randomNumber2 = Math.floor(Math.random()*factcount);
     response = response[randomNumber1];
-    response += Facts[randomNumber2];
+    response += Facts[randomNumber2].charAt(0).toLowerCase() + Facts[randomNumber2].slice(1);
     postMessage(response);
     this.res.end();
   }
