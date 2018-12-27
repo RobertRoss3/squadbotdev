@@ -46,7 +46,7 @@ tagRegex_bot = /@Squadbot.*?/i;
 
 ///  GETTING DATA FROM GOOGLE SPREADSHEET
 /////////////////////////////////////////////////////////////////////////////////////
-var doc = new GoogleSpreadsheet('1QklJC4tgKBrdW_LxQ1O4TD_drZNxc0iz0nc53U-wL44');
+var doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
 var sheet;
 
 async.series([
@@ -326,7 +326,7 @@ function respond() {
     likeMessage(request.id);
     this.res.end();
   }
-  if(/^BULLSHIT ALERT/i.test(request.text)){
+  if(/^((BULLSHIT|SPOILER) ALERT/i.test(request.text)){
     var newtime = new Date().getTime() / 1000;
     if (newtime < refresh + 10) {
       response = ["You\'re doing that too much...",
@@ -624,6 +624,7 @@ function respond() {
         postMessage("🎱 You have to ask a yes or no question.");
       }
     }
+    // Youtube Video Search
     else if(/^\/\b(youtube|yt|video)\b/i.test(request.text)){
       likeMessage(request.id);
       searchTerm = request.text; searchTerm = searchTerm.replace(/\/\b(youtube|yt|video)\b/i,'');
