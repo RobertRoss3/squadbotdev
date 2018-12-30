@@ -30,7 +30,7 @@ function delay(time) {var d1 = new Date();var d2 = new Date();while (d2.valueOf(
 last_userName = ' '; last_userIDNum = '00000000';
 last_response = " ";
 
-botInfo = "Hi, I'm SquadBot version 2.6.2! \n" +
+botInfo = "Hi, I'm SquadBot version 2.6.4! \n" +
           "You can use commands like '/giphy [term]' and '/face' to post GIFs and ASCII faces. \n" +
           "Use /weather [now|today|this week] to get the weather for those times. \n" +
           "Use /math [problem] to solve math problems with WolframAlpha. \n" +
@@ -326,7 +326,7 @@ function respond() {
     likeMessage(request.id);
     this.res.end();
   }
-  if(/^((BULLSHIT|SPOILER) ALERT/i.test(request.text)){
+  if(/^(BULLSHIT|SPOILER) ALERT/i.test(request.text)){
     var newtime = new Date().getTime() / 1000;
     if (newtime < refresh + 10) {
       response = ["You\'re doing that too much...",
