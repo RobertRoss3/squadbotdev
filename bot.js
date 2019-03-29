@@ -284,7 +284,7 @@ function respond() {
       likeMessage(request.id);
       response = ["- Kendrick Lamar","- Jamal Rogers",
                   "- Some random beaver", "- Craig and Smokey",
-                  "- Florida Evans","- Anthony Fantano"
+                  "- Florida Evans","- Anthony Fantano",
                   "- 800lb lady's brother"];
       randomNumber = Math.floor(Math.random()*response.length);
       response = response[randomNumber1];
