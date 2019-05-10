@@ -880,7 +880,7 @@ function searchGiphy(giphyToSearch, method) {
         }
       } else {
         gifs = JSON.parse(str).data;
-        if(!gifs.length){
+        if(!gifs){
           console.log(gifs);
           postMessage("https://media.giphy.com/media/eTVG7eVNnud8Y/giphy.gif");
         } else {
