@@ -880,23 +880,27 @@ function searchGiphy(giphyToSearch, method) {
         }
       } else {
         gifs = JSON.parse(str).data;
-        console.log(gifs);
-        console.log("Available gifs: " + gifs.length);
-        randomNumber = Math.floor(Math.random()*gifs.length);
-        if (gifs && gifs.length>0){
-          var id = gifs[randomNumber].id;
-          giphyURL = 'http://i.giphy.com/' + id + '.gif';
-          if(method=='text'){
-            // return giphyURL;
-          } else {
-            postMessage(giphyURL);
-          }
+        if(!gifs.length){
+          console.log(gifs);
+          postMessage("https://media.giphy.com/media/eTVG7eVNnud8Y/giphy.gif");
         } else {
-          if(method=='text'){
-            // return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
-            giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+          console.log("Available gifs: " + gifs.length);
+          randomNumber = Math.floor(Math.random()*gifs.length);
+          if (gifs && gifs.length>0){
+            var id = gifs[randomNumber].id;
+            giphyURL = 'http://i.giphy.com/' + id + '.gif';
+            if(method=='text'){
+              // return giphyURL;
+            } else {
+              postMessage(giphyURL);
+            }
           } else {
-            postMessage('http://i.giphy.com/l1J9EdzfOSgfyueLm.gif');
+            if(method=='text'){
+              // return 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+              giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+            } else {
+              postMessage('http://i.giphy.com/l1J9EdzfOSgfyueLm.gif');
+            }
           }
         }
       }
