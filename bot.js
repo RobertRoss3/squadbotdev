@@ -881,7 +881,7 @@ function searchGiphy(giphyToSearch, method) {
       } else {
         gifs = JSON.parse(str).data;
         if(!gifs){
-          console.log(gifs);
+          console.log(JSON.stringify(gifs));
           postMessage("https://media.giphy.com/media/eTVG7eVNnud8Y/giphy.gif");
         } else {
           console.log("Available gifs: " + gifs.length);
