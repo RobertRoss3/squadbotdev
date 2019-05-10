@@ -882,7 +882,7 @@ function searchGiphy(giphyToSearch, method) {
         gifs = JSON.parse(str).data;
         if(!gifs){
           console.log(JSON.stringify(gifs));
-          postMessage("https://media.giphy.com/media/eTVG7eVNnud8Y/giphy.gif");
+          postMessage("http://i.giphy.com/l1J9EdzfOSgfyueLm.gif");
         } else {
           console.log("Available gifs: " + gifs.length);
           randomNumber = Math.floor(Math.random()*gifs.length);
