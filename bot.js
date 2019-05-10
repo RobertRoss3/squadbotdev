@@ -880,6 +880,7 @@ function searchGiphy(giphyToSearch, method) {
         }
       } else {
         gifs = JSON.parse(str).data;
+        console.log(gifs);
         console.log("Available gifs: " + gifs.length);
         randomNumber = Math.floor(Math.random()*gifs.length);
         if (gifs && gifs.length>0){
