@@ -998,11 +998,6 @@ function postMessage(botResponse,type,args) {
     if (!err) {
     } else {console.log('POSTING FAILED: ERROR ' + JSON.stringify(err));}
   });
-  if(restarting){
-    restarting = false;
-    delay(2000);
-    process.exit(0);
-  }
 };
 
 function likeMessage(messageID) {
@@ -1058,6 +1053,11 @@ function getInfo(groupID) {
   };
 
   HTTP.request(options, callback).end();
+  if(restarting){
+    restarting = false;
+    delay(2000);
+    process.exit(0);
+  }
 }
 /////////////////////////////////////////////////////////////////////////////////////
 
