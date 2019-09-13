@@ -1014,8 +1014,8 @@ function restart(){
     "Oh...", "Sorry about that.","😒","Aight then..."];
     randomNumber = Math.floor(Math.random()*response.length);
     response = response[randomNumber] += " Restarting...";
-    postMessage(response);
     restarting = true;
+    postMessage(response);
   } else {
     response = ["Nah...","https://i.giphy.com/media/fnuSiwXMTV3zmYDf6k/giphy.gif","Um... No?",
     "I'm not gonna do that.","Access denied: Unauthorized user","Error: Does not compute",
