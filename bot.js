@@ -23,6 +23,7 @@ var YTsearch = require('youtube-search');
 var refresh = (new Date().getTime() / 1000) - 120;
 var SquadBot = '43525551';
 var giphyURL = 'http://i.giphy.com/l1J9EdzfOSgfyueLm.gif';
+var restarting = false;
 
 // time arg is in milliseconds
 function delay(time) {var d1 = new Date();var d2 = new Date();while (d2.valueOf() < d1.valueOf() + time) {d2 = new Date();}}
@@ -997,6 +998,11 @@ function postMessage(botResponse,type,args) {
     if (!err) {
     } else {console.log('POSTING FAILED: ERROR ' + JSON.stringify(err));}
   });
+  if(restarting){
+    restarting = false;
+    delay(2000);
+    process.exit(0);
+  }
 };
 
 function likeMessage(messageID) {
@@ -1014,12 +1020,11 @@ function restart(){
     randomNumber = Math.floor(Math.random()*response.length);
     response = response[randomNumber] += " Restarting...";
     postMessage(response);
-    delay(2000);
-    process.exit(0);
+    restarting = true;
   } else {
     response = ["Nah...","https://i.giphy.com/media/fnuSiwXMTV3zmYDf6k/giphy.gif","Um... No?",
     "I'm not gonna do that.","Access denied: Unauthorized user","Error: Does not compute",
-    "What?"];
+    "What?","Nah chief"];
     randomNumber = Math.floor(Math.random()*response.length);
     response = response[randomNumber];
     postMessage(response);
