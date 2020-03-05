@@ -75,6 +75,7 @@ async.series([
   function getGroupInfo(step) {
     Groups_info.getCells({'min-row': 1,'max-row': 3,'min-col': 1,'max-col': 25,'return-empty': false},
     function(err, cells) {
+      if(cells === undefined){hold(3000);}
       groupcount = cells.length/3;
       console.log("Counted "+groupcount+" groups...");
       Group = []; Group_name = []; Group_regex = []; Group_response = [];
@@ -94,6 +95,7 @@ async.series([
   function getMemberInfo(step) {
     Members_info.getCells({'min-row': 2,'max-row': 100,'min-col': 1,'max-col': 2,'return-empty': false},
     function(err, cells) {
+      if(cells === undefined){hold(3000);}
       membercount = cells.length/2;
       console.log("Counted "+membercount+" members...");
       Member = []; Member_name = []; Member_id = [];
@@ -110,6 +112,7 @@ async.series([
   function getGroupMembers(step){
     Groups_info.getCells({'min-row': 4,'max-row': (4+membercount),'min-col': 1,'max-col': groupcount,'return-empty': true},
     function(err, cells){
+      if(cells === undefined){hold(3000);}
       subGroup = new Array(groupcount);
       for (j=0;j<groupcount;j++){
         subGroup[j] = new Array()
@@ -144,6 +147,7 @@ async.series([
   function getFacts(step){
     Facts_info.getCells({'min-row': 2,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
     function(err, cells){
+      if(cells === undefined){hold(3000);}
       factcount = cells.length;
       console.log("Counted "+factcount+" facts...");
       Facts = [];
@@ -830,6 +834,15 @@ console.log("Response okay...")
 /////////////////////////////////////////////////////////////////////////////////////
 function hold(ms){
   console.log("Holding for " + ms + " milliseconds...")
+  likeMessage(request.id);
+  response = ["😪 ya gimmie a sec...","Woah, I'm awake!",
+              "LOADING...", "Oh oh! I know this one!",
+              "*wakes up*","*sips coffee*",
+              "https://media.giphy.com/media/26FxCOdhlvEQXbeH6/giphy.gif",
+              "jeez, what time is it?"];
+  randomNumber = Math.floor(Math.random()*response.length);
+  response = response[randomNumber];
+  postMessage(response);
   var d = new Date();
   var d2 = null;
   do { d2 = new Date(); }
