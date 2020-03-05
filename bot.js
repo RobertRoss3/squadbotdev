@@ -130,6 +130,7 @@ async.series([
   function getQuotes(step){
     Quotes_info.getCells({'min-row': 2,'max-row': 300,'min-col': 1,'max-col': 1,'return-empty': false},
     function(err, cells){
+      if(cells === undefined){hold(3000);}
       quotecount = cells.length;
       console.log("Counted "+quotecount+" quotes...");
       Quotes = [];
@@ -827,6 +828,15 @@ console.log("Response okay...")
 
 ///   OTHER FUNCTIONS
 /////////////////////////////////////////////////////////////////////////////////////
+function hold(ms){
+  console.log("Holding for " + ms + " milliseconds...")
+  var d = new Date();
+  var d2 = null;
+  do { d2 = new Date(); }
+  while(d2-d < ms);
+  console.log("End hold...")
+}
+
 function getMath(equation) {
   var options = {
     host: 'api.wolframalpha.com',
