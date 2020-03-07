@@ -49,6 +49,7 @@ tagRegex_bot = /@Squadbot.*?/i;
 /////////////////////////////////////////////////////////////////////////////////////
 var doc = new GoogleSpreadsheet(process.env.GOOGLE_SPREADSHEET_ID);
 var sheet;
+Quotes = []; Facts = [];
 
 async.series([
   //  Authenticates the account
@@ -586,10 +587,9 @@ function respond() {
       });
     }
     else if (/^([\/]quote)/i.test(request.text)) {
-      if (!Quotes_info){delay(5000);if (!quotecount){delay(2000);}}
+      if (!Quotes_info){hold(5000);if (!quotecount){hold(2000);}}
       likeMessage(request.id);
       if (!botRegex_oneword.test(request.text)) {                  //If it's just "/quote"
-        if(Quotes === undefined){hold(3000);}
         randomNumber = Math.floor(Math.random()*Quotes.length);
         postMessage(Quotes[randomNumber]);
       } else {
