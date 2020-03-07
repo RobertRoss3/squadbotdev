@@ -589,6 +589,7 @@ function respond() {
       if (!Quotes_info){delay(5000);if (!quotecount){delay(2000);}}
       likeMessage(request.id);
       if (!botRegex_oneword.test(request.text)) {                  //If it's just "/quote"
+        if(Quotes === undefined){hold(3000);}
         randomNumber = Math.floor(Math.random()*Quotes.length);
         postMessage(Quotes[randomNumber]);
       } else {
