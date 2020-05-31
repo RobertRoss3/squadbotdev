@@ -812,7 +812,7 @@ function respond() {
         postMessage(response,'tag',[[[0,userName.length+1]],[userIDNum]]);
         // console.log("Contacting Cleverbot AI server with: \"" + cleverQuestion + "\"");
         // cleverBot.ask(cleverQuestion, function (err, response) {
-        });
+        }
       }
       this.res.end();
     }
