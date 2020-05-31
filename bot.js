@@ -7,6 +7,7 @@ var PROMISE = require('es6-promise').polyfill();
 var cool = require('cool-ascii-faces');
 var index = require('./index.js');
 var cleverbot = require('cleverbot.io');
+const Cleverbot = require('cleverbot');
 var Forecast = require('forecast');
 var DOMParser = require('xmldom').DOMParser;
 var wolfClient = require('node-wolfram');
@@ -180,13 +181,16 @@ var cleverUser = process.env.CLEVER_USER;
 var cleverKey = process.env.CLEVER_KEY;
 // Old way of creating Cleverbot instance
     // cleverBot = new cleverbot(cleverUser,cleverKey);
-    let cleverBot = new cleverbot(cleverUser, cleverKey);
-    randomNumber = randomNumber = Math.floor(Math.random()*999);
-    session = 'Squadbot1'+randomNumber;
-    console.log("Loading Cleverbot AI session: " + session + "...")
-    cleverBot.setNick(session);
-    cleverBot.create(function (err, session) {
+    //let cleverBot = new cleverbot(cleverUser, cleverKey);
+    let cleverBot = new Cleverbot({
+      key: cleverKey
     });
+    // randomNumber = randomNumber = Math.floor(Math.random()*999);
+    // session = 'Squadbot1'+randomNumber;
+    // console.log("Loading Cleverbot AI session: " + session + "...")
+    // cleverBot.setNick(session);
+    // cleverBot.create(function (err, session) {
+    // });
     console.log("Cleverbot loading completed...")
 
 var weatherKey = process.env.WEATHER_KEY;
@@ -792,29 +796,22 @@ function respond() {
       cleverQuestion = request.text;
       cleverQuestion = cleverQuestion.replace(/@squadbot(dev|)/i,'');
       if (cleverQuestion) {
-        console.log("Contacting Cleverbot AI server with: \"" + cleverQuestion + "\"");
-        cleverBot.ask(cleverQuestion, function (err, response) {
-          if (response == "Error, the reference \"\" does not exist" || response == 'Site error' || /(\b(Session not initialized)\b)(.*?)/i.test(response)) {
-            console.log("ERROR: CLEVERBOT ERROR: " + response)
-        		newresponse = ["I have nothing to say to that...",
-        		"I've lost my voice at the moment, try again later.",
-        		"I can't talk right now.",
-        		"My AI module has failed.", "I'm mute for the time being..."];
-        		randomNumber = Math.floor(Math.random()*newresponse.length);
-        		newresponse = newresponse[randomNumber];
-            postMessage(newresponse);
+        clev.query(cleverQuestion)
+        .then(function (cleverResponse){
+          console.log(cleverResponse.output);
+        });
+        likeMessage(request.id);
+        if (userIDNum==SquadBot){
+          if (last_userIDNum == SquadBot){
+            userName = seclast_userName; userIDNum = seclast_userIDNum;
           } else {
-            likeMessage(request.id);
-            if (userIDNum==SquadBot){
-              if (last_userIDNum == SquadBot){
-                userName = seclast_userName; userIDNum = seclast_userIDNum;
-              } else {
-                userName = last_userName; userIDNum = last_userIDNum;
-              }
-            }
-            response = "@"+userName+" " + response;
-            postMessage(response,'tag',[[[0,userName.length+1]],[userIDNum]]);
+            userName = last_userName; userIDNum = last_userIDNum;
           }
+        }
+        response = "@"+userName+" " + cleverResponse.output;
+        postMessage(response,'tag',[[[0,userName.length+1]],[userIDNum]]);
+        // console.log("Contacting Cleverbot AI server with: \"" + cleverQuestion + "\"");
+        // cleverBot.ask(cleverQuestion, function (err, response) {
         });
       }
       this.res.end();
