@@ -797,8 +797,8 @@ function respond() {
       cleverQuestion = cleverQuestion.replace(/@squadbot(dev|)/i,'');
       if (cleverQuestion) {
         cleverBot.query(cleverQuestion)
-        .then(function (cleverResponse){
-          console.log(cleverResponse.output);
+        .then(function (response){
+          console.log(response.output);
         });
         likeMessage(request.id);
         if (userIDNum==SquadBot){
@@ -808,7 +808,7 @@ function respond() {
             userName = last_userName; userIDNum = last_userIDNum;
           }
         }
-        response = "@"+userName+" " + cleverResponse.output;
+        response = "@"+userName+" " + response.output;
         postMessage(response,'tag',[[[0,userName.length+1]],[userIDNum]]);
         // console.log("Contacting Cleverbot AI server with: \"" + cleverQuestion + "\"");
         // cleverBot.ask(cleverQuestion, function (err, response) {
