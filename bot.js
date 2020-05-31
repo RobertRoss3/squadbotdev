@@ -914,10 +914,19 @@ function searchGiphy(giphyToSearch, method) {
           if (gifs && gifs.length>0){
             var id = gifs[randomNumber].id;
             giphyURL = 'http://i.giphy.com/' + id + '.gif';
+            ImageService.post(
+              giphyURL,
+                  function(err,ret) {
+                    if (err) {
+                      console.log(err)
+                    } else {
+                      console.log(ret);
+                    }
+                  });
             if(method=='text'){
               // return giphyURL;
             } else {
-              postMessage(giphyURL);
+              postMessage(ret);
             }
           } else {
             if(method=='text'){
@@ -991,27 +1000,29 @@ function postMessage(botResponse,type,args) {
         'user_ids' : args[1]
       }]}
     };
-  } else if (type=='image'){
-    console.log("Converting image URL: "+args)
-    ImageService.post(
-    args,
-        function(err,ret) {
-          if (err) {
-            console.log("ERROR: COULD NOT POST IMAGE: " +err)
-          } else {
-            console.log("Image posted! URL: "+ret);
-            options = {
-            'message':{
-              'source_guid': guid,
-              'text': botResponse,
-              'attachments' : [{
-                'type' : 'image',
-                'url' : ret
-              }]}
-            };
-          }
-        });
-  } else {
+  }
+  // else if (type=='image'){
+  //   console.log("Converting image URL: "+args)
+  //   ImageService.post(
+  //   args,
+  //       function(err,ret) {
+  //         if (err) {
+  //           console.log("ERROR: COULD NOT POST IMAGE: " +err)
+  //         } else {
+  //           console.log("Image posted! URL: "+ret);
+  //           options = {
+  //           'message':{
+  //             'source_guid': guid,
+  //             'text': botResponse,
+  //             'attachments' : [{
+  //               'type' : 'image',
+  //               'url' : ret
+  //             }]}
+  //           };
+  //         }
+  //       });
+  // }
+   else {
     options = {
       'message':{
         'source_guid': guid,
