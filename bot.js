@@ -796,7 +796,7 @@ function respond() {
       cleverQuestion = request.text;
       cleverQuestion = cleverQuestion.replace(/@squadbot(dev|)/i,'');
       if (cleverQuestion) {
-        clev.query(cleverQuestion)
+        cleverBot.query(cleverQuestion)
         .then(function (cleverResponse){
           console.log(cleverResponse.output);
         });
